@@ -6,19 +6,23 @@ Locations == {"Memory", "MBP", "LastPass", "iPhone"}
 Passwrds == {PassMgrMasterPwd, EmailPwd, iPhonePin}
 Devices == {"iPhone", "UnlockediPhone"}
 Pwd == [PassMgrMasterPwd |-> "Memory", EmailPwd |-> "LastPass"]
-Init == stolen = {}
+TypeInv == stolen \in [devices : SUBSET Devices, passwds : SUBSET Passwrds]
 
-UnlockedPhone(c) == "UnlockediPhone" \in c \/ {"iPhone", iPhonePin} \subseteq c
+Init == TypeInv /\ stolen = [devices |-> {}, passwds |-> {}]
 
-ReadEmailAccess(c) == EmailPwd \in c \/ UnlockedPhone(c)
+UnlockedPhone(c) == \/ "UnlockediPhone" \in c.devices
+                    \/ "iPhone" \in c.devices /\ iPhonePin \in c.passwds
+
+ReadEmailAccess(c) == \/ EmailPwd \in c.passwds
+                      \/ UnlockedPhone(c)
 ReadEmail == ReadEmailAccess(stolen)
 
-StealAnyPassword == stolen' = stolen \union CHOOSE  p \in Passwrds : p
-StealPhone == stolen' = stolen \union {"iPhone"}
-StealPhonePin == stolen' = stolen \union {"iPhonePin"}
-Attack == Cardinality(stolen) < 2 /\ (StealPhonePin \/ StealPhone)\* \/ StealAnyPassword
+StealAnyPassword == stolen' = [devices |-> stolen.devices, passwds |-> stolen.passwds \union CHOOSE  p \in Passwrds : p]
+StealPhone == stolen' = [stolen EXCEPT !.devices = @ \union {"iPhone"}]
+StealPhonePin == stolen' = [stolen EXCEPT !.passwds = @ \union {iPhonePin}]
+Attack == StealPhonePin \/ StealPhone\* \/ StealAnyPassword
 
-Next == Attack
+Next == Cardinality(stolen.devices) < 2 /\ Attack
 Spec == Init /\ [][Next]_stolen
 
 EmailNeverStolen == [](~ ReadEmail)
