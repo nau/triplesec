@@ -1,11 +1,17 @@
 = Simple Security Scheme + Generator
-:stem:
+:source-highlighter: highlightjs
+:docdate: 2023-01-04
+:author: Alexander Nemish <anemish@gmail.com>
+:toc: left
 
 == Abstract
-Keeping your data safe is hard. Keeping your data safe and easy to use among multitude devices and services is even harder.
-Here is a KISS security setup scheme for your MacBook, iPhone, and web services that is easy to use and relatively hard to break.
+Keeping your data safe is hard.
+Keeping your data safe and easy to use among multitude devices and services is even harder.
+Here is a KISS security setup scheme for your MacBook, iPhone,
+and web services that is easy to use and relatively hard to break.
 
-It's based on the idea of using a combination of a random 3-4 word passphrase and a 6 digits PIN, along with a password manager and FIDO2 TouchID/FaceID devices.
+It's based on the idea of using a combination of a random 3-4 word Diceware passphrase
+and a 6 digits PIN, along with a password manager and TouchID/FaceID devices.
 
 The scheme allows to regain access to all of your data in case of losing all your
 devices, or in case of your death, leaving your digital legacy to your loved ones.
@@ -32,7 +38,8 @@ Security at the expense of usability comes at the expense of security.
 
 === Lowest amount of memorised information
 
-Humans are notoriously bad at memorising long strings of random characters. We are good at memorising short phrases, and making up stories about them.
+Humans are notoriously bad at memorising long strings of random characters.
+We are good at memorising short phrases, and making up stories about them.
 
 This classic comics is a good illustration of the problem
 
@@ -45,7 +52,8 @@ Duh. Any device stolen must be safe for you.
 === Bootstrapping
 
 Even if every hardware item you own is lost you still can regain access to everything.
-Imaging an act of God of your dislike. You're fleeing from rashists in Ukraine or in Siria. There is a fire in your house. You get the point.
+Imaging an act of God of your dislike. You're fleeing from rashists in Ukraine or in Siria.
+There is a fire in your house. You get the point.
 
 === Legacy
 
@@ -55,7 +63,8 @@ Imaging an act of God of your dislike. You're fleeing from rashists in Ukraine o
 
 === Really secure info
 
-If you have some really secure info that you want to keep extra safe, you can do it. For example, you have some important PGP keys, crypto wallets, or some passwords for your bank accounts.
+If you have some really secure info that you want to keep extra safe, you can do it.
+For example, you have some important PGP keys, crypto wallets, or some passwords for your bank accounts.
 
 * Really secure info can't be accessed even when the laptop/phone is fully compromised, rooted, keylogged, etc.
 * Really secure info can't be accessed even when your primary email/Bitwarden is compromised
@@ -63,7 +72,9 @@ If you have some really secure info that you want to keep extra safe, you can do
 
 === Plausible deniability for really secure info
 
-You have an option to store really secure info in a separate vault that is not accessible by your 3rd parties. They can't even know that you have such a vault.
+You have an option to store really secure info in a separate vault
+that is not accessible by your 3rd parties.
+They can't even know that you have such a vault.
 
 === Minimum software/hardware
 
@@ -87,16 +98,20 @@ This classic comics is a good illustration of the problem
 
 image::https://imgs.xkcd.com/comics/password_strength.png[xkcd 936]
 
-All you need is https://bitwarden.com/[Bitwarden] password manager on your devices with TouchID/FaceID enabled.
+All you need is https://bitwarden.com/[Bitwarden] password manager on your devices
+with TouchID/FaceID enabled.
 
-One good in-memory only password protects all your passwords, TOTP 2FA, Recovery codes, etc. And you don't need to enter it every time thanks to TouchID/FaceID.
+One good in-memory only password protects all your passwords, TOTP 2FA, Recovery codes, etc.
+And you don't need to enter it every time thanks to TouchID/FaceID.
 
 === Password Security
 
 The scheme relies on about 59 bits of entropy for the Bitwarden Master Password.
-Bitwarden uses 100,000 iterations of PBKDF2 with HMAC-SHA256 to derive the encryption key from the Master Password.
+Bitwarden uses 100,000 iterations of PBKDF2 with HMAC-SHA256
+to derive the encryption key from the Master Password.
 
-Assuming an attacker can compute PBKDF2-SHA256 with 1 GiOps/s, 59 bits of entropy is enough to resist brute-force attacks for about 1 million years
+Assuming an attacker can compute PBKDF2-SHA256 with 1 GiOps/s,
+59 bits of entropy is enough to resist brute-force attacks for about a million years
 
 [code,javascript]
 ....
@@ -126,23 +141,33 @@ https://blog.lastpass.com/2022/12/notice-of-recent-security-incident/[Don't use 
 
 === Legacy and bootstrapping
 
-If you want to leave your digital legacy to your loved ones, you can do it with Bitwarden Emergency Access.
+If you want to leave your digital legacy to your loved ones,
+you can do it with Bitwarden Emergency Access.
 
-If you have some Really Secure Info and you store it in a separate vault, you can leave the vault password to your loved ones.
+If you have some Really Secure Info and you store it in a separate vault,
+you can leave the vault password to your loved ones.
 
-Basically, you store your Secury Vault password in an encrypted file that you share with your loved ones.
+Basically, you store your Secure Vault password in an encrypted file
+that you share with your loved ones.
 
-The encryption password is derived from your Master Password. You store it in your Google Digital Legacy Plan along with instructions on how to access your Secury Vault.
+The encryption password is derived from your Master Password.
+You store it in your Google Digital Legacy Plan along with instructions on how to access your Secury Vault.
 
-In case of your death, your loved ones will receive a notification from Google and will be able to access your encrypted file with your Secury Vault password.
+In case of your death, your loved ones will receive a notification from Google
+and will be able to access your encrypted file with your Secury Vault password.
 
-If you loose all your devices, you can ask your loved ones to give you the encrypted file with your Secury Vault password, derive the password from your Master Password, and access your Secury Vault.
+If you loose all your devices, you can ask your loved ones
+to give you the encrypted file with your Secure Vault password,
+derive the password from your Master Password, and access your Secury Vault.
 
-If you stop trusting one of your loved ones, you can revoke their access to your encrypted file by changing a version of the derived password, re-encrypting the file, and sharing it with your loved ones again.
+If you stop trusting one of your loved ones
+you can revoke their access to your encrypted file by changing a version of the derived password,
+re-encrypting the file, and sharing it with your loved ones again.
 
 Don't forget to update your Google Digital Legacy Plan accordingly.
 
 == Setup
+=== Bitwarden
 . Generate a random 6 digits PIN and memorise it.
 +
 That's your phone PIN, and your SIM PIN.
@@ -161,8 +186,8 @@ That's your Bitwarden Master Password.
 Example:
 
 * PIN 984073. That's ~20 bits of entropy.
-* words: cake roping vocation, stem:[3*12=36] bits of entropy
-* Master password: `cake984073ropingvocation`. stem:[36+20⨦3⋍59] bits of entropy.
+* words: cake roping vocation, 3*12=36 bits of entropy
+* Master password: `cake984073ropingvocation`. 36+20⨦3⋍59 bits of entropy.
 
 . Take a word and combine it with PIN. That's you laptop password. You MAY store it in Bitwarden.
 +
@@ -184,7 +209,7 @@ You MAY enable 2FA for your Bitwarden account. It's not necessary, but it's a go
 
 . In case you use Google Authenticator, Duo, Authy or other, you may want to migrate to TOTP 2FA in Bitwarden to simplify things. It's OK.
 
-== Bootstrapping Setup
+=== Bootstrapping Setup
 Ideally, done on a USB booted Linux, e.g. https://tails.boum.org/[Tails Linux]
 
 . Create a `Readme-$version.txt` file with the following content:
@@ -330,9 +355,10 @@ https://medium.com/@vincentbounce/cryptos-storage-transmission-the-safest-method
 
 == Threats
 
-=== A service is hacked
+=== A service password is hacked
 
 Just change your password.
+You are using 2FA, right?
 
 === Your iPhone or MacBook is stolen
 
@@ -391,4 +417,105 @@ If you spouse knows your PIN/laptop password then you are fucked.
 
 If you suspect your spouse to become malevolent you can change your iPhone PIN and your laptop password, and reset all TouchID/FaceIDs. That should suffice.
 
+== Scenarios
+
+=== You have lost everything
+
+. Ask a 3rd party for SecurityInfoFile
+. Compute `DerivedMasterPwd`
+. Login to Bitwarden with Bitwarden Backup Code
+. Login to iCloud using iCloud Backup Code
+. Login to GMail using Google Account Backup Codes
+. Restore crypto wallets from seeds, PGP keys etc from your VeraCrypt volume on Google Drive
+
+=== You have lost everything but iPhone
+
+. Do the checklist of stolen laptop
+. Restore wallets from seeds, transfer crypto
+. Erase all stolen devices
+
+=== Laptop is stolen, password is not known to a thief
+An average thief can't access anything.
+
+WARNING: If an advanced attacker can tamper the TouchID, then he can do `sudo su -` with TouchID and gain admin privileges. Then you are fucked.
+
+=== Laptop is stolen with laptop password
+* Attacker CAN access your Bitwarden, Gmail, TouchID/FIDO2, Github, Social Media, Messengers, iCloud, Google Account, etc.
+
+* Attacker CAN access and unlink the laptop in iCloud by using TouchID and Safair browser to login to iCloud. I don't know how to prevent this.
+
+* Attacker MAY steal your Google account in case you use iCloud email as a backup email and TouchID as 2FA. I don't know how to prevent this.
+
+* Attacker CAN NOT access `SecureStorage` as he doesn't know the password
+
+=== Laptop Lost Checklist
+. Login to Bitwarden Web Vault
+  [%interactive]
+  * [ ] Go to Account Settings
+  * [ ] Deauthorize your laptop session
+  * [ ] Change Bitwarden password
+. Login to iCloud
+  [%interactive]
+  * [ ] Settings -> Sing Out of All Browsers
+  * [ ] Find Devices -> Laptop -> Erase Mac
+. Login to Google
+  [%interactive]
+  * [ ] Manage Account -> Your devices -> Sing out
+  * [ ] 2FA -> Remove TouchID key
+
+=== iPhone is Stolen with PIN
+Attacker gets full access to Bitwarden, Gmail, iCloud, TouchID/FIDO, Github, Social, Messengers.
+Attacker can unlink the phone in iCloud.
+Attacker can't access SecureStorage, he doesn't have YubiKey password
+Attacker can't steal Google account, he doesn't have 2FA?? not sure
+
+iPhone Lost Checklist
+1. Login to Bitwarden web vault
+2. Go to Account Settings
+3. Deauthorize session
+4. Change Bitwarden password
+5. Login to iCloud
+6. Settings -> Sing Out of All Browsers
+7. Find Devices -> iPhone -> Erase iPhone
+8. Login to Google
+9. Manage Account -> Your devices -> Sing out
+10. Banks as well
+
+
+YubiKey is Lost or Stolen Checklist
+1. Setup new YubiKey from SecureStorage/OldPhone
+2. Change YubiKey Longtap password in SecureInfoFile
+3. Change VeraCrypt password
+4. Resend EncryptedSIF
+
+Ledger is Stolen Checklist
+2. Setup new seed
+5. 5. 5. Transfer money
+6. Update SecureStorage
+
+Death or Emergency
+Spouse can access a laptop/phone, access Bitwarden/Gmail.
+Leave a Emergency Note and tell to look it up in case of emergency.
+Google Account Inactivity set up for 3 month with EmergencyInfo
+EmergencyInfo = DerivedMasterPwd, Ledger/OldPhone SecurePIN
+
+Spouse Distrust
+1. Change iPhone PIN
+2. Remove all iPhone FaceIDs and setup new one
+3. Change laptop password PIN to the new iPhonePIN
+4. Revoke Bitwarden Inactivity Access
+5. Revoke Google Inactivity Access
+6. Revoke iCloud Recovery Account
+
+3rd Party Distrust
+1. VersionNumber += 1
+2. Compute new DerivedMasterPwd', EncryptedSIF'
+3. Send updated EncryptedSIF' to trusted 3rd-parties
+4. Remove distrusted 3rd-party from Google Inactivity Service
+5. Update DerivedMasterPwd in Google Inactivity Message
+
+
 == Useful Links and Resources
+
+https://www.usenix.org/system/files/conference/woot16/woot16-paper-ruddick.pdf[Acceleration Attacks on PBKDF2
+Or, what is inside the black-box of oclHashcat?]
