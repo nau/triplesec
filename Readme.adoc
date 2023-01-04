@@ -69,20 +69,6 @@ You have an option to store really secure info in a separate vault that is not a
 
 No unusual, uncommon, untested software or hardware.
 
-== Threats
-* A device is lost/stolen
-* A service is hacked
-* Google/Apple banned you
-* Encrypted data is lost
-* The laptop is rooted
-* SIM card is stolen/copied
-* A third-party is no longer trusted
-* Death
-* Targeted cyber attack, social engineering
-* Non violent intrusion
-* Kidnapping, violence
-* Spouse malevolence
-
 == Prerequisites
 
 * You use iPhone ≥ 7 with TouchID/FaceID
@@ -341,3 +327,61 @@ TODO: finish, add screenshots
 == Crypto Wallets
 
 https://medium.com/@vincentbounce/cryptos-storage-transmission-the-safest-method-314560032872
+
+== Threats
+
+=== A service is hacked
+
+Just change your password.
+
+=== Your iPhone or MacBook is stolen
+
+Go to iCloud and erase your device.
+Buy a new one and restore from backup.
+
+Assuming your PIN/password is not known to the attacker, you are safe.
+Your SIM card is safe, too.
+
+=== Google banned you
+
+You are fine.
+
+=== Encrypted data is lost
+
+=== SIM card is copied
+
+You avoid SMS 2FA as much as possible so you are fine.
+
+=== A third-party is no longer trusted
+
+You update your Readme.txt and Readme-0.txt.gpg accordingly and share it with your trusted 3-rd parties.
+You update your `DerivedMasterPwd` in your Google Digital Legacy Plan.
+Now you are fine again.
+
+=== Death
+
+You have your Legacy plan in place.
+
+=== The laptop is rooted
+
+You are mostly fucked.
+Your Really Secret Info is still safe if you only access it on a USB booted Linux or a specific air-gapped device.
+Also, don't store Readme.txt.gpg on your laptop or in a cloud.
+
+=== Targeted cyber attack, social engineering
+
+That depends. You can be fucked if you are targeted.
+
+=== Non violent intrusion
+
+If you are forced to reveal your secrets by law, your Real Secret Info is fine.
+See plausible deniability.
+
+=== Kidnapping, violence, thermorectal cryptanalysis
+
+You are fucked.
+
+=== Spouse malevolence
+
+If you spouse knows your PIN/laptop password then you are fucked.
+
