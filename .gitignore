@@ -1,0 +1,10 @@
+states/
+*.toolbox/
+*.aux
+*.dvi
+*.fls
+*.fdb_latexmk
+*.log
+*.out
+*.gz
+*.tex
