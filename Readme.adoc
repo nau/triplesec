@@ -7,8 +7,8 @@ Here is a KISS security setup scheme for your MacBook, iPhone, and web services 
 
 It's based on the idea of using a combination of a random 3-4 word passphrase and a 6 digits PIN, along with a password manager and FIDO2 TouchID/FaceID devices.
 
-It allows to regain access to all of your data in case of losing all your
-devices or in case of your death, leaving your digital legacy to your loved ones.
+The scheme allows to regain access to all of your data in case of losing all your
+devices, or in case of your death, leaving your digital legacy to your loved ones.
 
 == Assumptions
 * AES256, SHA256 are secure
@@ -380,8 +380,15 @@ See plausible deniability.
 === Kidnapping, violence, thermorectal cryptanalysis
 
 You are fucked.
+Use other means for storing your crypto.
+
+https://keys.casa/
+
 
 === Spouse malevolence
 
 If you spouse knows your PIN/laptop password then you are fucked.
 
+If you suspect your spouse to become malevolent you can change your iPhone PIN and your laptop password, and reset all TouchID/FaceIDs. That should suffice.
+
+== Useful Links and Resources
