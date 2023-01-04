@@ -105,6 +105,29 @@ All you need is https://bitwarden.com/[Bitwarden] password manager on your devic
 
 One good in-memory only password protects all your passwords, TOTP 2FA, Recovery codes, etc. And you don't need to enter it every time thanks to TouchID/FaceID.
 
+=== Password Security
+
+The scheme relies on about 59 bits of entropy for the Bitwarden Master Password.
+Bitwarden uses 100,000 iterations of PBKDF2 with HMAC-SHA256 to derive the encryption key from the Master Password.
+
+Assuming an attacker can compute PBKDF2-SHA256 with 1 GiOps/s, 59 bits of entropy is enough to resist brute-force attacks for about 1 million years
+
+[code,javascript]
+....
+const bits = 59n;
+const pbkdf2Sha256PerSecond = BigInt(1e9); // 1 GH/s
+const iterations = BigInt(1e5);
+const pwdPerSecond = pbkdf2Sha256PerSecond / iterations;
+const numTries = 2n ** (bits - 1n);
+const seconds = numTries / pwdPerSecond;
+const secondsInYear = 365n * 24n * 60n * 60n;
+const years = seconds / secondsInYear;
+console.log(years)
+// outputs 913972n
+....
+
+MacBooks T2 proctected passwords https://appleinsider.com/articles/22/02/17/password-cracking-tool-can-slowly-brute-force-t2-mac-passwords[can be tried at 15 passwords per second], makeing it essentially impossible to brute-force.
+
 === Why Bitwarden?
 A password manager is a must.
 It's the only way to have a secure password for every service.
@@ -145,15 +168,15 @@ That's your phone PIN, and your SIM PIN.
 (_Settings -> Face ID & Passcode -> Erase Data_).
 See full iPhone setup instructions xref:_iphone_setup[below].
 
-. Generate 3 random words. Combine with the PIN and memorise the passphrase.
+. Generate 3 random words using https://diceware.dmuth.org/[Diceware]. Combine with the PIN and memorise the passphrase.
 +
 That's your Bitwarden Master Password.
 +
 Example:
 
 * PIN 984073. That's ~20 bits of entropy.
-* words: cake roping vocation, stem:[3*11=33] bits of entropy
-* Master password: `cake984073ropingvocation`. stem:[33+20⨦3⋍56] bits of entropy.
+* words: cake roping vocation, stem:[3*12=36] bits of entropy
+* Master password: `cake984073ropingvocation`. stem:[36+20⨦3⋍59] bits of entropy.
 
 . Take a word and combine it with PIN. That's you laptop password. You MAY store it in Bitwarden.
 +
