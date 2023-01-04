@@ -464,55 +464,59 @@ WARNING: If an advanced attacker can tamper the TouchID, then he can do `sudo su
   * [ ] 2FA -> Remove TouchID key
 
 === iPhone is Stolen with PIN
-Attacker gets full access to Bitwarden, Gmail, iCloud, TouchID/FIDO, Github, Social, Messengers.
-Attacker can unlink the phone in iCloud.
-Attacker can't access SecureStorage, he doesn't have YubiKey password
-Attacker can't steal Google account, he doesn't have 2FA?? not sure
+* Attacker CAN access your Bitwarden, Gmail, TouchID/FIDO2, Github, Social Media, Messengers, iCloud, Google Account, etc.
 
-iPhone Lost Checklist
-1. Login to Bitwarden web vault
-2. Go to Account Settings
-3. Deauthorize session
-4. Change Bitwarden password
-5. Login to iCloud
-6. Settings -> Sing Out of All Browsers
-7. Find Devices -> iPhone -> Erase iPhone
-8. Login to Google
-9. Manage Account -> Your devices -> Sing out
-10. Banks as well
+* Attacker CAN access and unlink the laptop in iCloud by using TouchID and Safair browser to login to iCloud. I don't know how to prevent this.
+
+* Attacker MAY steal your Google account in case you use iCloud email as a backup email and TouchID as 2FA. I don't know how to prevent this.
+
+* Attacker CAN NOT access `SecureStorage` as he doesn't know the password
+
+=== iPhone Lost Checklist
+
+. Login to Bitwarden web vault
+. Go to Account Settings
+. Deauthorize session
+. Change Bitwarden password
+. Login to iCloud
+. Settings -> Sing Out of All Browsers
+. Find Devices -> iPhone -> Erase iPhone
+. Login to Google
+. Manage Account -> Your devices -> Sing out
+. Banks as well
 
 
-YubiKey is Lost or Stolen Checklist
-1. Setup new YubiKey from SecureStorage/OldPhone
-2. Change YubiKey Longtap password in SecureInfoFile
-3. Change VeraCrypt password
-4. Resend EncryptedSIF
+=== YubiKey is Lost or Stolen Checklist
+. Setup new YubiKey from SecureStorage/OldPhone
+. Change YubiKey Longtap password in SecureInfoFile
+. Change VeraCrypt password
+. Resend EncryptedSIF
 
-Ledger is Stolen Checklist
-2. Setup new seed
-5. 5. 5. Transfer money
-6. Update SecureStorage
+=== Ledger is Stolen Checklist
+. Setup new seed
+. 5. 5. Transfer money
+. Update SecureStorage
 
-Death or Emergency
+=== Death or Emergency
 Spouse can access a laptop/phone, access Bitwarden/Gmail.
 Leave a Emergency Note and tell to look it up in case of emergency.
 Google Account Inactivity set up for 3 month with EmergencyInfo
 EmergencyInfo = DerivedMasterPwd, Ledger/OldPhone SecurePIN
 
-Spouse Distrust
-1. Change iPhone PIN
-2. Remove all iPhone FaceIDs and setup new one
-3. Change laptop password PIN to the new iPhonePIN
-4. Revoke Bitwarden Inactivity Access
-5. Revoke Google Inactivity Access
-6. Revoke iCloud Recovery Account
+=== Spouse Distrust
+. Change iPhone PIN
+. Remove all iPhone FaceIDs and setup new one
+. Change laptop password PIN to the new iPhonePIN
+. Revoke Bitwarden Inactivity Access
+. Revoke Google Inactivity Access
+. Revoke iCloud Recovery Account
 
-3rd Party Distrust
-1. VersionNumber += 1
-2. Compute new DerivedMasterPwd', EncryptedSIF'
-3. Send updated EncryptedSIF' to trusted 3rd-parties
-4. Remove distrusted 3rd-party from Google Inactivity Service
-5. Update DerivedMasterPwd in Google Inactivity Message
+=== 3rd Party Distrust
+. VersionNumber += 1
+. Compute new `DerivedMasterPwd'`, `Readme-1.txt.gpg`
+. Send `Readme-1.txt.gpg` to trusted 3rd-parties
+. Remove distrusted 3rd-party from Google Legacy Plan
+. Put new `DerivedMasterPwd'` in Google Legacy Plan notes
 
 
 == Useful Links and Resources
