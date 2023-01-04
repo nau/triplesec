@@ -1,0 +1,320 @@
+= Simple Security Scheme + Generator
+:stem:
+
+== Abstract
+Keeping your data safe is hard. Keeping your data safe and easy to use among multitude devices and services is even harder.
+Here is a KISS security setup scheme for your MacBook, iPhone, and web services that is easy to use and relatively hard to break.
+
+It's based on the idea of using a combination of a random 3-4 word passphrase and a 6 digits PIN, along with a password manager and FIDO2 TouchID/FaceID devices.
+
+It allows to regain access to all of your data in case of losing all your
+devices or in case of your death, leaving your digital legacy to your loved ones.
+
+== Assumptions
+* AES256, SHA256 are secure
+* FaceID and TouchID are secure
+* iPhones ≥ 7 are secure
+* MacBook FileVault2 is secure
+* VeraCrypt is secure
+* Bitwarden is secure
+* YubiKey is secure
+* Ledger is secure
+* You have several 3-rd parties who can identify you and will cooperate
+* Your significant other is not a malevolent psychopath
+* You are not a subject of state-level attack
+
+== Desired properties
+
+=== Easy to use
+
+[quote,AviD's Rule of Usability, Nuff sad]
+Security at the expense of usability comes at the expense of security.
+
+=== Lowest amount of memorised information
+
+Humans are notoriously bad at memorising long strings of random characters. We are good at memorising short phrases, and making up stories about them.
+
+This classic comics is a good illustration of the problem
+
+image::https://imgs.xkcd.com/comics/password_strength.png[xkcd 936]
+
+=== No single point of failure
+
+Duh. Any device stolen must be safe for you.
+
+=== Bootstrapping
+
+Even if every hardware item you own is lost you still can regain access to everything.
+Imaging an act of God of your dislike. You're fleeing from rashists in Ukraine or in Siria. There is a fire in your house. You get the point.
+
+=== Legacy
+
+* Third-parties of your choice are able to access all your info after your death
+* Any third-party can be safely revoked from access to anything
+* Compromised Third-party is safe
+
+=== Really secure info
+
+If you have some really secure info that you want to keep extra safe, you can do it. For example, you have some important PGP keys, crypto wallets, or some passwords for your bank accounts.
+
+* Really secure info can't be accessed even when the laptop/phone is fully compromised, rooted, keylogged, etc.
+* Really secure info can't be accessed even when your primary email/Bitwarden is compromised
+* Really secure info can't be accessed by a 3rd party even with full access to all the devices until your death
+
+=== Plausible deniability for really secure info
+
+You have an option to store really secure info in a separate vault that is not accessible by your 3rd parties. They can't even know that you have such a vault.
+
+=== Minimum software/hardware
+
+No unusual, uncommon, untested software or hardware.
+
+== Threats
+* A device is lost/stolen
+* A service is hacked
+* Google/Apple banned you
+* Encrypted data is lost
+* The laptop is rooted
+* SIM card is stolen/copied
+* A third-party is no longer trusted
+* Death
+* Targeted cyber attack, social engineering
+* Non violent intrusion
+* Kidnapping, violence
+* Spouse malevolence
+
+== Prerequisites
+
+* You use iPhone ≥ 7 with TouchID/FaceID
+* You use a MacBook with T2 security chip
+* You have a Google and/or iCloud accounts
+* Your MacBook and iPhone are not hacked at the time of setup
+
+== Overview
+
+[quote,AviD's Rule of Usability]
+Security at the expense of usability comes at the expense of security.
+
+Simple, easy to use scheme with only 3 words and 6 digits to remember.
+
+This classic comics is a good illustration of the problem
+
+image::https://imgs.xkcd.com/comics/password_strength.png[xkcd 936]
+
+All you need is https://bitwarden.com/[Bitwarden] password manager on your devices with TouchID/FaceID enabled.
+
+One good in-memory only password protects all your passwords, TOTP 2FA, Recovery codes, etc. And you don't need to enter it every time thanks to TouchID/FaceID.
+
+=== Why Bitwarden?
+A password manager is a must.
+It's the only way to have a secure password for every service.
+
+Bitwarden is open-source, cross-platform, cross-browser, free, and has a good reputation. The code is audited and the company is trustworthy.
+
+It supports secure passwords, TOTP 2FA, TouchID/FaceID, allows Emergency Access, and it's easy to use.
+
+https://blog.lastpass.com/2022/12/notice-of-recent-security-incident/[Don't use LastPass].
+
+=== Legacy and bootstrapping
+
+If you want to leave your digital legacy to your loved ones, you can do it with Bitwarden Emergency Access.
+
+If you have some Really Secure Info and you store it in a separate vault, you can leave the vault password to your loved ones.
+
+Basically, you store your Secury Vault password in an encrypted file that you share with your loved ones.
+
+The encryption password is derived from your Master Password. You store it in your Google Digital Legacy Plan along with instructions on how to access your Secury Vault.
+
+In case of your death, your loved ones will receive a notification from Google and will be able to access your encrypted file with your Secury Vault password.
+
+If you loose all your devices, you can ask your loved ones to give you the encrypted file with your Secury Vault password, derive the password from your Master Password, and access your Secury Vault.
+
+If you stop trusting one of your loved ones, you can revoke their access to your encrypted file by changing a version of the derived password, re-encrypting the file, and sharing it with your loved ones again.
+
+Don't forget to update your Google Digital Legacy Plan accordingly.
+
+== Setup
+. Generate a random 6 digits PIN and memorise it.
++
+That's your phone PIN, and your SIM PIN.
+
+. Setup you SIM to require PIN, otherwise an attacker can steal your phone and use it for 2FA via SMS. (_Settings -> Mobile Data -> Carrier -> SIM PIN_)
+
+. Setup your iPhone to erase all the data after 10 failed PIN attempts.
++
+(_Settings -> Face ID & Passcode -> Erase Data_).
+See full iPhone setup instructions xref:_iphone_setup[below].
+
+. Generate 3 random words. Combine with the PIN and memorise the passphrase.
++
+That's your Bitwarden Master Password.
++
+Example:
+
+* PIN 984073. That's ~20 bits of entropy.
+* words: cake roping vocation, stem:[3*11=33] bits of entropy
+* Master password: `cake984073ropingvocation`. stem:[33+20⨦3⋍56] bits of entropy.
+
+. Take a word and combine it with PIN. That's you laptop password. You MAY store it in Bitwarden.
++
+Example: `984vocation073`
+
+. Setup your MacBook according to xref:_macbook_setup[these recommendations].
+
+. Install Bitwarden app on all your devices and Bitwarden extensions for your web browsers. Enable TouchID/FaceID integration.
++
+You MAY enable 2FA for your Bitwarden account. It's not necessary, but it's a good practice. Don't use TOTP, use email, YubiKey, FIDO2, and Recovery Code.
+
+. Setup your iPhone for https://bitwarden.com/help/log-in-with-device/[Web Vault login] to avoid typing Bitwarden Master Password as much as possible.
+
+. Store all passwords, TOTPs, Recovery codes etc in Bitwarden.
+
+. Use Bitwarden Password Generator to generate secure passwords.
+
+. Enable TOTP 2FA everywhere where there is such an option: Google, Facebook, Twitter, Instagram, banking, crypto exchanges, mobile providers etc.
+
+. In case you use Google Authenticator, Duo, Authy or other, you may want to migrate to TOTP 2FA in Bitwarden to simplify things. It's OK.
+
+== Bootstrapping Setup
+Ideally, done on a USB booted Linux, e.g. https://tails.boum.org/[Tails Linux]
+
+. Create a `Readme-$version.txt` file with the following content:
++
+* Master Password
+* PIN
+* Google Account Backup Codes
+* Bitwarden Backup Code
+* iCloud Backup Code
+* VeraCrypt Passwords
+* Other passwords not stored in Bitwarden
+
+. Derive a password for Readme.txt file from the Master Password.
++
+JavaScript code to compute the `DerivedMasterPwd`
++
+[code,javascript]
+....
+const crypto = require('crypto')
+const version = 0
+const pwd = 'cake984073ropingvocation'
+const salt = '984073'
+crypto.pbkdf2(pwd, salt, 100000 + version, 32, 'sha256', (err, derivedKey) => {
+  if (err) throw err
+  console.log(derivedKey.toString('hex'))
+})
+....
+
+. Encrypt Readme-$version.txt with `DerivedMasterPwd` using AES256
+
+  gpg -c --cipher-algo AES256 Readme-0.txt
+
+. Transfer `Readme-0.txt.gpg` via Signal with auto-delete to trusted 3-rd parties. Ask to verify your identity upon requesting the file.
+
+. Remove `Readme.txt` and `Readme-0.txt.gpg` from the laptop!
+
+. Go to https://myaccount.google.com/data-and-privacy[Google Account -> Data & Privacy]
+
+. Make a Plan for your Digital Legacy
++
+Choose who to notify & what to share.
+
+. Store the `DerivedMasterPwd` in your Google Digital Legacy Plan.
++
+Example note:
++
+[quote]
+I guess I'm dead. Decrypt Readme-0.txt.gpg with `DerivedMasterPwd` to get my passwords. See-ya!
+gpg -d --cipher-algo AES256 Readme-0.txt.gpg
+
+== Usage
+
+=== MacBook
+
+You unlock your MacBook with your laptop password only after a reboot. Avoid doing it with someone watching or near a camera.
+Unlock Bitwarden with TouchID, avoid typing your Master password. Login to Bitwarden Web Vault using your iPhone when needed.
+Use TouchID for sudo, ssh, payments, FIDO2, etc.
+
+=== iPhone
+
+Same, use FaceID everywhere possible.
+
+=== Pros
+- remember only 3 words and 6 digits, easy
+- super easy to use: FaceID/TouchID with Bitwarden on all devices
+- loss of any device is not a security concern
+- can bootstrap from nothing just knowing your Master password
+- Bitwarden password is good enough for brute-force attacks in case the vault is breached (like in LastPass situation)
+- laptop password is good enough to resist brute-force attacks in case the laptop is stolen (https://appleinsider.com/articles/22/02/17/password-cracking-tool-can-slowly-brute-force-t2-mac-passwords, ~15 pwd/s, you'll be fine).
+- it's still good enough even if an attacker knows your PIN
+- you can share your PIN and even your laptop password with your significant other and they still can't easily access Master password protected items in Bitwarden. They can if they know what they are doing, though.
+- in case you distrust your significant other – just change your PIN on your phone, laptop, and Bitwarden.
+
+=== Cons
+
+- you are fucked in case someone shoulder-hunt your Bitwarden password.
+You should not enter it too often, though. Just watch your back when you have to enter the password for some reason.
+- your Google/iCloud accounts can be stolen if your phone is stolen and PIN is known to an attacker
+- your Google/iCloud accounts can be stolen if your laptop is stolen and its password is known to an attacker
+- you are fucked in case of your spouse is malevolent and knows the scheme
+- you are fucked if the laptop is rooted or even keylogged.
+- you don't want to store crypto wallet seeds in Bitwarden with this setup, unless you are accepting the risk to lose your crypto.
+
+[#secure-info-storage]
+== Really Secure Info Storage and plausible deniability
+
+You may want to store some really important info in a really secure way. For example, your crypto wallet seeds, PGP keys, Bitwarden Recovery Code etc.
+
+You'll need https://veracrypt.fr/[VeraCrypt].
+
+. Come up with a `SecurePIN` (6 digits), `VeraCryptNormalPassword`, and `VeraCryptHiddenPassword`.
++
+Use a permutation of your Master Password, PIN, and SecurePIN.
+
+. Create a VeraCrypt volume with a hidden volume, synced to Google Drive or iCloud Drive.
+
+. Store seeds, PGP keys, SecurityInfoFile on Hidden Volume
+
+. Store unimportant seeds, PGP keys, SecurityInfoFile on a normal volume
+
+. In case you are forced to reveal the password to your VeraCrypt volume – you reveal your `VeraCryptNormalPassword` and deny the existence of the hidden volume.
+
+Ideally, you do this on a USB booted Linux, e.g. https://tails.boum.org/[Tails Linux]
+
+== Hardware Wallets and Seeds
+For a hardware wallet either use your phone PIN, or better generate another 6 digits random `SecurePIN`, depending on your paranoia.
+
+Store your seed either:
+
+- in `Readme.txt` from the <<Bootstrapping Setup>>
+
+Or even better, store the seed on a separate old offline iPhone with the `SecurePIN`.
+
+Or store the seed in the hidden volume of your xref:secure-info-storage[Really Secure Info Storage].
+
+Here is another interesting setup with 3 hardware wallets and an old iPhone:
+https://medium.com/@vincentbounce/cryptos-storage-transmission-the-safest-method-314560032872[You may store the seed on a separate old offline iPhone with the `SecurePIN`]
+
+== iPhone Setup
+
+* Enable TouchID/FaceID & Passcode
+* PIN, wipe after 10 wrong attempts
+* SIM card PIN
+* Setup a security question/password with your service provider to avoid SIM hijacking (store in Bitwarden)
+* Disable all notifications on locked screen.
+
+https://medium.com/@vincentbounce/cryptos-storage-transmission-the-safest-method-314560032872
+
+
+TODO: finish, add screenshots
+
+== MacBook Setup
+
+* FileVault2 encryption.
+* Recovery code in Bitwarden.
+* Password in Bitwarden.
+* Or password is YubiKey Static Password
+* Setup PAM with TouchID to avoid entering the laptop password
+
+== Crypto Wallets
+
+https://medium.com/@vincentbounce/cryptos-storage-transmission-the-safest-method-314560032872
