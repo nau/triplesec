@@ -1,4 +1,4 @@
-= Simple Security Scheme + Generator
+= Simple Digital Security Scheme
 :source-highlighter: highlightjs
 :docdate: 2023-01-04
 :author: Alexander Nemish <anemish@gmail.com>
@@ -13,21 +13,9 @@ and web services that is easy to use and relatively hard to break.
 It's based on the idea of using a combination of a random 3-4 word Diceware passphrase
 and a 6 digits PIN, along with a password manager and TouchID/FaceID devices.
 
-The scheme allows to regain access to all of your data in case of losing all your
-devices, or in case of your death, leaving your digital legacy to your loved ones.
-
-== Assumptions
-* AES256, SHA256 are secure
-* FaceID and TouchID are secure
-* iPhones ≥ 7 are secure
-* MacBook FileVault2 is secure
-* VeraCrypt is secure
-* Bitwarden is secure
-* YubiKey is secure
-* Ledger is secure
-* You have several 3-rd parties who can identify you and will cooperate
-* Your significant other is not a malevolent psychopath
-* You are not a subject of state-level attack
+The scheme allows to regain access to all of your data
+even in case of losing all of your devices, or in case of your death,
+leaving your digital legacy to your loved ones.
 
 == Desired properties
 
@@ -47,7 +35,11 @@ image::https://imgs.xkcd.com/comics/password_strength.png[xkcd 936]
 
 === No single point of failure
 
-Duh. Any device stolen must be safe for you.
+Duh. Any device loss must not compromise your security nor lead to sensitive data loss.
+
+=== Cross-platform
+
+The scheme must work on any platform, including mobile, desktop, and web.
 
 === Bootstrapping
 
@@ -66,83 +58,119 @@ There is a fire in your house. You get the point.
 If you have some really secure info that you want to keep extra safe, you can do it.
 For example, you have some important PGP keys, crypto wallets, or some passwords for your bank accounts.
 
-* Really secure info can't be accessed even when the laptop/phone is fully compromised, rooted, keylogged, etc.
+* Really secure info can't be accessed even when the laptop/phone is fully compromised
 * Really secure info can't be accessed even when your primary email/Bitwarden is compromised
-* Really secure info can't be accessed by a 3rd party even with full access to all the devices until your death
-
-=== Plausible deniability for really secure info
-
-You have an option to store really secure info in a separate vault
-that is not accessible by your 3rd parties.
+* Really secure info can't be accessed even when your 3rd parties are compromised
+* Plausible deniability. You have an option to store really secure info in a separate vault that is not accessible by your 3rd parties.
 They can't even know that you have such a vault.
 
 === Minimum software/hardware
 
-No unusual, uncommon, untested software or hardware.
+Only well-known, well-tested, well-supported open-source software.
 
-== Prerequisites
 
+== Assumptions and Prerequisites
+* AES256, SHA256 are secure
+* FaceID and TouchID are secure
+* iPhones ≥ 7 are secure
+* MacBook FileVault2 is secure
+* Bitwarden is secure
+* VeraCrypt is secure
+* You have several 3-rd parties who can identify you and will cooperate
+* Your significant other is not a malevolent psychopath
+* You are not a subject of state-level attack
 * You use iPhone ≥ 7 with TouchID/FaceID
 * You use a MacBook with T2 security chip
 * You have a Google and/or iCloud accounts
 * Your MacBook and iPhone are not hacked at the time of setup
 
-== Overview
+== Scheme Overview
+=== TL;DR
+. Generate a random 6 digits PIN and memorise it. That's your phone PIN, and your SIM PIN.
 
-[quote,AviD's Rule of Usability]
-Security at the expense of usability comes at the expense of security.
+. Generate 3 random words using https://diceware.dmuth.org/[Diceware]. Combine with the PIN and memorise the passphrase. That's your https://bitwarden.com/[Bitwarden] Master Password.
 
-Simple, easy to use scheme with only 3 words and 6 digits to remember.
+. Take a word and combine it with PIN. That's you laptop password. You MAY store it in Bitwarden.
 
-This classic comics is a good illustration of the problem
+. Use Bitwarden to generate strong passwords and TOTP 2FA codes for all your services.
 
-image::https://imgs.xkcd.com/comics/password_strength.png[xkcd 936]
+. Store your sensitive info in Bitwarden.
 
-All you need is https://bitwarden.com/[Bitwarden] password manager on your devices
-with TouchID/FaceID enabled.
+. Store your really sensitive info in a Google Drive/iCloud synced VeraCrypt volume.
 
-One good in-memory only password protects all your passwords, TOTP 2FA, Recovery codes, etc.
-And you don't need to enter it every time thanks to TouchID/FaceID.
+.Don't use these values in real life.
+====
+* PIN 984073
+* Diceware words: `cake` `roping` `vocation`
+* Bitwarden Master password: `cake984073ropingvocation`
+* Laptop password: `984vocation073`
+====
 
-=== Password Security
+One good in-memory only password protects all your other passwords, TOTP 2FA, Recovery codes, etc.
 
-The scheme relies on about 59 bits of entropy for the Bitwarden Master Password.
+All your passwords are generated by Bitwarden, that ensures they are strong, secure, encrypted with a strong encryption algorithm, and synced securely between your devices.
+
+And you don't need to enter your PIN, laptop password and Bitwarden password very often thanks to TouchID/FaceID.
+
+=== Passwords Security Analysis
+
+6 digits PIN is ~20 bits of entropy, 3 Diceware words give another ~39 bits of entropy. Combined with ~4 bits of PIN permutations, the scheme gives roughly 63 bits of entropy for the Bitwarden Master Password.
+
 Bitwarden uses 100,000 iterations of PBKDF2 with HMAC-SHA256
 to derive the encryption key from the Master Password.
+Assuming an attacker can compute PBKDF2-SHA256 with 1 GiOps/s (see <<pbkdf2>>),
+63 bits of entropy is enough to resist brute-force attacks for about 14 million years.
 
-Assuming an attacker can compute PBKDF2-SHA256 with 1 GiOps/s,
-59 bits of entropy is enough to resist brute-force attacks for about a million years
-
+.JavaScript code to calculate the entropy and the number years to brute-force the password
 [code,javascript]
 ....
-const bits = 59n;
-const pbkdf2Sha256PerSecond = BigInt(1e9); // 1 GH/s
-const iterations = BigInt(1e5);
+const dicewareDictionary = 7776; // 6^5
+const dicewareWords = 3;
+const dicewareBits = Math.log2(dicewareDictionary ** dicewareWords);
+const pinLength = 6;
+const pinBits = Math.log2(10 ** pinLength);
+// split PIN in parts, put them in different places, 4! permutations
+const permutationBits = Math.log2(4 * 3 * 2 * 1);
+const entropyBits = Math.floor(dicewareBits + pinBits + permutationBits);
+const pbkdf2Sha256PerSecond = 1e9; // 1 GH/s
+// Bitwarden uses 100,000 iterations of PBKDF2 with HMAC-SHA256
+const iterations = 100000;
 const pwdPerSecond = pbkdf2Sha256PerSecond / iterations;
-const numTries = 2n ** (bits - 1n);
+const numTries = 2 ** (entropyBits - 1);
 const seconds = numTries / pwdPerSecond;
-const secondsInYear = 365n * 24n * 60n * 60n;
+const secondsInYear = 365 * 24 * 60 * 60;
 const years = seconds / secondsInYear;
-console.log(years)
-// outputs 913972n
+console.log('Password Entroy: ' + entropyBits + ' bits ')
+console.log('Estimated time to brute-force: ' + years + ' years')
+// outputs:
+// Password Entroy: 63 bits
+// Estimated time to brute-force: 14623560.433876801 years
 ....
 
-MacBooks T2 proctected passwords https://appleinsider.com/articles/22/02/17/password-cracking-tool-can-slowly-brute-force-t2-mac-passwords[can be tried at 15 passwords per second], makeing it essentially impossible to brute-force.
+
+iPhones, and MacBooks with T2 chip mitigate a password brute-force attack by requiring a longer delay between password attempts.
+iPhone can be configured to wipe all the data after 10 unsuccessful attempts.
+
+Even with the https://appleinsider.com/articles/22/02/17/password-cracking-tool-can-slowly-brute-force-t2-mac-passwords[recently discovered flaw], MacBooks' passwords can be tried at 15 passwords per second, makeing it essentially impossible to brute-force.
 
 === Why Bitwarden?
-A password manager is a must.
-It's the only way to have a secure password for every service.
 
 Bitwarden is open-source, cross-platform, cross-browser, free, and has a good reputation. The code is audited and the company is trustworthy.
 
-It supports secure passwords, TOTP 2FA, TouchID/FaceID, allows Emergency Access, and it's easy to use.
+It supports storing TOTP 2FA, TouchID/FaceID unlocking, allows Emergency Access, and it's easy to use. It is well integrated with iOS and MacOS.
 
-https://blog.lastpass.com/2022/12/notice-of-recent-security-incident/[Don't use LastPass].
+https://blog.lastpass.com/2022/12/notice-of-recent-security-incident/[Avoid LastPass].
+
+https://1password.com/[1Password] is a good alternative, but it's not open-source, and it's not free.
+
+This scheme can be easily used with 1Password. You don't need to switch to Bitwarden if you already use 1Password.
+
+https://keepassxc.org/[KeyPassXC] doesn't work on iPhones.
 
 === Legacy and bootstrapping
 
 If you want to leave your digital legacy to your loved ones,
-you can do it with Bitwarden Emergency Access.
+you can do it with Bitwarden https://bitwarden.com/help/emergency-access/[Emergency Access].
 
 If you have some Really Secure Info and you store it in a separate vault,
 you can leave the vault password to your loved ones.
@@ -166,8 +194,26 @@ re-encrypting the file, and sharing it with your loved ones again.
 
 Don't forget to update your Google Digital Legacy Plan accordingly.
 
-== Setup
-=== Bitwarden
+=== Pros
+- remember only 3 words and 6 digits, easy
+- super easy to use, rarely need to enter your PIN, laptop password or Bitwarden password
+- loss of any device is neither security nor data loss concern
+- can bootstrap from nothing just knowing your Master password
+- Bitwarden password is good enough for brute-force attacks in case the vault is breached (like in LastPass situation)
+- laptop password is good enough to resist brute-force attacks in case the laptop is stolen
+- you can share your PIN and even your laptop password with your significant other and they still can't easily access Master password protected items in Bitwarden. They can if they know what they are doing, though.
+- in case you distrust your significant other – just change your PIN on your phone, laptop, and Bitwarden.
+
+=== Cons
+
+- you are fucked if someone shoulder-hunts your Bitwarden password, unless you setup 2FA in Bitwarden which is recommended. Watch your back when you need to enter the password
+- you are fucked if an attacker has access to your phone or laptop and knows their passwords
+- you are fucked in case of your spouse is malevolent and knows the scheme
+- you are fucked if the laptop is rooted or even keylogged
+- you don't want to store crypto wallet seeds in Bitwarden with this setup, unless you are accepting the risk to lose your crypto
+
+== Setup Guide
+=== Bitwarden Master Password and iPhone PIN
 . Generate a random 6 digits PIN and memorise it.
 +
 That's your phone PIN, and your SIM PIN.
@@ -182,16 +228,28 @@ See full iPhone setup instructions xref:_iphone_setup[below].
 . Generate 3 random words using https://diceware.dmuth.org/[Diceware]. Combine with the PIN and memorise the passphrase.
 +
 That's your Bitwarden Master Password.
-+
-Example:
-
-* PIN 984073. That's ~20 bits of entropy.
-* words: cake roping vocation, 3*12=36 bits of entropy
-* Master password: `cake984073ropingvocation`. 36+20⨦3⋍59 bits of entropy.
 
 . Take a word and combine it with PIN. That's you laptop password. You MAY store it in Bitwarden.
 +
-Example: `984vocation073`
+ifdef::backend-html5[]
+++++
+Randomly Generated PIN: <span id="pin"></span>
+<script>
+const array = new Uint32Array(1);
+self.crypto.getRandomValues(array);
+const pin = array[0] % 1000000;
+const pinStr = pin.toString().padStart(6, "0");
+document.getElementById("pin").innerText = pinStr;
+</script>
+++++
+endif::backend-html5[]
+.Don't use these values in real life.
+====
+* PIN 984073
+* Diceware words: `cake` `roping` `vocation`
+* Bitwarden Master password: `cake984073ropingvocation`
+* Laptop password: `984vocation073`
+====
 
 . Setup your MacBook according to xref:_macbook_setup[these recommendations].
 
@@ -209,8 +267,36 @@ You MAY enable 2FA for your Bitwarden account. It's not necessary, but it's a go
 
 . In case you use Google Authenticator, Duo, Authy or other, you may want to migrate to TOTP 2FA in Bitwarden to simplify things. It's OK.
 
+=== iPhone Setup
+
+* Enable TouchID/FaceID & Passcode
+* PIN, wipe after 10 wrong attempts
+* SIM card PIN
+* Setup a security question/password with your service provider to avoid SIM hijacking (store in Bitwarden)
+* Disable all notifications on locked screen.
+
+TODO: finish, add screenshots
+
+=== MacBook Setup
+
+* Enable FileVault2 encryption, store the hard drive Recovery code in Bitwarden.
+* Enable TouchID/FaceID
+* Enable Firewall
+* Setup https://apple.stackexchange.com/a/306324[PAM with TouchID] to avoid entering the laptop password on `sudo` commands.
+
+=== Crypto Wallets
+
+IMPORTANT: Use a hardware wallet for storing your crypto assets.
+
+There is an interesting https://medium.com/@vincentbounce/cryptos-storage-transmission-the-safest-method-314560032872[setup by Vincent Bounce]
+
 === Bootstrapping Setup
-Ideally, done on a USB booted Linux, e.g. https://tails.boum.org/[Tails Linux]
+[#linux_usb_boot]
+[NOTE]
+====
+Ideally this should be done on a USB booted Linux, like https://www.kali.org/[Kali Linux] or https://tails.boum.org/[Tails Linux].
+But, at a time of writing, all of them have issues with MacBooks with T2 chips: the keyboard and trackpad don't work.
+====
 
 . Create a `Readme-$version.txt` file with the following content:
 +
@@ -270,28 +356,7 @@ Use TouchID for sudo, ssh, payments, FIDO2, etc.
 
 === iPhone
 
-Same, use FaceID everywhere possible.
-
-=== Pros
-- remember only 3 words and 6 digits, easy
-- super easy to use: FaceID/TouchID with Bitwarden on all devices
-- loss of any device is not a security concern
-- can bootstrap from nothing just knowing your Master password
-- Bitwarden password is good enough for brute-force attacks in case the vault is breached (like in LastPass situation)
-- laptop password is good enough to resist brute-force attacks in case the laptop is stolen (https://appleinsider.com/articles/22/02/17/password-cracking-tool-can-slowly-brute-force-t2-mac-passwords, ~15 pwd/s, you'll be fine).
-- it's still good enough even if an attacker knows your PIN
-- you can share your PIN and even your laptop password with your significant other and they still can't easily access Master password protected items in Bitwarden. They can if they know what they are doing, though.
-- in case you distrust your significant other – just change your PIN on your phone, laptop, and Bitwarden.
-
-=== Cons
-
-- you are fucked in case someone shoulder-hunt your Bitwarden password.
-You should not enter it too often, though. Just watch your back when you have to enter the password for some reason.
-- your Google/iCloud accounts can be stolen if your phone is stolen and PIN is known to an attacker
-- your Google/iCloud accounts can be stolen if your laptop is stolen and its password is known to an attacker
-- you are fucked in case of your spouse is malevolent and knows the scheme
-- you are fucked if the laptop is rooted or even keylogged.
-- you don't want to store crypto wallet seeds in Bitwarden with this setup, unless you are accepting the risk to lose your crypto.
+Same, use FaceID authentication everywhere possible.
 
 [#secure-info-storage]
 == Really Secure Info Storage and plausible deniability
@@ -312,7 +377,7 @@ Use a permutation of your Master Password, PIN, and SecurePIN.
 
 . In case you are forced to reveal the password to your VeraCrypt volume – you reveal your `VeraCryptNormalPassword` and deny the existence of the hidden volume.
 
-Ideally, you do this on a USB booted Linux, e.g. https://tails.boum.org/[Tails Linux]
+NOTE: Ideally, you do this on a USB booted Linux, but see xref:linux_usb_boot[a note about that].
 
 == Hardware Wallets and Seeds
 For a hardware wallet either use your phone PIN, or better generate another 6 digits random `SecurePIN`, depending on your paranoia.
@@ -327,31 +392,6 @@ Or store the seed in the hidden volume of your xref:secure-info-storage[Really S
 
 Here is another interesting setup with 3 hardware wallets and an old iPhone:
 https://medium.com/@vincentbounce/cryptos-storage-transmission-the-safest-method-314560032872[You may store the seed on a separate old offline iPhone with the `SecurePIN`]
-
-== iPhone Setup
-
-* Enable TouchID/FaceID & Passcode
-* PIN, wipe after 10 wrong attempts
-* SIM card PIN
-* Setup a security question/password with your service provider to avoid SIM hijacking (store in Bitwarden)
-* Disable all notifications on locked screen.
-
-https://medium.com/@vincentbounce/cryptos-storage-transmission-the-safest-method-314560032872
-
-
-TODO: finish, add screenshots
-
-== MacBook Setup
-
-* FileVault2 encryption.
-* Recovery code in Bitwarden.
-* Password in Bitwarden.
-* Or password is YubiKey Static Password
-* Setup PAM with TouchID to avoid entering the laptop password
-
-== Crypto Wallets
-
-https://medium.com/@vincentbounce/cryptos-storage-transmission-the-safest-method-314560032872
 
 == Threats
 
@@ -406,6 +446,9 @@ See plausible deniability.
 === Kidnapping, violence, thermorectal cryptanalysis
 
 You are fucked.
+
+image::https://imgs.xkcd.com/comics/security.png[xkcd 538]
+
 Use other means for storing your crypto.
 
 https://keys.casa/
@@ -518,8 +561,19 @@ EmergencyInfo = DerivedMasterPwd, Ledger/OldPhone SecurePIN
 . Remove distrusted 3rd-party from Google Legacy Plan
 . Put new `DerivedMasterPwd'` in Google Legacy Plan notes
 
+[glossary]
+== Glossary
 
-== Useful Links and Resources
+KISS:: Keep It Simple Stupid
+TOTP:: Time-based One-time Password
+2FA:: Two-factor Authentication
+MFA:: Multi-factor Authentication
 
-https://www.usenix.org/system/files/conference/woot16/woot16-paper-ruddick.pdf[Acceleration Attacks on PBKDF2
-Or, what is inside the black-box of oclHashcat?]
+[bibliography]
+== Bibliography, Useful Links, and Resources
+* [[[crypto, crypto]]]
+https://medium.com/@vincentbounce/cryptos-storage-transmission-the-safest-method-314560032872
+
+* [[[pbkdf2,pbkdf2]]] https://www.usenix.org/system/files/conference/woot16/woot16-paper-ruddick.pdf[Acceleration Attacks on PBKDF2]
+
+* [T2] https://www.youtube.com/watch?v=0uh4vQa81AI[Physical Decrypted Images from Macs with the T2 Chip]
