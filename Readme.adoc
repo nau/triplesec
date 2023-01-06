@@ -269,18 +269,26 @@ You MAY enable 2FA for your Bitwarden account. It's not necessary, but it's a go
 
 === iPhone Setup
 
-* Enable TouchID/FaceID & Passcode
-* PIN, wipe after 10 wrong attempts
-* SIM card PIN
-* Setup a security question/password with your service provider to avoid SIM hijacking (store in Bitwarden)
-* Disable all notifications on locked screen.
+* Setup iPhone passcode to be PIN: _Settings -> Face ID & Passcode_
+* Delete all existing TouchID fingerprints or FaceID data and setup new ones: _Settings -> Face ID & Passcode -> Reset Face ID_
+* Enable SIM PIN, set it to the first 4 digits of your iPhone PIN: _Settings -> Mobile Data -> Carrier -> SIM PIN_
++
+This way we protect your phone from SIM hijacking and SIM swap attacks.
+An attacker can't use your phone for 2FA via SMS if they don't have your PIN.
 
-TODO: finish, add screenshots
+.Optionally:
+* Enable wiping your data after 10 wrong attempts if you want to be extra secure:
+_Settings -> Face ID & Passcode -> Erase Data_.
+* Setup a security question/password with your mobile service provider to avoid SIM hijacking. Store it in Bitwarden.
+* Disable all notifications on locked screen.
+_Settings -> Notifications -> Show Previews -> When Unlocked_
 
 === MacBook Setup
 
-* Enable FileVault2 encryption, store the hard drive Recovery code in Bitwarden.
-* Enable TouchID/FaceID
+* Enable FileVault2 encryption: _System Settings -> Privacy & Security -> FileVault_.
++
+Store the hard drive Recovery code in Bitwarden.
+* Enable TouchID
 * Enable Firewall
 * Setup https://apple.stackexchange.com/a/306324[PAM with TouchID] to avoid entering the laptop password on `sudo` commands.
 
@@ -298,7 +306,7 @@ Ideally this should be done on a USB booted Linux, like https://www.kali.org/[Ka
 But, at a time of writing, all of them have issues with MacBooks with T2 chips: the keyboard and trackpad don't work.
 ====
 
-. Create a `Readme-$version.txt` file with the following content:
+. Create a `Readme-$version.txt` file that contains the following information:
 +
 * Master Password
 * PIN
@@ -314,14 +322,23 @@ JavaScript code to compute the `DerivedMasterPwd`
 +
 [code,javascript]
 ....
-const crypto = require('crypto')
 const version = 0
 const pwd = 'cake984073ropingvocation'
 const salt = '984073'
-crypto.pbkdf2(pwd, salt, 100000 + version, 32, 'sha256', (err, derivedKey) => {
-  if (err) throw err
-  console.log(derivedKey.toString('hex'))
-})
+const iterations = 100000 + version
+
+const textEncoder = new TextEncoder("utf-8");
+const passwordBuffer = textEncoder.encode(pwd);
+const importedKey = await crypto.subtle.importKey("raw", passwordBuffer, "PBKDF2", false, ["deriveBits"]);
+
+const saltBuffer = textEncoder.encode(salt);
+const params = {name: "PBKDF2", hash: 'SHA-256', salt: saltBuffer, iterations: iterations};
+const derivation = await crypto.subtle.deriveBits(params, importedKey, 32*8);
+function buf2hex(buffer) { // buffer is an ArrayBuffer
+  return [...new Uint8Array(buffer)] .map(x => x.toString(16).padStart(2, '0')) .join('');
+}
+console.log(buf2hex(derivation));
+
 ....
 
 . Encrypt Readme-$version.txt with `DerivedMasterPwd` using AES256
