@@ -545,7 +545,6 @@ WARNING: If an advanced attacker can tamper the TouchID, then he can do `sudo su
 . Manage Account -> Your devices -> Sing out
 . Banks as well
 
-
 === YubiKey is Lost or Stolen Checklist
 . Setup new YubiKey from SecureStorage/OldPhone
 . Change YubiKey Longtap password in SecureInfoFile
