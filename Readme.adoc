@@ -116,12 +116,13 @@ And you don't need to enter your PIN, laptop password and Bitwarden password ver
 
 === Passwords Security Analysis
 
-6 digits PIN is ~20 bits of entropy, 3 Diceware words give another ~39 bits of entropy. Combined with ~3 bits of PIN permutations, the scheme gives roughly 62 bits of entropy for the Bitwarden Master Password.
+6 digits PIN is ~20 bits of entropy, 3 Diceware words give another ~39 bits of entropy.
+Combined with 2 bits of PIN permutations, the scheme gives roughly 60 bits of entropy for the Bitwarden Master Password.
 
 Bitwarden https://bitwarden.com/help/what-encryption-is-used/#pbkdf2[uses 100,000] iterations of PBKDF2 with HMAC-SHA256
 to derive the encryption key from the Master Password.
 Assuming an attacker can compute PBKDF2-SHA256 with 1 GiOps/s (see <<pbkdf2>>),
-62 bits of entropy is enough to resist brute-force attacks for about 7 million years.
+60 bits of entropy is enough to resist brute-force attacks for about 2 million years.
 
 .JavaScript code to calculate the entropy and the number years to brute-force the password
 [code,javascript]
@@ -132,7 +133,7 @@ const dicewareBits = Math.log2(dicewareDictionary ** dicewareWords);
 const pinLength = 6;
 const pinBits = Math.log2(10 ** pinLength);
 // split PIN in parts, put them in different places, 10 permutations
-const permutationBits = Math.log2(10);
+const permutationBits = Math.log2(4);
 const entropyBits = Math.floor(dicewareBits + pinBits + permutationBits);
 const pbkdf2Sha256PerSecond = 1e9; // 1 GH/s
 // Bitwarden uses 100,000 iterations of PBKDF2 with HMAC-SHA256
@@ -145,8 +146,8 @@ const years = seconds / secondsInYear;
 console.log('Password Entroy: ' + entropyBits + ' bits ')
 console.log('Estimated time to brute-force: ' + years + ' years')
 // outputs:
-// Password Entroy: 62 bits
-// Estimated time to brute-force: 7311780.216938401 years
+// Password Entroy: 60 bits
+// Estimated time to brute-force: 1827945.0542346002 years
 ....
 
 
@@ -261,21 +262,13 @@ function generate() {
     wordlist[array[2] % (6**5)],
     wordlist[array[3] % (6**5)]
   ];
-  const permutation = array[4] % 10;
+  const permutation = array[4] % 4;
   const parts = [];
-  const pinParts = [pinStr.slice(0, 3), pinStr.slice(3)];
-  switch (permutation) {
-  case 0: parts.push(pinParts[0]); parts.push(pinParts[1]); parts.push(words[0]); parts.push(words[1]); parts.push(words[2]); break;
-  case 1: parts.push(pinParts[0]); parts.push(words[0]); parts.push(pinParts[1]);parts.push(words[1]); parts.push(words[2]); break;
-  case 2: parts.push(pinParts[0]); parts.push(words[0]); parts.push(words[1]); parts.push(pinParts[1]); parts.push(words[2]); break;
-  case 3: parts.push(pinParts[0]); parts.push(words[0]); parts.push(words[1]); parts.push(words[2]); parts.push(pinParts[1]); break;
-  case 4: parts.push(words[0]); parts.push(pinParts[0]); parts.push(pinParts[1]); parts.push(words[1]); parts.push(words[2]); break;
-  case 5: parts.push(words[0]); parts.push(pinParts[0]); parts.push(words[1]); parts.push(pinParts[1]); parts.push(words[2]); break;
-  case 6: parts.push(words[0]); parts.push(pinParts[0]); parts.push(words[1]); parts.push(words[2]); parts.push(pinParts[1]); break;
-  case 7: parts.push(words[0]); parts.push(words[1]); parts.push(pinParts[0]); parts.push(pinParts[1]); parts.push(words[2]); break;
-  case 8: parts.push(words[0]); parts.push(words[1]); parts.push(pinParts[0]); parts.push(words[2]); parts.push(pinParts[1]); break;
-  case 9: parts.push(words[0]); parts.push(words[1]); parts.push(words[2]); parts.push(pinParts[0]); parts.push(pinParts[1]); break;
+  for (let i = 0; i < 3; i++) {
+    if (permutation === i) parts.push(pinStr);
+    parts.push(words[i]);
   }
+  if (permutation === 3) parts.push(pinStr);
   MasterPassword = parts.join("");
   let LaptopPassword = words[0] + pinStr;
   document.getElementById("words").innerText = words.join(" ");
@@ -294,7 +287,7 @@ ifndef::backend-html5[]
 * PIN 984073
 * Words: `cake` `roping` `vocation`
 * Bitwarden Master password: `cake984073ropingvocation`
-* Laptop password: `984vocation073`
+* Laptop password: `vocation984073`
 ====
 endif::backend-html5[]
 +
@@ -499,6 +492,31 @@ https://medium.com/@vincentbounce/cryptos-storage-transmission-the-safest-method
 Just change your password.
 You are using 2FA, right?
 
+=== iPhone is Stolen with PIN
+* Attacker CAN access your Bitwarden, Gmail, TouchID/FIDO2, Github, Social Media, Messengers, iCloud, Google Account, etc.
+
+* Attacker CAN access and unlink the laptop in iCloud by using TouchID and Safair browser to login to iCloud. I don't know how to prevent this.
+
+* Attacker MAY steal your Google account in case you use iCloud email as a backup email and TouchID as 2FA. I don't know how to prevent this.
+
+* Attacker CAN NOT access `SecureStorage` as he doesn't know the password
+
+=== Laptop is stolen, password is not known to a thief
+An average thief can't access anything.
+
+WARNING: An advanced attacker can tamper the TouchID,
+ do `sudo su -` with TouchID and gain admin privileges.
+Then you are mostly screwed. Your `SecureStorage` is safe, though.
+
+=== Laptop is stolen, laptop password known to an attacker
+* Attacker CAN access your Bitwarden, Gmail, TouchID/FIDO2, Github, Social Media, Messengers, iCloud, Google Account, etc.
+
+* Attacker CAN access and unlink the laptop in iCloud by using TouchID and Safair browser to login to iCloud. I don't know how to prevent this.
+
+* Attacker MAY steal your Google account in case you use iCloud email as a backup email and TouchID as 2FA. I don't know how to prevent this.
+
+* Attacker CAN NOT access `SecureStorage` as he doesn't know the password
+
 === Your iPhone or MacBook is stolen
 
 Go to iCloud and erase your device.
@@ -513,15 +531,21 @@ You are fine.
 
 === Encrypted data is lost
 
+Restore from backup or get it from Google Drive/iCloud on another device.
+You are fine.
+
 === SIM card is copied
 
-You avoid SMS 2FA as much as possible so you are fine.
+You avoid SMS 2FA as much as possible so you are fine, don't you?
 
 === A third-party is no longer trusted
+* Increment the version of your Readme-$version.txt
+* Derive a new `DerivedMasterPwd` with `MasterPassword`, `PIN` and new version using the algorithm from <<Bootstrapping Setup>>
+* Re-encrypt your `Readme-$version.txt` with it.
+* Share it with your trusted 3-rd parties.
+* Update your `DerivedMasterPwd` in your Google Digital Legacy Plan.
 
-You update your Readme.txt and Readme-0.txt.gpg accordingly and share it with your trusted 3-rd parties.
-You update your `DerivedMasterPwd` in your Google Digital Legacy Plan.
-Now you are fine again.
+Now the distrusted 3-rd party can't access your secrets after your death.
 
 === Death
 
@@ -555,7 +579,11 @@ https://keys.casa/
 
 === Spouse malevolence
 
-If you spouse knows your PIN/laptop password then you are screwed.
+Assume that your spouse knows your PIN/laptop password.
+
+They can access your Bitwarden, Gmail, TouchID/FIDO2, Github, Social Media, Messengers, iCloud, Google Account etc by adding their TouchID/FaceID to your devices.
+
+They can find out your `DerivedMasterPwd`, Readme.txt.gpg and access your `SecureStorage`. You are screwed.
 
 If you suspect your spouse to become malevolent you can change your iPhone PIN and your laptop password, and reset all TouchID/FaceIDs. That should suffice.
 
@@ -576,45 +604,22 @@ If you suspect your spouse to become malevolent you can change your iPhone PIN a
 . Restore wallets from seeds, transfer crypto
 . Erase all stolen devices
 
-=== Laptop is stolen, password is not known to a thief
-An average thief can't access anything.
-
-WARNING: If an advanced attacker can tamper the TouchID,
-then he can do `sudo su -` with TouchID and gain admin privileges.
-Then you are screwed.
-
-=== Laptop is stolen with laptop password
-* Attacker CAN access your Bitwarden, Gmail, TouchID/FIDO2, Github, Social Media, Messengers, iCloud, Google Account, etc.
-
-* Attacker CAN access and unlink the laptop in iCloud by using TouchID and Safair browser to login to iCloud. I don't know how to prevent this.
-
-* Attacker MAY steal your Google account in case you use iCloud email as a backup email and TouchID as 2FA. I don't know how to prevent this.
-
-* Attacker CAN NOT access `SecureStorage` as he doesn't know the password
-
 === Laptop Lost Checklist
 . Login to Bitwarden Web Vault
-  [%interactive]
-  * [ ] Go to Account Settings
-  * [ ] Deauthorize your laptop session
-  * [ ] Change Bitwarden password
+[%interactive]
+* [ ] Go to Account Settings
+* [ ] Deauthorize your laptop session
+* [ ] Change Bitwarden password
+
 . Login to iCloud
-  [%interactive]
-  * [ ] Settings -> Sing Out of All Browsers
-  * [ ] Find Devices -> Laptop -> Erase Mac
+[%interactive]
+* [ ] Settings -> Sing Out of All Browsers
+* [ ] Find Devices -> Laptop -> Erase Mac
+
 . Login to Google
-  [%interactive]
-  * [ ] Manage Account -> Your devices -> Sing out
-  * [ ] 2FA -> Remove TouchID key
-
-=== iPhone is Stolen with PIN
-* Attacker CAN access your Bitwarden, Gmail, TouchID/FIDO2, Github, Social Media, Messengers, iCloud, Google Account, etc.
-
-* Attacker CAN access and unlink the laptop in iCloud by using TouchID and Safair browser to login to iCloud. I don't know how to prevent this.
-
-* Attacker MAY steal your Google account in case you use iCloud email as a backup email and TouchID as 2FA. I don't know how to prevent this.
-
-* Attacker CAN NOT access `SecureStorage` as he doesn't know the password
+[%interactive]
+* [ ] Manage Account -> Your devices -> Sing out
+* [ ] 2FA -> Remove TouchID key
 
 === iPhone Lost Checklist
 
@@ -675,4 +680,7 @@ MFA:: Multi-factor Authentication
 https://medium.com/@vincentbounce/cryptos-storage-transmission-the-safest-method-314560032872
 * [[[pbkdf2,pbkdf2]]] https://www.usenix.org/system/files/conference/woot16/woot16-paper-ruddick.pdf[Acceleration Attacks on PBKDF2]
 * [[[T2]]] https://www.youtube.com/watch?v=0uh4vQa81AI[Physical Decrypted Images from Macs with the T2 Chip]
-* [[[EFF]]] https://ssd.eff.org/module/creating-strong-passwords[Creating Strong Passwords]
+
+* [[[EFF]]] https://ssd.eff.org/module-categories/basics[EFF Basics]
+
+* [[[Pwd]]] https://ssd.eff.org/module/creating-strong-passwords[Creating Strong Passwords]
