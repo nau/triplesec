@@ -10,7 +10,7 @@ Keeping your data safe and easy to use among multitude devices and services is e
 Here is a KISS security setup scheme for your MacBook, iPhone,
 and web services that is easy to use and relatively hard to break.
 
-It's based on the idea of using a combination of a random 3-4 word Diceware passphrase
+It's based on the idea of using a combination of a random 3-4 word passphrase
 and a 6 digits PIN, along with a password manager and TouchID/FaceID devices.
 
 The scheme allows to regain access to all of your data
@@ -88,7 +88,9 @@ Only well-known, well-tested, well-supported open-source software.
 === TL;DR
 . Generate a random 6 digits PIN and memorise it. That's your phone PIN, and your SIM PIN.
 
-. Generate 3 random words using https://diceware.dmuth.org/[Diceware]. Combine with the PIN and memorise the passphrase. That's your https://bitwarden.com/[Bitwarden] Master Password.
+. Generate 3 random words using https://www.eff.org/dice[EFF Dice] or https://diceware.dmuth.org/[Diceware].
+Combine with the PIN and memorise the passphrase.
+That's your https://bitwarden.com/[Bitwarden] Master Password.
 
 . Take a word and combine it with PIN. That's you laptop password. You MAY store it in Bitwarden.
 
@@ -101,7 +103,7 @@ Only well-known, well-tested, well-supported open-source software.
 .Don't use these values in real life.
 ====
 * PIN 984073
-* Diceware words: `cake` `roping` `vocation`
+* Words: `cake` `roping` `vocation`
 * Bitwarden Master password: `cake984073ropingvocation`
 * Laptop password: `984vocation073`
 ====
@@ -225,7 +227,8 @@ That's your phone PIN, and your SIM PIN.
 (_Settings -> Face ID & Passcode -> Erase Data_).
 See full iPhone setup instructions xref:_iphone_setup[below].
 
-. Generate 3 random words using https://diceware.dmuth.org/[Diceware]. Combine with the PIN and memorise the passphrase.
+. Generate 3 random words using https://www.eff.org/dice[EFF Dice] or https://diceware.dmuth.org/[Diceware].
+Combine with the PIN and memorise the passphrase.
 +
 That's your Bitwarden Master Password.
 
@@ -235,19 +238,16 @@ ifdef::backend-html5[]
 .Randomly Generated credentials
 ====
 ++++
-<p>Random PIN: <span id="pin"></span><p>
-<p>Random words: <span id="words"></span><p>
-<p>Master Password: <span id="MasterPassword"></span><p>
-<p>Laptop Password: <span id="LaptopPassword"></span><p>
+<p>Random PIN: <code id="pin"></code><p>
+<p>Random words: <code id="words"></code><p>
+<p>Master Password: <code id="MasterPassword"></code><p>
+<p>Laptop Password: <code id="LaptopPassword"></code><p>
 <p><button id="GenerateButton">Generate</button><p>
-<script src="diceware-wordlist.js">
+<script src="wordlist.js">
 </script>
 <script>
-let dicewareWords = [];
 let pinStr = '';
-for (const [key, value] of Object.entries(dicewareWordlist)) {
-  dicewareWords.push(value);
-}
+let MasterPassword = '';
 function generate() {
   const array = new Uint32Array(5);
   self.crypto.getRandomValues(array);
@@ -255,9 +255,9 @@ function generate() {
   pinStr = pin.toString().padStart(6, "0");
   document.getElementById("pin").innerText = pinStr;
   const words = [
-    dicewareWords[array[1] % (6**5)],
-    dicewareWords[array[2] % (6**5)],
-    dicewareWords[array[3] % (6**5)]
+    wordlist[array[1] % (6**5)],
+    wordlist[array[2] % (6**5)],
+    wordlist[array[3] % (6**5)]
   ];
   const permutation = array[4] % 10;
   const parts = [];
@@ -274,7 +274,7 @@ function generate() {
   case 8: parts.push(words[0]); parts.push(words[1]); parts.push(pinParts[0]); parts.push(words[2]); parts.push(pinParts[1]); break;
   case 9: parts.push(words[0]); parts.push(words[1]); parts.push(words[2]); parts.push(pinParts[0]); parts.push(pinParts[1]); break;
   }
-  let MasterPassword = parts.join("");
+  MasterPassword = parts.join("");
   let LaptopPassword = words[0] + pinStr;
   document.getElementById("words").innerText = words.join(" ");
   document.getElementById("MasterPassword").innerText = MasterPassword;
@@ -290,7 +290,7 @@ ifndef::backend-html5[]
 .Don't use these values in real life.
 ====
 * PIN 984073
-* Diceware words: `cake` `roping` `vocation`
+* Words: `cake` `roping` `vocation`
 * Bitwarden Master password: `cake984073ropingvocation`
 * Laptop password: `984vocation073`
 ====
@@ -413,7 +413,7 @@ async function compute() {
 
   document.getElementById('DerivedMasterPwd').innerText = buf2hex(derivation);
 }
-document.getElementById('MasterPwdInput').value = pinStr;
+document.getElementById('MasterPwdInput').value = MasterPassword;
 document.getElementById('Pin').value = pinStr;
 document.getElementById('Compute').onclick = compute;
 compute();
@@ -669,7 +669,6 @@ MFA:: Multi-factor Authentication
 == Bibliography, Useful Links, and Resources
 * [[[crypto, crypto]]]
 https://medium.com/@vincentbounce/cryptos-storage-transmission-the-safest-method-314560032872
-
 * [[[pbkdf2,pbkdf2]]] https://www.usenix.org/system/files/conference/woot16/woot16-paper-ruddick.pdf[Acceleration Attacks on PBKDF2]
-
-* [T2] https://www.youtube.com/watch?v=0uh4vQa81AI[Physical Decrypted Images from Macs with the T2 Chip]
+* [[[T2]]] https://www.youtube.com/watch?v=0uh4vQa81AI[Physical Decrypted Images from Macs with the T2 Chip]
+* [[[EFF]]] https://ssd.eff.org/module/creating-strong-passwords[Creating Strong Passwords]
