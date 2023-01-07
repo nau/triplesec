@@ -238,6 +238,7 @@ That's your Bitwarden Master Password.
 . Take a word and combine it with PIN. That's you laptop password. You MAY store it in Bitwarden.
 +
 ifdef::backend-html5[]
+[#generator]
 .Randomly Generated credentials
 ====
 ++++
@@ -378,7 +379,7 @@ const saltBuffer = textEncoder.encode(salt);
 const params = {name: "PBKDF2", hash: 'SHA-256', salt: saltBuffer, iterations: iterations};
 const derivation = await crypto.subtle.deriveBits(params, importedKey, 32*8);
 function buf2hex(buffer) { // buffer is an ArrayBuffer
-  return [...new Uint8Array(buffer)] .map(x => x.toString(16).padStart(2, '0')) .join('');
+  return [...new Uint8Array(buffer)].map(x => x.toString(16).padStart(2, '0')).join('');
 }
 console.log(buf2hex(derivation));
 ....
@@ -390,10 +391,10 @@ ifdef::backend-html5[]
 <p>PIN: <input id="Pin"/></p>
 <p>Version: <input id="Version" value='0'/></p>
 <button id="Compute">Compute</button>
-<p>Derived Master Password: <span id="DerivedMasterPwd"></span></p>
+<p>Derived Master Password: <code id="DerivedMasterPwd"></code></p>
 <script>
 function buf2hex(buffer) { // buffer is an ArrayBuffer
-  return [...new Uint8Array(buffer)] .map(x => x.toString(16).padStart(2, '0')) .join('');
+  return [...new Uint8Array(buffer)] .map(x => x.toString(16).padStart(2, '0')).join('');
 }
 async function compute() {
   const version = document.getElementById('Version').value || 0
@@ -441,7 +442,7 @@ I guess I'm dead. Decrypt Readme-0.txt.gpg with `DerivedMasterPwd` to get my pas
 gpg -d --cipher-algo AES256 Readme-0.txt.gpg
 
 [#secure-info-storage]
-== Really Secure Info Storage and plausible deniability
+== Really Secure Info Storage
 
 You may want to store some really important info in a really secure way. For example, your crypto wallet seeds, PGP keys, Bitwarden Recovery Code etc.
 
@@ -449,7 +450,18 @@ You'll need https://veracrypt.fr/[VeraCrypt].
 
 . Come up with a `SecurePIN` (6 digits), `VeraCryptNormalPassword`, and `VeraCryptHiddenPassword`.
 +
-Use a permutation of your Master Password, PIN, and SecurePIN.
+ifdef::backend-html5[]
+Use xref:generator[the random generator].
+endif::backend-html5[]
++
+Use a permutation of your `Master Password`, `PIN`, and `SecurePIN`.
++
+.Don't use in real life
+====
+* SecurePin: `850817`
+* VeraCrypt Normal Password: `vocation984073`
+* VeraCrypt Hidden Password: `trimmer850817erasedeligible`
+====
 
 . Create a VeraCrypt volume with a hidden volume, synced to Google Drive or iCloud Drive.
 
@@ -457,7 +469,8 @@ Use a permutation of your Master Password, PIN, and SecurePIN.
 
 . Store something plausible on a normal volume
 
-. In case you are forced to reveal the password to your VeraCrypt volume – you reveal your `VeraCryptNormalPassword` and deny the existence of the hidden volume.
+. In case you are forced to reveal the password to your VeraCrypt volume – you reveal your `VeraCryptNormalPassword` and deny the existence of the hidden volume. See https://veracrypt.fr/en/Hidden%20Volume.html[Hidden Volume] and https://veracrypt.fr/en/Plausible%20Deniability.html[Plausible Deniability].
+
 
 NOTE: Ideally, you do this on a USB booted Linux, but see xref:linux_usb_boot[a note about that].
 
@@ -466,7 +479,7 @@ NOTE: Ideally, you do this on a USB booted Linux, but see xref:linux_usb_boot[a 
 Use a hardware wallet for storing your crypto assets. See <<Hardware Wallets and Seeds>>.
 
 === Hardware Wallets and Seeds
-For a hardware wallet either use your phone PIN, or better generate another 6 digits random `SecurePIN`, depending on your paranoia.
+For a hardware wallet either use your phone `PIN`, or better generate another 6 digits random `SecurePIN`, depending on your paranoia.
 
 Store your seed either:
 
@@ -478,24 +491,15 @@ Store your seed either:
 
 === A service password is hacked
 
-Just change your password.
+Just change your password for that service.
 You are using 2FA, right?
 
-=== iPhone is Stolen with PIN
-* Attacker CAN access your Bitwarden, Gmail, TouchID/FIDO2, Github, Social Media, Messengers, iCloud, Google Account, etc.
+=== Laptop is stolen, password is not known to an attacker
+An average thief can't access anything to get to your data.
 
-* Attacker CAN access and unlink the laptop in iCloud by using TouchID and Safair browser to login to iCloud. I don't know how to prevent this.
-
-* Attacker MAY steal your Google account in case you use iCloud email as a backup email and TouchID as 2FA. I don't know how to prevent this.
-
-* Attacker CAN NOT access `SecureStorage` as he doesn't know the password
-
-=== Laptop is stolen, password is not known to a thief
-An average thief can't access anything.
-
-WARNING: An advanced attacker can tamper the TouchID,
+An advanced attacker can tamper the TouchID,
  do `sudo su -` with TouchID and gain admin privileges.
-Then you are mostly screwed. Your `SecureStorage` is safe, though.
+Then you are mostly screwed. Your xref:secure-info-storage[Really Secure Info Storage] is safe, though.
 
 === Laptop is stolen, laptop password known to an attacker
 * Attacker CAN access your Bitwarden, Gmail, TouchID/FIDO2, Github, Social Media, Messengers, iCloud, Google Account, etc.
@@ -506,17 +510,23 @@ Then you are mostly screwed. Your `SecureStorage` is safe, though.
 
 * Attacker CAN NOT access `SecureStorage` as he doesn't know the password
 
-=== Your iPhone or MacBook is stolen
-
-Go to iCloud and erase your device.
-Buy a new one and restore from backup.
+=== iPhone is Stolen
 
 Assuming your PIN/password is not known to the attacker, you are safe.
 Your SIM card is safe, too.
 
+=== iPhone is Stolen with PIN
+* Attacker CAN access your Bitwarden, Gmail, TouchID/FIDO2, Github, Social Media, Messengers, iCloud, Google Account, etc.
+
+* Attacker CAN access and unlink the laptop in iCloud by using TouchID and Safair browser to login to iCloud. I don't know how to prevent this.
+
+* Attacker MAY steal your Google account in case you use iCloud email as a backup email and TouchID as 2FA. I don't know how to prevent this.
+
+* Attacker CAN NOT access xref:secure-info-storage[Really Secure Info Storage] as he doesn't know the password
+
 === Google banned you
 
-You are fine.
+Access a local copy of your xref:secure-info-storage[Really Secure Info Storage] data on one of your devices. You are fine.
 
 === Encrypted data is lost
 
@@ -525,7 +535,8 @@ You are fine.
 
 === SIM card is copied
 
-You avoid SMS 2FA as much as possible so you are fine, don't you?
+You avoid SMS 2FA as much as possible, don't you? You are fine then.
+Just restore your SIM card at your carrier office.
 
 === A third-party is no longer trusted
 * Increment the version of your Readme-$version.txt
@@ -654,6 +665,15 @@ EmergencyInfo = DerivedMasterPwd, Ledger/OldPhone SecurePIN
 . Send `Readme-1.txt.gpg` to trusted 3rd-parties
 . Remove distrusted 3rd-party from Google Legacy Plan
 . Put new `DerivedMasterPwd'` in Google Legacy Plan notes
+
+* Increment the version of your Readme-$version.txt
+* Derive a new `DerivedMasterPwd` with `MasterPassword`, `PIN` and new version using the algorithm from <<Bootstrapping Setup>>
+* Re-encrypt your `Readme-$version.txt` with it.
+* Share it with your trusted 3-rd parties.
+* Update your `DerivedMasterPwd` in your Google Digital Legacy Plan.
+
+Now the distrusted 3-rd party can't access your secrets after your death.
+
 
 [glossary]
 == Glossary
