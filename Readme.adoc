@@ -118,7 +118,7 @@ And you don't need to enter your PIN, laptop password and Bitwarden password ver
 
 6 digits PIN is ~20 bits of entropy, 3 Diceware words give another ~39 bits of entropy. Combined with ~3 bits of PIN permutations, the scheme gives roughly 62 bits of entropy for the Bitwarden Master Password.
 
-Bitwarden uses 100,000 iterations of PBKDF2 with HMAC-SHA256
+Bitwarden https://bitwarden.com/help/what-encryption-is-used/#pbkdf2[uses 100,000] iterations of PBKDF2 with HMAC-SHA256
 to derive the encryption key from the Master Password.
 Assuming an attacker can compute PBKDF2-SHA256 with 1 GiOps/s (see <<pbkdf2>>),
 62 bits of entropy is enough to resist brute-force attacks for about 7 million years.
@@ -150,7 +150,7 @@ console.log('Estimated time to brute-force: ' + years + ' years')
 ....
 
 
-iPhones, and MacBooks with T2 chip mitigate a password brute-force attack by requiring a longer delay between password attempts.
+iPhones, and MacBooks with T2 chip mitigate password brute-force attacks by requiring a longer delay between password attempts on the hardware level.
 iPhone can be configured to wipe all the data after 10 unsuccessful attempts.
 
 Even with the https://appleinsider.com/articles/22/02/17/password-cracking-tool-can-slowly-brute-force-t2-mac-passwords[recently discovered flaw], MacBooks' passwords can be tried at 15 passwords per second, makeing it essentially impossible to brute-force.
@@ -161,13 +161,12 @@ Bitwarden is open-source, cross-platform, cross-browser, free, and has a good re
 
 It supports storing TOTP 2FA, TouchID/FaceID unlocking, allows Emergency Access, and it's easy to use. It is well integrated with iOS and MacOS.
 
-https://blog.lastpass.com/2022/12/notice-of-recent-security-incident/[Avoid LastPass].
-
 https://1password.com/[1Password] is a good alternative, but it's not open-source, and it's not free.
-
-This scheme can be easily used with 1Password. You don't need to switch to Bitwarden if you already use 1Password.
+Regardless, this scheme can be easily used with 1Password. You don't need to switch to Bitwarden if you already use 1Password.
 
 https://keepassxc.org/[KeyPassXC] doesn't work on iPhones.
+
+https://blog.lastpass.com/2022/12/notice-of-recent-security-incident/[Avoid LastPass].
 
 === Legacy and bootstrapping
 
@@ -208,11 +207,14 @@ Don't forget to update your Google Digital Legacy Plan accordingly.
 
 === Cons
 
-- you are fucked if someone shoulder-hunts your Bitwarden password, unless you setup 2FA in Bitwarden which is recommended. Watch your back when you need to enter the password
-- you are fucked if an attacker has access to your phone or laptop and knows their passwords
-- you are fucked in case of your spouse is malevolent and knows the scheme
-- you are fucked if the laptop is rooted or even keylogged
-- you don't want to store crypto wallet seeds in Bitwarden with this setup, unless you are accepting the risk to lose your crypto
+- you are screwed if someone shoulder-hunts or records your Bitwarden password,
+unless you setup 2FA in Bitwarden.
+Watch your back when you need to enter the password.
+- you are screwed if an attacker has access to your phone or laptop and knows their passwords
+- you are screwed in case of your spouse is malevolent and knows the scheme
+- you are screwed if the laptop is rooted or even keylogged
+- you don't want to store crypto wallet seeds in Bitwarden with this setup,
+unless you are accepting the risk of losing your crypto
 
 == Setup Guide
 === Bitwarden Master Password and iPhone PIN
@@ -527,13 +529,13 @@ You have your Legacy plan in place.
 
 === The laptop is rooted
 
-You are mostly fucked.
+You are mostly screwed.
 Your Really Secret Info is still safe if you only access it on a USB booted Linux or a specific air-gapped device.
 Also, don't store Readme.txt.gpg on your laptop or in a cloud.
 
 === Targeted cyber attack, social engineering
 
-That depends. You can be fucked if you are targeted.
+That depends. You can be screwed if you are targeted.
 
 === Non violent intrusion
 
@@ -542,7 +544,7 @@ See plausible deniability.
 
 === Kidnapping, violence, thermorectal cryptanalysis
 
-You are fucked.
+You are screwed.
 
 image::https://imgs.xkcd.com/comics/security.png[xkcd 538]
 
@@ -553,7 +555,7 @@ https://keys.casa/
 
 === Spouse malevolence
 
-If you spouse knows your PIN/laptop password then you are fucked.
+If you spouse knows your PIN/laptop password then you are screwed.
 
 If you suspect your spouse to become malevolent you can change your iPhone PIN and your laptop password, and reset all TouchID/FaceIDs. That should suffice.
 
@@ -577,7 +579,9 @@ If you suspect your spouse to become malevolent you can change your iPhone PIN a
 === Laptop is stolen, password is not known to a thief
 An average thief can't access anything.
 
-WARNING: If an advanced attacker can tamper the TouchID, then he can do `sudo su -` with TouchID and gain admin privileges. Then you are fucked.
+WARNING: If an advanced attacker can tamper the TouchID,
+then he can do `sudo su -` with TouchID and gain admin privileges.
+Then you are screwed.
 
 === Laptop is stolen with laptop password
 * Attacker CAN access your Bitwarden, Gmail, TouchID/FIDO2, Github, Social Media, Messengers, iCloud, Google Account, etc.
