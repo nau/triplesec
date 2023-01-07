@@ -332,11 +332,13 @@ Store the hard drive Recovery code in Bitwarden.
 * Enable Firewall
 * Setup https://apple.stackexchange.com/a/306324[PAM with TouchID] to avoid entering the laptop password on `sudo` commands.
 
-=== Crypto Wallets
+You'll have to enter your laptop password only after a reboot. Avoid doing it with someone watching or near a camera.
 
-IMPORTANT: Use a hardware wallet for storing your crypto assets.
+Unlock Bitwarden with TouchID, avoid typing your Master password. Login to Bitwarden Web Vault using your iPhone when needed.
 
-There is an interesting https://medium.com/@vincentbounce/cryptos-storage-transmission-the-safest-method-314560032872[setup by Vincent Bounce]
+Use TouchID for sudo, ssh, payments, FIDO2, etc.
+
+Another useful tool is https://github.com/maxgoedjen/secretive[Secretive] – an an app for storing and managing SSH keys in the Mac T2 Secure Enclave.
 
 === Bootstrapping Setup
 [#linux_usb_boot]
@@ -432,23 +434,11 @@ Choose who to notify & what to share.
 
 . Store the `DerivedMasterPwd` in your Google Digital Legacy Plan.
 +
-Example note:
+.Example note
 +
 [quote]
 I guess I'm dead. Decrypt Readme-0.txt.gpg with `DerivedMasterPwd` to get my passwords. See-ya!
 gpg -d --cipher-algo AES256 Readme-0.txt.gpg
-
-== Usage
-
-=== MacBook
-
-You unlock your MacBook with your laptop password only after a reboot. Avoid doing it with someone watching or near a camera.
-Unlock Bitwarden with TouchID, avoid typing your Master password. Login to Bitwarden Web Vault using your iPhone when needed.
-Use TouchID for sudo, ssh, payments, FIDO2, etc.
-
-=== iPhone
-
-Same, use FaceID authentication everywhere possible.
 
 [#secure-info-storage]
 == Really Secure Info Storage and plausible deniability
@@ -463,27 +453,26 @@ Use a permutation of your Master Password, PIN, and SecurePIN.
 
 . Create a VeraCrypt volume with a hidden volume, synced to Google Drive or iCloud Drive.
 
-. Store seeds, PGP keys, SecurityInfoFile on Hidden Volume
+. Store seeds, PGP keys, Readme.txt etc on your hidden volume
 
-. Store unimportant seeds, PGP keys, SecurityInfoFile on a normal volume
+. Store something plausible on a normal volume
 
 . In case you are forced to reveal the password to your VeraCrypt volume – you reveal your `VeraCryptNormalPassword` and deny the existence of the hidden volume.
 
 NOTE: Ideally, you do this on a USB booted Linux, but see xref:linux_usb_boot[a note about that].
 
-== Hardware Wallets and Seeds
+=== Crypto Wallets
+
+Use a hardware wallet for storing your crypto assets. See <<Hardware Wallets and Seeds>>.
+
+=== Hardware Wallets and Seeds
 For a hardware wallet either use your phone PIN, or better generate another 6 digits random `SecurePIN`, depending on your paranoia.
 
 Store your seed either:
 
-- in `Readme.txt` from the <<Bootstrapping Setup>>
-
-Or even better, store the seed on a separate old offline iPhone with the `SecurePIN`.
-
-Or store the seed in the hidden volume of your xref:secure-info-storage[Really Secure Info Storage].
-
-Here is another interesting setup with 3 hardware wallets and an old iPhone:
-https://medium.com/@vincentbounce/cryptos-storage-transmission-the-safest-method-314560032872[You may store the seed on a separate old offline iPhone with the `SecurePIN`]
+* in `Readme.txt` from the <<Bootstrapping Setup>>
+* or store the seed in the hidden volume of your xref:secure-info-storage[Really Secure Info Storage].
+* or even better, store the seed on a separate https://medium.com/@vincentbounce/cryptos-storage-transmission-the-safest-method-314560032872[old offline iPhone ] with the `SecurePIN` as a passcode.
 
 == Threats
 
