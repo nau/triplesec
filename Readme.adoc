@@ -232,46 +232,61 @@ That's your Bitwarden Master Password.
 . Take a word and combine it with PIN. That's you laptop password. You MAY store it in Bitwarden.
 +
 ifdef::backend-html5[]
+.Randomly Generated credentials
+====
 ++++
-Randomly Generated PIN: <span id="pin"></span>
+<p>Random PIN: <span id="pin"></span><p>
+<p>Random words: <span id="words"></span><p>
+<p>Master Password: <span id="MasterPassword"></span><p>
+<p>Laptop Password: <span id="LaptopPassword"></span><p>
+<p><button id="GenerateButton">Generate</button><p>
 <script src="diceware-wordlist.js">
 </script>
 <script>
 let dicewareWords = [];
+let pinStr = '';
 for (const [key, value] of Object.entries(dicewareWordlist)) {
   dicewareWords.push(value);
 }
-const array = new Uint32Array(5);
-self.crypto.getRandomValues(array);
-const pin = array[0] % 1000000;
-const pinStr = pin.toString().padStart(6, "0");
-document.getElementById("pin").innerText = pinStr;
-const words = [
-  dicewareWords[array[1] % (6**5)],
-  dicewareWords[array[2] % (6**5)],
-  dicewareWords[array[3] % (6**5)]
-];
-const permutation = array[4] % 10;
-console.log(words, pinStr);
-const parts = [];
-const pinParts = [pinStr.slice(0, 3), pinStr.slice(3)];
-switch (permutation) {
-case 0: parts.push(pinParts[0]); parts.push(pinParts[1]); parts.push(words[0]); parts.push(words[1]); parts.push(words[2]); break;
-case 1: parts.push(pinParts[0]); parts.push(words[0]); parts.push(pinParts[1]);parts.push(words[1]); parts.push(words[2]); break;
-case 2: parts.push(pinParts[0]); parts.push(words[0]); parts.push(words[1]); parts.push(pinParts[1]); parts.push(words[2]); break;
-case 3: parts.push(pinParts[0]); parts.push(words[0]); parts.push(words[1]); parts.push(words[2]); parts.push(pinParts[1]); break;
-case 4: parts.push(words[0]); parts.push(pinParts[0]); parts.push(pinParts[1]); parts.push(words[1]); parts.push(words[2]); break;
-case 5: parts.push(words[0]); parts.push(pinParts[0]); parts.push(words[1]); parts.push(pinParts[1]); parts.push(words[2]); break;
-case 6: parts.push(words[0]); parts.push(pinParts[0]); parts.push(words[1]); parts.push(words[2]); parts.push(pinParts[1]); break;
-case 7: parts.push(words[0]); parts.push(words[1]); parts.push(pinParts[0]); parts.push(pinParts[1]); parts.push(words[2]); break;
-case 8: parts.push(words[0]); parts.push(words[1]); parts.push(pinParts[0]); parts.push(words[2]); parts.push(pinParts[1]); break;
-case 9: parts.push(words[0]); parts.push(words[1]); parts.push(words[2]); parts.push(pinParts[0]); parts.push(pinParts[1]); break;
+function generate() {
+  const array = new Uint32Array(5);
+  self.crypto.getRandomValues(array);
+  const pin = array[0] % 1000000;
+  pinStr = pin.toString().padStart(6, "0");
+  document.getElementById("pin").innerText = pinStr;
+  const words = [
+    dicewareWords[array[1] % (6**5)],
+    dicewareWords[array[2] % (6**5)],
+    dicewareWords[array[3] % (6**5)]
+  ];
+  const permutation = array[4] % 10;
+  const parts = [];
+  const pinParts = [pinStr.slice(0, 3), pinStr.slice(3)];
+  switch (permutation) {
+  case 0: parts.push(pinParts[0]); parts.push(pinParts[1]); parts.push(words[0]); parts.push(words[1]); parts.push(words[2]); break;
+  case 1: parts.push(pinParts[0]); parts.push(words[0]); parts.push(pinParts[1]);parts.push(words[1]); parts.push(words[2]); break;
+  case 2: parts.push(pinParts[0]); parts.push(words[0]); parts.push(words[1]); parts.push(pinParts[1]); parts.push(words[2]); break;
+  case 3: parts.push(pinParts[0]); parts.push(words[0]); parts.push(words[1]); parts.push(words[2]); parts.push(pinParts[1]); break;
+  case 4: parts.push(words[0]); parts.push(pinParts[0]); parts.push(pinParts[1]); parts.push(words[1]); parts.push(words[2]); break;
+  case 5: parts.push(words[0]); parts.push(pinParts[0]); parts.push(words[1]); parts.push(pinParts[1]); parts.push(words[2]); break;
+  case 6: parts.push(words[0]); parts.push(pinParts[0]); parts.push(words[1]); parts.push(words[2]); parts.push(pinParts[1]); break;
+  case 7: parts.push(words[0]); parts.push(words[1]); parts.push(pinParts[0]); parts.push(pinParts[1]); parts.push(words[2]); break;
+  case 8: parts.push(words[0]); parts.push(words[1]); parts.push(pinParts[0]); parts.push(words[2]); parts.push(pinParts[1]); break;
+  case 9: parts.push(words[0]); parts.push(words[1]); parts.push(words[2]); parts.push(pinParts[0]); parts.push(pinParts[1]); break;
+  }
+  let MasterPassword = parts.join("");
+  let LaptopPassword = words[0] + pinStr;
+  document.getElementById("words").innerText = words.join(" ");
+  document.getElementById("MasterPassword").innerText = MasterPassword;
+  document.getElementById("LaptopPassword").innerText = LaptopPassword;
 }
-let MasterPassword = parts.join("");
-console.log(MasterPassword);
+document.getElementById("GenerateButton").onclick = generate;
+generate();
 </script>
 ++++
+====
 endif::backend-html5[]
+ifndef::backend-html5[]
 .Don't use these values in real life.
 ====
 * PIN 984073
@@ -279,7 +294,8 @@ endif::backend-html5[]
 * Bitwarden Master password: `cake984073ropingvocation`
 * Laptop password: `984vocation073`
 ====
-
+endif::backend-html5[]
++
 . Setup your MacBook according to xref:_macbook_setup[these recommendations].
 
 . Install Bitwarden app on all your devices and Bitwarden extensions for your web browsers. Enable TouchID/FaceID integration.
