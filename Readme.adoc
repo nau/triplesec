@@ -3,6 +3,7 @@
 :docdate: 2023-01-04
 :author: Alexander Nemish <anemish@gmail.com>
 :toc: left
+:sectlinks: true
 
 == Abstract
 Keeping your data safe is hard.
@@ -21,8 +22,10 @@ leaving your digital legacy to your loved ones.
 
 === Easy to use
 
-[quote,AviD's Rule of Usability, Nuff sad]
-Security at the expense of usability comes at the expense of security.
+[quote,AviD's Rule of Usability]
+Security at the expense of usability comes at the expense of security
+
+Nuff said.
 
 === Lowest amount of memorised information
 
@@ -49,27 +52,31 @@ There is a fire in your house. You get the point.
 
 === Legacy
 
-* Third-parties of your choice are able to access all your info after your death
-* Any third-party can be safely revoked from access to anything
-* Compromised Third-party is safe
+* Family and friends of your choice are able to access all your info in case of emergency or after your death
+* Any of them can be safely revoked from access to anything
+* If their devices are compromised an attacker won't be able to access your info
 
-=== Really secure info
+=== Really important info security
 
-If you have some really secure info that you want to keep extra safe, you can do it.
-For example, you have some important PGP keys, crypto wallets, or some passwords for your bank accounts.
+You should be able to securely store some really important info that you want to keep extra safe.
+For example, you have some important PGP keys, crypto wallets etc.
+Or some passwords you don't want to be in your Bitwarden, like your bank account or Google Account passwords.
 
-* Really secure info can't be accessed even when the laptop/phone is fully compromised
-* Really secure info can't be accessed even when your primary email/Bitwarden is compromised
-* Really secure info can't be accessed even when your 3rd parties are compromised
-* Plausible deniability. You have an option to store really secure info in a separate vault that is not accessible by your 3rd parties.
+* Really important info can't be accessed even when the laptop/phone is fully compromised
+* Really important info can't be accessed even when your primary email/Bitwarden is compromised
+* Really important info can't be accessed even when your 3rd parties are compromised
+* Plausible deniability. You have an option to store really important info in a separate vault that is not accessible by your family and friends.
 They can't even know that you have such a vault.
 
 === Minimum software/hardware
 
-Only well-known, well-tested, well-supported open-source software.
+We would prefere well-known, well-tested, well-supported open-source software.
+We would prefer to use Apple hardware. But we don't want to be locked in.
 
+Apple has a good reputation for security and privacy.
 
-== Assumptions and Prerequisites
+== Scheme Overview
+=== Assumptions and Prerequisites
 * AES256, SHA256 are secure
 * FaceID and TouchID are secure
 * iPhones ≥ 7 are secure
@@ -84,7 +91,6 @@ Only well-known, well-tested, well-supported open-source software.
 * You have a Google and/or iCloud accounts
 * Your MacBook and iPhone are not hacked at the time of setup
 
-== Scheme Overview
 === TL;DR
 . Generate a random 6 digits PIN and memorise it. That's your phone PIN, and your SIM PIN.
 
@@ -125,20 +131,21 @@ Assuming an attacker can compute PBKDF2-SHA256 with 1 GiOps/s (see <<pbkdf2>>),
 60 bits of entropy is enough to resist brute-force attacks for about 2 million years.
 
 .JavaScript code to calculate the entropy and the number years to brute-force the password
-[code,javascript]
+[source,javascript]
 ....
 const dicewareDictionary = 7776; // 6^5
 const dicewareWords = 3;
 const dicewareBits = Math.log2(dicewareDictionary ** dicewareWords);
 const pinLength = 6;
 const pinBits = Math.log2(10 ** pinLength);
-// split PIN in parts, put them in different places, 10 permutations
+// [1] word1 [2] word2 [3] word3 [4] – 4 places to put the PIN
 const permutationBits = Math.log2(4);
 const entropyBits = Math.floor(dicewareBits + pinBits + permutationBits);
 const pbkdf2Sha256PerSecond = 1e9; // 1 GH/s
 // Bitwarden uses 100,000 iterations of PBKDF2 with HMAC-SHA256
 const iterations = 100000;
 const pwdPerSecond = pbkdf2Sha256PerSecond / iterations;
+// on average an attacker needs to try half of the passwords
 const numTries = 2 ** (entropyBits - 1);
 const seconds = numTries / pwdPerSecond;
 const secondsInYear = 365 * 24 * 60 * 60;
@@ -154,7 +161,8 @@ console.log('Estimated time to brute-force: ' + years + ' years')
 iPhones, and MacBooks with T2 chip mitigate password brute-force attacks by requiring a longer delay between password attempts on the hardware level.
 iPhone can be configured to wipe all the data after 10 unsuccessful attempts.
 
-Even with the https://appleinsider.com/articles/22/02/17/password-cracking-tool-can-slowly-brute-force-t2-mac-passwords[recently discovered flaw], MacBooks' passwords can be tried at 15 passwords per second, makeing it essentially impossible to brute-force.
+Even with the https://appleinsider.com/articles/22/02/17/password-cracking-tool-can-slowly-brute-force-t2-mac-passwords[recently discovered flaw], MacBooks' passwords can be tried at 15 passwords per second.
+With 2^32^ passwords to try on average it would take about 9 years to brute-force, making it impractical.
 
 === Why Bitwarden?
 
@@ -162,8 +170,10 @@ Bitwarden is open-source, cross-platform, cross-browser, free, and has a good re
 
 It supports storing TOTP 2FA, TouchID/FaceID unlocking, allows Emergency Access, and it's easy to use. It is well integrated with iOS and MacOS.
 
+Apple Keychain is not open-source, and it's not cross-platform. It's not integrated with Chrome or Firefox browsers, and doesn't support TOTP 2FA.
+
 https://1password.com/[1Password] is a good alternative, but it's not open-source, and it's not free.
-Regardless, this scheme can be easily used with 1Password. You don't need to switch to Bitwarden if you already use 1Password.
+Anyhow, this scheme can be easily used with 1Password as well. You don't need to switch to Bitwarden if you already use 1Password. Same rules apply.
 
 https://keepassxc.org/[KeyPassXC] doesn't work on iPhones.
 
@@ -363,7 +373,7 @@ But, at a time of writing, all of them have issues with MacBooks with T2 chips: 
 .JavaScript code to compute the `DerivedMasterPwd`
 [%collapsible]
 ====
-[code,javascript]
+[source,javascript]
 ....
 const version = 0
 const pwd = 'cake984073ropingvocation'
@@ -473,18 +483,17 @@ Use a permutation of your `Master Password`, `PIN`, and `SecurePIN`.
 
 NOTE: Ideally, you do this on a USB booted Linux, but see xref:linux_usb_boot[a note about that].
 
-=== Crypto Wallets
+=== Crypto Wallets and Seeds
+Use a hardware wallet for storing crypto assets you don't want to lose.
+https://shop.ledger.com/pages/hardware-wallets-comparison[Ledgers] are a good choice. Others are https://trezor.io/[Trezor] and https://blockstream.com/jade/[Jade].
 
-Use a hardware wallet for storing your crypto assets. See <<Hardware Wallets and Seeds>>.
-
-=== Hardware Wallets and Seeds
 For a hardware wallet either use your phone `PIN`, or better generate another 6 digits random `SecurePIN`, depending on your paranoia.
 
-Store your seed either:
+Store your seed and `SecurePIN`:
 
 * in `Readme.txt` from the <<Bootstrapping Setup>>
-* or store the seed in the hidden volume of your xref:secure-info-storage[Really Secure Info Storage].
-* or even better, store the seed on a separate https://medium.com/@vincentbounce/cryptos-storage-transmission-the-safest-method-314560032872[old offline iPhone ] with the `SecurePIN` as a passcode.
+* and/or store the seed in the hidden volume of your xref:secure-info-storage[Really Secure Info Storage].
+* and/or even better, store the seed on a separate https://medium.com/@vincentbounce/cryptos-storage-transmission-the-safest-method-314560032872[old offline iPhone ] with the `SecurePIN` as a passcode.
 
 == Threats
 
@@ -572,9 +581,6 @@ You are screwed.
 image::https://imgs.xkcd.com/comics/security.png[xkcd 538]
 
 Use other means for storing your crypto.
-
-https://keys.casa/
-
 
 === Spouse malevolence
 
@@ -673,6 +679,13 @@ EmergencyInfo = DerivedMasterPwd, Ledger/OldPhone SecurePIN
 
 Now the distrusted 3-rd party can't access your secrets after your death.
 
+=== You forgot your Master Password or SecurePIN
+
+* Go to your Google Digital Legacy Plan and get your `DerivedMasterPwd` from there.
+* Ask your trusted 3-rd parties to give you the `Readme-$version.txt.gpg` file.
+* Decrypt it with `DerivedMasterPwd` and get your `MasterPassword` and `PIN`.
+
+  gpg -d --cipher-algo AES256 Readme-0.txt.gpg
 
 [glossary]
 == Glossary
