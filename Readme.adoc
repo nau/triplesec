@@ -75,8 +75,8 @@ We would prefer to use Apple hardware. But we don't want to be locked in.
 
 Apple has a good reputation for security and privacy.
 
-== Scheme Overview
-=== Assumptions and Prerequisites
+== Scheme overview
+=== Assumptions and prerequisites
 * AES256, SHA256 are secure
 * FaceID and TouchID are secure
 * iPhones ≥ 7 are secure
@@ -106,7 +106,7 @@ That's your https://bitwarden.com/[Bitwarden] Master Password.
 
 . Store your really sensitive info in a Google Drive/iCloud synced VeraCrypt volume.
 
-.Don't use these values in real life.
+.Don't use these values in real life
 ====
 * PIN 984073
 * Words: `cake` `roping` `vocation`
@@ -120,7 +120,7 @@ Use Bitwarden Password Generator to create strong, secure passwords or passphras
 
 And you don't need to enter your PIN, laptop password and Bitwarden password very often thanks to TouchID/FaceID.
 
-=== Passwords Security Analysis
+=== Passwords security analysis
 
 6 digits PIN is ~20 bits of entropy, 3 Diceware words give another ~39 bits of entropy.
 Combined with 2 bits of PIN permutations, the scheme gives roughly 60 bits of entropy for the Bitwarden Master Password.
@@ -295,7 +295,7 @@ ifndef::backend-html5[]
 ====
 endif::backend-html5[]
 
-=== iPhone Setup
+=== iPhone setup
 
 * Setup iPhone passcode to be PIN: _Settings -> Face ID & Passcode_
 * Delete all existing TouchID fingerprints or FaceID data and setup new ones: _Settings -> Face ID & Passcode -> Reset Face ID_
@@ -311,7 +311,7 @@ _Settings -> Face ID & Passcode -> Erase Data_.
 * Disable all notifications on locked screen.
 _Settings -> Notifications -> Show Previews -> When Unlocked_
 
-=== Bitwarden Setup
+=== Bitwarden setup
 [%interactive]
 * [ ] Install Bitwarden app on all your devices and Bitwarden extensions for your web browsers. Enable TouchID/FaceID integration.
 +
@@ -334,7 +334,7 @@ Enable TOTP 2FA everywhere where there is such an option: Google, Facebook, Twit
 In case you use Google Authenticator, Duo, Authy or other, you may want to migrate to TOTP 2FA in Bitwarden to simplify things. It's OK.
 
 
-=== MacBook Setup
+=== MacBook setup
 
 * [ ] Enable FileVault2 encryption: _System Settings -> Privacy & Security -> FileVault_.
 * [ ] Store the hard drive Recovery code in Bitwarden.
@@ -350,7 +350,7 @@ Use TouchID for sudo, ssh, payments, FIDO2, etc.
 
 Useful tool is https://github.com/maxgoedjen/secretive[Secretive] – an an app for storing and managing SSH keys in the Mac T2 Secure Enclave.
 
-=== Bootstrapping Setup
+=== Bootstrapping setup
 [#linux_usb_boot]
 [NOTE]
 ====
@@ -451,7 +451,7 @@ I guess I'm dead. Decrypt Readme-0.txt.gpg with `DerivedMasterPwd` to get my pas
 gpg -d --cipher-algo AES256 Readme-0.txt.gpg
 
 [#secure-info-storage]
-=== Really Secure Info Storage
+=== Really Secure Info storage
 
 You may want to store some really important info in a really secure way. For example, your crypto wallet seeds, PGP keys, Bitwarden Recovery Code etc.
 
@@ -483,7 +483,7 @@ Use a permutation of your `Master Password`, `PIN`, and `SecurePIN`.
 
 NOTE: Ideally, you do this on a USB booted Linux, but see xref:linux_usb_boot[a note about that].
 
-=== Crypto Wallets and Seeds
+=== Crypto wallets and seeds
 Use a hardware wallet for storing crypto assets you don't want to lose.
 https://shop.ledger.com/pages/hardware-wallets-comparison[Ledgers] are a good choice. Others are https://trezor.io/[Trezor] and https://blockstream.com/jade/[Jade].
 
@@ -518,12 +518,12 @@ Then you are mostly screwed. Your xref:secure-info-storage[Really Secure Info St
 
 * Attacker CAN NOT access `SecureStorage` as he doesn't know the password
 
-=== iPhone is Stolen
+=== iPhone is stolen
 
 Assuming your PIN/password is not known to the attacker, you are safe.
 Your SIM card is safe, too.
 
-=== iPhone is Stolen with PIN
+=== iPhone is stolen with PIN
 * Attacker CAN access your Bitwarden, Gmail, TouchID/FIDO2, Github, Social Media, Messengers, iCloud, Google Account, etc.
 
 * Attacker CAN access and unlink the laptop in iCloud by using TouchID and Safair browser to login to iCloud. I don't know how to prevent this.
@@ -609,7 +609,7 @@ If you suspect your spouse to become malevolent you can change your iPhone PIN a
 . Restore wallets from seeds, transfer crypto
 . Erase all stolen devices
 
-=== Laptop Lost Checklist
+=== Lost laptop checklist
 . Login to Bitwarden Web Vault
 [%interactive]
 * [ ] Go to Account Settings
@@ -626,8 +626,7 @@ If you suspect your spouse to become malevolent you can change your iPhone PIN a
 * [ ] Manage Account -> Your devices -> Sing out
 * [ ] 2FA -> Remove TouchID key
 
-=== iPhone Lost Checklist
-
+=== Lost iPhone checklist
 . Login to Bitwarden web vault
 . Go to Account Settings
 . Deauthorize session
@@ -639,24 +638,13 @@ If you suspect your spouse to become malevolent you can change your iPhone PIN a
 . Manage Account -> Your devices -> Sing out
 . Banks as well
 
-=== YubiKey is Lost or Stolen Checklist
-. Setup new YubiKey from SecureStorage/OldPhone
-. Change YubiKey Longtap password in SecureInfoFile
-. Change VeraCrypt password
-. Resend EncryptedSIF
-
-=== Ledger is Stolen Checklist
-. Setup new seed
-. 5. 5. Transfer money
-. Update SecureStorage
-
-=== Death or Emergency
+=== Death or emergency
 Spouse can access a laptop/phone, access Bitwarden/Gmail.
 Leave a Emergency Note and tell to look it up in case of emergency.
 Google Account Inactivity set up for 3 month with EmergencyInfo
 EmergencyInfo = DerivedMasterPwd, Ledger/OldPhone SecurePIN
 
-=== Spouse Distrust
+=== Spouse distrust
 . Change iPhone PIN
 . Remove all iPhone FaceIDs and setup new one
 . Change laptop password PIN to the new iPhonePIN
@@ -664,20 +652,14 @@ EmergencyInfo = DerivedMasterPwd, Ledger/OldPhone SecurePIN
 . Revoke Google Inactivity Access
 . Revoke iCloud Recovery Account
 
-=== 3rd Party Distrust
-. VersionNumber += 1
-. Compute new `DerivedMasterPwd'`, `Readme-1.txt.gpg`
-. Send `Readme-1.txt.gpg` to trusted 3rd-parties
-. Remove distrusted 3rd-party from Google Legacy Plan
-. Put new `DerivedMasterPwd'` in Google Legacy Plan notes
+=== 3rd party distrust
+* Increment the version of your `Readme-$version.txt` (e.g. `Readme-1.txt`)
+* Derive a new `DerivedMasterPwd` with `MasterPassword`, `PIN` and new version using the algorithm from <<Bootstrapping setup>>
+* Re-encrypt your `Readme-$version.txt` with the new `DerivedMasterPwd`
+* Share it with your trusted 3-rd parties
+* Update your `DerivedMasterPwd` in your Google Digital Legacy Plan
 
-* Increment the version of your Readme-$version.txt
-* Derive a new `DerivedMasterPwd` with `MasterPassword`, `PIN` and new version using the algorithm from <<Bootstrapping Setup>>
-* Re-encrypt your `Readme-$version.txt` with it.
-* Share it with your trusted 3-rd parties.
-* Update your `DerivedMasterPwd` in your Google Digital Legacy Plan.
-
-Now the distrusted 3-rd party can't access your secrets after your death.
+Now the distrusted 3-rd party can't access your secrets after your death or inactivity.
 
 === You forgot your Master Password or SecurePIN
 
