@@ -5,6 +5,7 @@
 :author: Alexander Nemish <anemish@gmail.com> @atlanter
 :toc: left
 :sectlinks: true
+:favicon: favicon.ico
 
 ifdef::backend-html5[]
 ++++
