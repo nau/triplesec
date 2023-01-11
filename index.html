@@ -5,8 +5,8 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.18">
-<meta name="author" content="Alexander Nemish &lt;anemish@gmail.com&gt;">
-<title>Simple Digital Security Scheme</title>
+<meta name="author" content="Alexander Nemish &lt;anemish@gmail.com&gt; https://twitter.com/atlanter[atlanter]">
+<title>Triple Sec – Simple Digital Security Scheme</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /*! Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -440,9 +440,9 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </head>
 <body class="article toc2 toc-left">
 <div id="header">
-<h1>Simple Digital Security Scheme</h1>
+<h1>Triple Sec – Simple Digital Security Scheme</h1>
 <div class="details">
-<span id="author" class="author">Alexander Nemish &lt;anemish@gmail.com&gt;</span><br>
+<span id="author" class="author">Alexander Nemish &lt;anemish@gmail.com&gt; https://twitter.com/atlanter[atlanter]</span><br>
 </div>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
@@ -451,7 +451,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_desired_properties">Desired properties</a>
 <ul class="sectlevel2">
 <li><a href="#_easy_to_use">Easy to use</a></li>
-<li><a href="#_lowest_amount_of_memorised_information">Lowest amount of memorised information</a></li>
+<li><a href="#_lowest_amount_of_memorized_information">Lowest amount of memorized information</a></li>
 <li><a href="#_no_single_point_of_failure">No single point of failure</a></li>
 <li><a href="#_cross_platform">Cross-platform</a></li>
 <li><a href="#_bootstrapping">Bootstrapping</a></li>
@@ -471,7 +471,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_cons">Cons</a></li>
 </ul>
 </li>
-<li><a href="#_setup_guide">Setup Guide</a>
+<li><a href="#_setup_guide">Setup guide</a>
 <ul class="sectlevel2">
 <li><a href="#_passwords_and_pins">Passwords and PINs</a></li>
 <li><a href="#_iphone_setup">iPhone setup</a></li>
@@ -485,14 +485,14 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_threats">Threats</a>
 <ul class="sectlevel2">
 <li><a href="#_a_service_password_is_hacked">A service password is hacked</a></li>
-<li><a href="#_laptop_is_stolen_password_is_not_known_to_an_attacker">Laptop is stolen, password is not known to an attacker</a></li>
+<li><a href="#_laptop_is_stolen_the_password_is_not_known_to_an_attacker">Laptop is stolen, the password is not known to an attacker</a></li>
 <li><a href="#_laptop_is_stolen_laptop_password_known_to_an_attacker">Laptop is stolen, laptop password known to an attacker</a></li>
 <li><a href="#_iphone_is_stolen">iPhone is stolen</a></li>
 <li><a href="#_iphone_is_stolen_with_pin">iPhone is stolen with PIN</a></li>
 <li><a href="#_google_banned_you">Google banned you</a></li>
 <li><a href="#_encrypted_data_is_lost">Encrypted data is lost</a></li>
 <li><a href="#_sim_card_is_copied">SIM card is copied</a></li>
-<li><a href="#_a_third_party_is_no_longer_trusted">A third-party is no longer trusted</a></li>
+<li><a href="#_a_third_party_is_no_longer_trusted">A third party is no longer trusted</a></li>
 <li><a href="#_death">Death</a></li>
 <li><a href="#_the_laptop_is_rooted">The laptop is rooted</a></li>
 <li><a href="#_targeted_cyber_attack_social_engineering">Targeted cyber attack, social engineering</a></li>
@@ -524,16 +524,16 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="sectionbody">
 <div class="paragraph">
 <p>Keeping your data safe is hard.
-Keeping your data safe and easy to use among multitude devices and services is even harder.
-Here is a KISS security setup scheme for your MacBook, iPhone,
+Keeping your data safe and easy to use among a multitude of devices and services is even harder.
+Triple Sec is a KISS security setup scheme for your MacBook, iPhone,
 and web services that is easy to use and relatively hard to break.</p>
 </div>
 <div class="paragraph">
 <p>It&#8217;s based on the idea of using a combination of a random 3-4 word passphrase
-and a 6 digits PIN, along with a password manager and TouchID/FaceID devices.</p>
+and a 6-digit PIN, a password manager and TouchID/FaceID devices.</p>
 </div>
 <div class="paragraph">
-<p>The scheme allows to regain access to all of your data
+<p>The scheme allows regaining access to all of your data
 even in case of losing all of your devices, or in case of your death,
 leaving your digital legacy to your loved ones.</p>
 </div>
@@ -557,13 +557,13 @@ Security at the expense of usability comes at the expense of security
 </div>
 </div>
 <div class="sect2">
-<h3 id="_lowest_amount_of_memorised_information"><a class="link" href="#_lowest_amount_of_memorised_information">Lowest amount of memorised information</a></h3>
+<h3 id="_lowest_amount_of_memorized_information"><a class="link" href="#_lowest_amount_of_memorized_information">Lowest amount of memorized information</a></h3>
 <div class="paragraph">
-<p>Humans are notoriously bad at memorising long strings of random characters.
-We are good at memorising short phrases, and making up stories about them.</p>
+<p>Humans are notoriously bad at memorizing long strings of random characters.
+We are good at remembering short phrases and making up stories about them.</p>
 </div>
 <div class="paragraph">
-<p>This classic comics is a good illustration of the problem</p>
+<p>This classic XKCD is a good illustration of the problem</p>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -574,20 +574,20 @@ We are good at memorising short phrases, and making up stories about them.</p>
 <div class="sect2">
 <h3 id="_no_single_point_of_failure"><a class="link" href="#_no_single_point_of_failure">No single point of failure</a></h3>
 <div class="paragraph">
-<p>Duh. Any device loss must not compromise your security nor lead to sensitive data loss.</p>
+<p>Duh. Any device loss must not compromise your security or lead to sensitive data loss.</p>
 </div>
 </div>
 <div class="sect2">
 <h3 id="_cross_platform"><a class="link" href="#_cross_platform">Cross-platform</a></h3>
 <div class="paragraph">
-<p>The scheme must work on any platform, including mobile, desktop, and web.</p>
+<p>The scheme must work on any mobile, desktop, and web platform.</p>
 </div>
 </div>
 <div class="sect2">
 <h3 id="_bootstrapping"><a class="link" href="#_bootstrapping">Bootstrapping</a></h3>
 <div class="paragraph">
-<p>Even if every hardware item you own is lost you still can regain access to everything.
-Imaging an act of God of your dislike. You&#8217;re fleeing from rashists in Ukraine or in Siria.
+<p>Even if every hardware item you own is lost, you can still regain access to everything.
+Imagine an act of God of your dislike. You&#8217;re fleeing from rashists in Ukraine or Siria.
 There is a fire in your house. You get the point.</p>
 </div>
 </div>
@@ -596,13 +596,13 @@ There is a fire in your house. You get the point.</p>
 <div class="ulist">
 <ul>
 <li>
-<p>Family and friends of your choice are able to access all your info in case of emergency or after your death</p>
+<p>Family and friends of your choice can access all your info in case of emergency or after your death</p>
 </li>
 <li>
 <p>Any of them can be safely revoked from access to anything</p>
 </li>
 <li>
-<p>If their devices are compromised an attacker won&#8217;t be able to access your info</p>
+<p>If their devices are compromised, an attacker won&#8217;t be able to access your info</p>
 </li>
 </ul>
 </div>
@@ -626,7 +626,7 @@ Or some passwords you don&#8217;t want to be in your Bitwarden, like your bank a
 <p>Really important info can&#8217;t be accessed even when your 3rd parties are compromised</p>
 </li>
 <li>
-<p>Plausible deniability. You have an option to store really important info in a separate vault that is not accessible by your family and friends.
+<p>Plausible deniability. You can store really important info in a separate vault that is not accessible to your family and friends.
 They can&#8217;t even know that you have such a vault.</p>
 </li>
 </ul>
@@ -635,11 +635,8 @@ They can&#8217;t even know that you have such a vault.</p>
 <div class="sect2">
 <h3 id="_minimum_softwarehardware"><a class="link" href="#_minimum_softwarehardware">Minimum software/hardware</a></h3>
 <div class="paragraph">
-<p>We would prefere well-known, well-tested, well-supported open-source software.
-We would prefer to use Apple hardware. But we don&#8217;t want to be locked in.</p>
-</div>
-<div class="paragraph">
-<p>Apple has a good reputation for security and privacy.</p>
+<p>We prefer well-known, well-tested, well-supported open-source software.
+We prefer to use Apple hardware as they have a good reputation for security and privacy. But we don&#8217;t want to be locked in.</p>
 </div>
 </div>
 </div>
@@ -673,7 +670,7 @@ We would prefer to use Apple hardware. But we don&#8217;t want to be locked in.<
 <p>You have several 3-rd parties who can identify you and will cooperate</p>
 </li>
 <li>
-<p>Your significant other is not a malevolent psychopath</p>
+<p>Your significant other is not an evil psychopath</p>
 </li>
 <li>
 <p>You are not a subject of state-level attack</p>
@@ -682,10 +679,10 @@ We would prefer to use Apple hardware. But we don&#8217;t want to be locked in.<
 <p>You use iPhone ≥ 7 with TouchID/FaceID</p>
 </li>
 <li>
-<p>You use a MacBook with T2 security chip</p>
+<p>You use a MacBook with a T2 security chip</p>
 </li>
 <li>
-<p>You have a Google and/or iCloud accounts</p>
+<p>You have a Google account</p>
 </li>
 <li>
 <p>Your MacBook and iPhone are not hacked at the time of setup</p>
@@ -698,15 +695,15 @@ We would prefer to use Apple hardware. But we don&#8217;t want to be locked in.<
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Generate a random 6 digits PIN and memorise it. That&#8217;s your phone PIN, and your SIM PIN.</p>
+<p>Generate a random 6-digit PIN and memorize it. That&#8217;s your phone PIN and your SIM PIN.</p>
 </li>
 <li>
-<p>Generate 3 random words using <a href="https://www.eff.org/dice">EFF Dice</a> or <a href="https://diceware.dmuth.org/">Diceware</a>.
-Combine with the PIN and memorise the passphrase.
+<p>Generate three random words using <a href="https://www.eff.org/dice">EFF Dice</a> or <a href="https://diceware.dmuth.org/">Diceware</a>.
+Combine with the PIN and memorize the passphrase.
 That&#8217;s your <a href="https://bitwarden.com/">Bitwarden</a> Master Password.</p>
 </li>
 <li>
-<p>Take a word and combine it with PIN. That&#8217;s you laptop password. You MAY store it in Bitwarden.</p>
+<p>Take a word and combine it with the PIN. That&#8217;s your laptop password. You MAY store it in Bitwarden.</p>
 </li>
 <li>
 <p>Use Bitwarden to generate strong passwords and TOTP 2FA codes for all your services.</p>
@@ -741,10 +738,10 @@ That&#8217;s your <a href="https://bitwarden.com/">Bitwarden</a> Master Password
 </div>
 </div>
 <div class="paragraph">
-<p>One good in-memory only password protects all your other passwords, TOTP 2FA, Recovery codes, etc.</p>
+<p>One good in-memory-only password protects all your other passwords, TOTP 2FA, Recovery codes, etc.</p>
 </div>
 <div class="paragraph">
-<p>Use Bitwarden Password Generator to create strong, secure passwords or passphrases. Those are encrypted with a strong encryption algorithm, and synced securely between your devices.</p>
+<p>Use Bitwarden Password Generator to create strong, secure passwords or passphrases. Those are encrypted with a strong encryption algorithm and synced securely between your devices.</p>
 </div>
 <div class="paragraph">
 <p>And you don&#8217;t need to enter your PIN, laptop password and Bitwarden password very often thanks to TouchID/FaceID.</p>
@@ -753,8 +750,8 @@ That&#8217;s your <a href="https://bitwarden.com/">Bitwarden</a> Master Password
 <div class="sect2">
 <h3 id="_passwords_security_analysis"><a class="link" href="#_passwords_security_analysis">Passwords security analysis</a></h3>
 <div class="paragraph">
-<p>6 digits PIN is ~20 bits of entropy, 3 Diceware words give another ~39 bits of entropy.
-Combined with 2 bits of PIN permutations, the scheme gives roughly 60 bits of entropy for the Bitwarden Master Password.</p>
+<p>6-digit PIN is ~20 bits of entropy, 3 Diceware words give another ~39 bits of entropy, and a random PIN position provides another 2 bits of entropy.
+Thus, the scheme gives roughly 60 bits of entropy for the Bitwarden Master Password.</p>
 </div>
 <div class="paragraph">
 <p>Bitwarden <a href="https://bitwarden.com/help/what-encryption-is-used/#pbkdf2">uses 100,000</a> iterations of PBKDF2 with HMAC-SHA256
@@ -763,7 +760,7 @@ Assuming an attacker can compute PBKDF2-SHA256 with 1 GiOps/s (see <a href="#pbk
 60 bits of entropy is enough to resist brute-force attacks for about 2 million years.</p>
 </div>
 <div class="listingblock">
-<div class="title">JavaScript code to calculate the entropy and the number years to brute-force the password</div>
+<div class="title">JavaScript code to calculate the entropy and the number of years to brute-force the password</div>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-javascript hljs" data-lang="javascript">const dicewareDictionary = 7776; // 6^5
 const dicewareWords = 3;
@@ -782,36 +779,36 @@ const numTries = 2 ** (entropyBits - 1);
 const seconds = numTries / pwdPerSecond;
 const secondsInYear = 365 * 24 * 60 * 60;
 const years = seconds / secondsInYear;
-console.log('Password Entroy: ' + entropyBits + ' bits ')
+console.log('Password Entropy: ' + entropyBits + ' bits ')
 console.log('Estimated time to brute-force: ' + years + ' years')
 // outputs:
-// Password Entroy: 60 bits
+// Password Entropy: 60 bits
 // Estimated time to brute-force: 1827945.0542346002 years</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>iPhones, and MacBooks with T2 chip mitigate password brute-force attacks by requiring a longer delay between password attempts on the hardware level.
+<p>iPhones and MacBooks with T2 chips mitigate password brute-force attacks by requiring a longer delay between password attempts on the hardware level.
 iPhone can be configured to wipe all the data after 10 unsuccessful attempts.</p>
 </div>
 <div class="paragraph">
 <p>Even with the <a href="https://appleinsider.com/articles/22/02/17/password-cracking-tool-can-slowly-brute-force-t2-mac-passwords">recently discovered flaw</a>, MacBooks' passwords can be tried at 15 passwords per second.
-With 2<sup>32</sup> passwords to try on average it would take about 9 years to brute-force, making it impractical.</p>
+With 2<sup>32</sup> passwords to try, on average, it would take about 9 years to brute-force, making it impractical.</p>
 </div>
 </div>
 <div class="sect2">
 <h3 id="_why_bitwarden"><a class="link" href="#_why_bitwarden">Why Bitwarden?</a></h3>
 <div class="paragraph">
-<p>Bitwarden is open-source, cross-platform, cross-browser, free, and has a good reputation. The code is audited and the company is trustworthy.</p>
+<p>Bitwarden is open-source, cross-platform, cross-browser, free, and has a good reputation. The code is audited, and the company is trustworthy.</p>
 </div>
 <div class="paragraph">
-<p>It supports storing TOTP 2FA, TouchID/FaceID unlocking, allows Emergency Access, and it&#8217;s easy to use. It is well integrated with iOS and MacOS.</p>
+<p>It supports storing TOTP 2FA, TouchID/FaceID unlocking, allows Emergency Access, and it&#8217;s easy to use. It is well-integrated with iOS and macOS.</p>
 </div>
 <div class="paragraph">
-<p>Apple Keychain is not open-source, and it&#8217;s not cross-platform. It&#8217;s not integrated with Chrome or Firefox browsers, and doesn&#8217;t support TOTP 2FA.</p>
+<p>Apple Keychain is not open-source, and it&#8217;s not cross-platform. It&#8217;s not integrated with Chrome or Firefox browsers and doesn&#8217;t support TOTP 2FA.</p>
 </div>
 <div class="paragraph">
 <p><a href="https://1password.com/">1Password</a> is a good alternative, but it&#8217;s not open-source, and it&#8217;s not free.
-Anyhow, this scheme can be easily used with 1Password as well. You don&#8217;t need to switch to Bitwarden if you already use 1Password. Same rules apply.</p>
+Anyhow, this scheme can be easily used with 1Password as well. You don&#8217;t need to switch to Bitwarden if you already use 1Password. The same rules apply.</p>
 </div>
 <div class="paragraph">
 <p><a href="https://keepassxc.org/">KeyPassXC</a> doesn&#8217;t work on iPhones.</p>
@@ -831,26 +828,26 @@ you can do it with Bitwarden <a href="https://bitwarden.com/help/emergency-acces
 you can leave the vault password to your loved ones.</p>
 </div>
 <div class="paragraph">
-<p>Basically, you store your Secure Vault password in an encrypted file
+<p>You store your Secure Vault password in an encrypted file
 that you share with your loved ones.</p>
 </div>
 <div class="paragraph">
 <p>The encryption password is derived from your Master Password.
-You store it in your Google Digital Legacy Plan along with instructions on how to access your Secury Vault.</p>
+You store it in your Google Digital Legacy Plan along with instructions on accessing your Secure Vault.</p>
 </div>
 <div class="paragraph">
 <p>In case of your death, your loved ones will receive a notification from Google
-and will be able to access your encrypted file with your Secury Vault password.</p>
+and can access your encrypted file with your Secure Vault password.</p>
 </div>
 <div class="paragraph">
-<p>If you loose all your devices, you can ask your loved ones
+<p>If you lose all your devices, you can ask your loved ones
 to give you the encrypted file with your Secure Vault password,
-derive the password from your Master Password, and access your Secury Vault.</p>
+derive the password from your Master Password, and access your Secure Vault.</p>
 </div>
 <div class="paragraph">
 <p>If you stop trusting one of your loved ones
 you can revoke their access to your encrypted file by changing a version of the derived password,
-re-encrypting the file, and sharing it with your loved ones again.</p>
+re-encrypting the file and sharing it with your loved ones again.</p>
 </div>
 <div class="paragraph">
 <p>Don&#8217;t forget to update your Google Digital Legacy Plan accordingly.</p>
@@ -867,7 +864,7 @@ re-encrypting the file, and sharing it with your loved ones again.</p>
 <p>super easy to use, rarely need to enter your PIN, laptop password or Bitwarden password</p>
 </li>
 <li>
-<p>loss of any device is neither security nor data loss concern</p>
+<p>loss of any device is neither a security nor data loss concern</p>
 </li>
 <li>
 <p>can bootstrap from nothing just knowing your Master password</p>
@@ -879,10 +876,10 @@ re-encrypting the file, and sharing it with your loved ones again.</p>
 <p>laptop password is good enough to resist brute-force attacks in case the laptop is stolen</p>
 </li>
 <li>
-<p>you can share your PIN and even your laptop password with your significant other and they still can&#8217;t easily access Master password protected items in Bitwarden. They can if they know what they are doing, though.</p>
+<p>you can share your PIN and even your laptop password with your significant other, and they still can&#8217;t easily access Master Password-protected items in Bitwarden. They can if they know what they are doing, though.</p>
 </li>
 <li>
-<p>in case you distrust your significant other – just change your PIN on your phone, laptop, and Bitwarden.</p>
+<p>in case you distrust your significant other – change your PIN on your phone, laptop, and Bitwarden.</p>
 </li>
 </ul>
 </div>
@@ -893,7 +890,7 @@ re-encrypting the file, and sharing it with your loved ones again.</p>
 <ul>
 <li>
 <p>you are screwed if someone shoulder-hunts or records your Bitwarden password,
-unless you setup 2FA in Bitwarden.
+unless you set up 2FA in Bitwarden.
 Watch your back when you need to enter the password.</p>
 </li>
 <li>
@@ -915,14 +912,14 @@ unless you are accepting the risk of losing your crypto</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_setup_guide"><a class="link" href="#_setup_guide">Setup Guide</a></h2>
+<h2 id="_setup_guide"><a class="link" href="#_setup_guide">Setup guide</a></h2>
 <div class="sectionbody">
 <div class="sect2">
 <h3 id="_passwords_and_pins"><a class="link" href="#_passwords_and_pins">Passwords and PINs</a></h3>
 <div class="ulist checklist">
 <ul class="checklist">
 <li>
-<p><input type="checkbox" data-item-complete="0"> Generate a random 6 digits PIN and memorise it. That&#8217;s your phone passcode.</p>
+<p><input type="checkbox" data-item-complete="0"> Generate a random 6-digit PIN and memorize it. That&#8217;s your phone passcode.</p>
 </li>
 <li>
 <p><input type="checkbox" data-item-complete="0"> Generate 3 random words using <a href="https://bitwarden.com/password-generator/">Bitwarden Password Generator</a>, <a href="https://www.eff.org/dice">EFF Dice</a>, <a href="https://diceware.dmuth.org/">Diceware</a>.</p>
@@ -977,11 +974,11 @@ generate();
 <div class="ulist checklist">
 <ul class="checklist">
 <li>
-<p>&#10063; Combine with the PIN and memorise the passphrase.
+<p>&#10063; Combine with the PIN and memorize the passphrase.
 That&#8217;s your Bitwarden Master Password.</p>
 </li>
 <li>
-<p>&#10063; Take a word and combine it with PIN. That&#8217;s you laptop password. You MAY store it in Bitwarden.</p>
+<p>&#10063; Take a word and combine it with PIN. That&#8217;s your laptop password. You MAY store it in Bitwarden.</p>
 </li>
 </ul>
 </div>
@@ -994,12 +991,12 @@ That&#8217;s your Bitwarden Master Password.</p>
 <p>Setup iPhone passcode to be PIN: <em>Settings &#8594; Face ID &amp; Passcode</em></p>
 </li>
 <li>
-<p>Delete all existing TouchID fingerprints or FaceID data and setup new ones: <em>Settings &#8594; Face ID &amp; Passcode &#8594; Reset Face ID</em></p>
+<p>Delete all existing TouchID fingerprints or FaceID data and set up new ones: <em>Settings &#8594; Face ID &amp; Passcode &#8594; Reset Face ID</em></p>
 </li>
 <li>
 <p>Enable SIM PIN, set it to the first 4 digits of your iPhone PIN: <em>Settings &#8594; Mobile Data &#8594; Carrier &#8594; SIM PIN</em></p>
 <div class="paragraph">
-<p>This way we protect your phone from SIM hijacking and SIM swap attacks.
+<p>This way, we protect your phone from SIM hijacking and SIM swap attacks.
 An attacker can&#8217;t use your phone for 2FA via SMS if they don&#8217;t have your PIN.</p>
 </div>
 </li>
@@ -1013,10 +1010,10 @@ An attacker can&#8217;t use your phone for 2FA via SMS if they don&#8217;t have 
 <em>Settings &#8594; Face ID &amp; Passcode &#8594; Erase Data</em>.</p>
 </li>
 <li>
-<p>Setup a security question/password with your mobile service provider to avoid SIM hijacking. Store it in Bitwarden.</p>
+<p>Set up a security question/password with your mobile service provider to avoid SIM hijacking. Store it in Bitwarden.</p>
 </li>
 <li>
-<p>Disable all notifications on locked screen.
+<p>Disable all notifications on the locked screen.
 <em>Settings &#8594; Notifications &#8594; Show Previews &#8594; When Unlocked</em></p>
 </li>
 </ul>
@@ -1029,14 +1026,14 @@ An attacker can&#8217;t use your phone for 2FA via SMS if they don&#8217;t have 
 <li>
 <p><input type="checkbox" data-item-complete="0"> Install Bitwarden app on all your devices and Bitwarden extensions for your web browsers. Enable TouchID/FaceID integration.</p>
 <div class="paragraph">
-<p>You MAY enable 2FA for your Bitwarden account. It&#8217;s not necessary, but it&#8217;s a good practice. Don&#8217;t use TOTP, use email, YubiKey, FIDO2, and Recovery Code.</p>
+<p>You MAY enable 2FA for your Bitwarden account. It&#8217;s not necessary, but it&#8217;s good practice. Don&#8217;t use TOTP. Use email, YubiKey, FIDO2, and Recovery Code instead.</p>
 </div>
 </li>
 <li>
 <p><input type="checkbox" data-item-complete="0"> Setup Bitwarden <a href="https://bitwarden.com/help/getting-started-browserext/#unlock-with-pin-or-biometrics">Unlock with Biometrics</a> option.</p>
 </li>
 <li>
-<p><input type="checkbox" data-item-complete="0"> Optionally, setup 2FA for your Bitwarden account. It&#8217;s not necessary, but it&#8217;s a good practice. Don&#8217;t use TOTP. Use email, YubiKey, FIDO2, and Recovery Code.</p>
+<p><input type="checkbox" data-item-complete="0"> Optionally, setup 2FA for your Bitwarden account. It&#8217;s not necessary, but it&#8217;s good practice. Don&#8217;t use TOTP. Use email, YubiKey, FIDO2, and Recovery Code.</p>
 </li>
 <li>
 <p><input type="checkbox" data-item-complete="0"> Setup <a href="https://bitwarden.com/help/log-in-with-device/">Log in with Device</a> for your iPhone.</p>
@@ -1047,7 +1044,7 @@ An attacker can&#8217;t use your phone for 2FA via SMS if they don&#8217;t have 
 </ul>
 </div>
 <div class="paragraph">
-<p>From now on store all passwords, TOTPs, Recovery codes etc in Bitwarden.</p>
+<p>Store all passwords, TOTPs, Recovery codes etc., in Bitwarden.</p>
 </div>
 <div class="paragraph">
 <p>Use Bitwarden Password Generator to generate secure passwords or passphrases.</p>
@@ -1056,7 +1053,7 @@ An attacker can&#8217;t use your phone for 2FA via SMS if they don&#8217;t have 
 <p>Enable TOTP 2FA everywhere where there is such an option: Google, Facebook, Twitter, Instagram, banking, crypto exchanges, mobile providers etc.</p>
 </div>
 <div class="paragraph">
-<p>In case you use Google Authenticator, Duo, Authy or other, you may want to migrate to TOTP 2FA in Bitwarden to simplify things. It&#8217;s OK.</p>
+<p>If you use Google Authenticator, Duo, Authy or another, you may want to migrate to TOTP 2FA in Bitwarden to simplify things. It&#8217;s OK.</p>
 </div>
 </div>
 <div class="sect2">
@@ -1076,7 +1073,7 @@ An attacker can&#8217;t use your phone for 2FA via SMS if they don&#8217;t have 
 <p>&#10063; Enable Firewall</p>
 </li>
 <li>
-<p>&#10063; Setup <a href="https://apple.stackexchange.com/a/306324">PAM with TouchID</a> to avoid entering the laptop password on <code>sudo</code> commands.</p>
+<p>&#10063; Set up <a href="https://apple.stackexchange.com/a/306324">PAM with TouchID</a> to avoid entering the laptop password on the <code>sudo</code> commands.</p>
 </li>
 </ul>
 </div>
@@ -1084,13 +1081,13 @@ An attacker can&#8217;t use your phone for 2FA via SMS if they don&#8217;t have 
 <p>You&#8217;ll have to enter your laptop password only after a reboot. Avoid doing it with someone watching or near a camera.</p>
 </div>
 <div class="paragraph">
-<p>Unlock Bitwarden with TouchID, avoid typing your Master password. Login to Bitwarden Web Vault using your iPhone when needed.</p>
+<p>Unlock Bitwarden with TouchID, and avoid typing your Master password. Login to Bitwarden Web Vault using your iPhone when needed.</p>
 </div>
 <div class="paragraph">
 <p>Use TouchID for sudo, ssh, payments, FIDO2, etc.</p>
 </div>
 <div class="paragraph">
-<p>Useful tool is <a href="https://github.com/maxgoedjen/secretive">Secretive</a> – an an app for storing and managing SSH keys in the Mac T2 Secure Enclave.</p>
+<p>A helpful tool is <a href="https://github.com/maxgoedjen/secretive">Secretive</a> – an app for storing and managing SSH keys in the Mac T2 Secure Enclave.</p>
 </div>
 </div>
 <div class="sect2">
@@ -1103,8 +1100,8 @@ An attacker can&#8217;t use your phone for 2FA via SMS if they don&#8217;t have 
 </td>
 <td class="content">
 <div class="paragraph">
-<p>Ideally this should be done on a USB booted Linux, like <a href="https://www.kali.org/">Kali Linux</a> or <a href="https://tails.boum.org/">Tails Linux</a>.
-But, at a time of writing, all of them have issues with MacBooks with T2 chips: the keyboard and trackpad don&#8217;t work.</p>
+<p>Ideally, this should be done on a USB-booted Linux, like <a href="https://www.kali.org/">Kali Linux</a> or <a href="https://tails.boum.org/">Tails Linux</a>.
+But, at the time of writing, all of them have issues with MacBooks with T2 chips: the keyboard and trackpad don&#8217;t work.</p>
 </div>
 </td>
 </tr>
@@ -1141,7 +1138,7 @@ But, at a time of writing, all of them have issues with MacBooks with T2 chips: 
 </div>
 </li>
 <li>
-<p>Derive a password for Readme.txt file from the Master Password.</p>
+<p>Derive a password for the <code>Readme.txt</code> file from the Master Password.</p>
 <details>
 <summary class="title">JavaScript code to compute the <code>DerivedMasterPwd</code></summary>
 <div class="content">
@@ -1239,12 +1236,12 @@ gpg -d --cipher-algo AES256 Readme-0.txt.gpg
 <p>You may want to store some really important info in a really secure way. For example, your crypto wallet seeds, PGP keys, Bitwarden Recovery Code etc.</p>
 </div>
 <div class="paragraph">
-<p>You&#8217;ll need <a href="https://veracrypt.fr/">VeraCrypt</a>.</p>
+<p>You&#8217;ll need <a href="https://veracrypt.fr/">VeraCrypt</a>. It&#8217;s a free open source disk encryption software for Windows, Mac OSX and Linux.</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Come up with a <code>SecurePIN</code> (6 digits), <code>VeraCryptNormalPassword</code>, and <code>VeraCryptHiddenPassword</code>.</p>
+<p>Create a <code>SecurePIN</code> (6 digits), <code>VeraCryptNormalPassword</code> and <code>VeraCryptHiddenPassword</code>.</p>
 <div class="paragraph">
 <p>Use <a href="#generator">the random generator</a>.</p>
 </div>
@@ -1252,7 +1249,7 @@ gpg -d --cipher-algo AES256 Readme-0.txt.gpg
 <p>Use a permutation of your <code>Master Password</code>, <code>PIN</code>, and <code>SecurePIN</code>.</p>
 </div>
 <div class="exampleblock">
-<div class="title">Example 3. Don&#8217;t use in real life</div>
+<div class="title">Example 3. Don&#8217;t use these in real life</div>
 <div class="content">
 <div class="ulist">
 <ul>
@@ -1271,10 +1268,10 @@ gpg -d --cipher-algo AES256 Readme-0.txt.gpg
 </div>
 </li>
 <li>
-<p>Create a VeraCrypt volume with a hidden volume, synced to Google Drive or iCloud Drive.</p>
+<p>Create a VeraCrypt volume with a hidden volume synced to Google Drive or iCloud Drive.</p>
 </li>
 <li>
-<p>Store seeds, PGP keys, Readme.txt etc on your hidden volume</p>
+<p>Store seeds, PGP keys, Readme.txt etc., on your hidden volume</p>
 </li>
 <li>
 <p>Store something plausible on a normal volume</p>
@@ -1291,7 +1288,7 @@ gpg -d --cipher-algo AES256 Readme-0.txt.gpg
 <div class="title">Note</div>
 </td>
 <td class="content">
-Ideally, you do this on a USB booted Linux, but see <a href="#linux_usb_boot">a note about that</a>.
+Ideally, you do this on a USB-booted Linux, but see <a href="#linux_usb_boot">a note about that</a>.
 </td>
 </tr>
 </table>
@@ -1301,10 +1298,10 @@ Ideally, you do this on a USB booted Linux, but see <a href="#linux_usb_boot">a 
 <h3 id="_crypto_wallets_and_seeds"><a class="link" href="#_crypto_wallets_and_seeds">Crypto wallets and seeds</a></h3>
 <div class="paragraph">
 <p>Use a hardware wallet for storing crypto assets you don&#8217;t want to lose.
-<a href="https://shop.ledger.com/pages/hardware-wallets-comparison">Ledgers</a> are a good choice. Others are <a href="https://trezor.io/">Trezor</a> and <a href="https://blockstream.com/jade/">Jade</a>.</p>
+<a href="https://shop.ledger.com/pages/hardware-wallets-comparison">Ledgers</a> is a good choice. Others are <a href="https://trezor.io/">Trezor</a> and <a href="https://blockstream.com/jade/">Jade</a>.</p>
 </div>
 <div class="paragraph">
-<p>For a hardware wallet either use your phone <code>PIN</code>, or better generate another 6 digits random <code>SecurePIN</code>, depending on your paranoia.</p>
+<p>For a hardware wallet, either use your phone <code>PIN</code> or generate another 6-digit random <code>SecurePIN</code>, depending on your paranoia.</p>
 </div>
 <div class="paragraph">
 <p>Store your seed and <code>SecurePIN</code>:</p>
@@ -1315,10 +1312,10 @@ Ideally, you do this on a USB booted Linux, but see <a href="#linux_usb_boot">a 
 <p>in <code>Readme.txt</code> from the <a href="#Bootstrapping Setup">[Bootstrapping Setup]</a></p>
 </li>
 <li>
-<p>and/or store the seed in the hidden volume of your <a href="#secure-info-storage">Really Secure Info Storage</a>.</p>
+<p>or store the seed in the hidden volume of your <a href="#secure-info-storage">Really Secure Info Storage</a>.</p>
 </li>
 <li>
-<p>and/or even better, store the seed on a separate <a href="https://medium.com/@vincentbounce/cryptos-storage-transmission-the-safest-method-314560032872">old offline iPhone </a> with the <code>SecurePIN</code> as a passcode.</p>
+<p>or even better, store the seed on a separate <a href="https://medium.com/@vincentbounce/cryptos-storage-transmission-the-safest-method-314560032872">old offline iPhone </a> with the <code>SecurePIN</code> as a passcode.</p>
 </li>
 </ul>
 </div>
@@ -1336,7 +1333,7 @@ You are using 2FA, right?</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_laptop_is_stolen_password_is_not_known_to_an_attacker"><a class="link" href="#_laptop_is_stolen_password_is_not_known_to_an_attacker">Laptop is stolen, password is not known to an attacker</a></h3>
+<h3 id="_laptop_is_stolen_the_password_is_not_known_to_an_attacker"><a class="link" href="#_laptop_is_stolen_the_password_is_not_known_to_an_attacker">Laptop is stolen, the password is not known to an attacker</a></h3>
 <div class="paragraph">
 <p>An average thief can&#8217;t access anything to get to your data.</p>
 </div>
@@ -1354,10 +1351,10 @@ Then you are mostly screwed. Your <a href="#secure-info-storage">Really Secure I
 <p>Attacker CAN access your Bitwarden, Gmail, TouchID/FIDO2, Github, Social Media, Messengers, iCloud, Google Account, etc.</p>
 </li>
 <li>
-<p>Attacker CAN access and unlink the laptop in iCloud by using TouchID and Safair browser to login to iCloud. I don&#8217;t know how to prevent this.</p>
+<p>Attacker CAN access and unlink the laptop in iCloud by using TouchID and Safari browser to log in to iCloud. I don&#8217;t know how to prevent this.</p>
 </li>
 <li>
-<p>Attacker MAY steal your Google account in case you use iCloud email as a backup email and TouchID as 2FA. I don&#8217;t know how to prevent this.</p>
+<p>Attacker MAY steal your Google account if you use iCloud email as a backup email and TouchID as 2FA. I don&#8217;t know how to prevent this.</p>
 </li>
 <li>
 <p>Attacker CAN NOT access <code>SecureStorage</code> as he doesn&#8217;t know the password</p>
@@ -1368,7 +1365,7 @@ Then you are mostly screwed. Your <a href="#secure-info-storage">Really Secure I
 <div class="sect2">
 <h3 id="_iphone_is_stolen"><a class="link" href="#_iphone_is_stolen">iPhone is stolen</a></h3>
 <div class="paragraph">
-<p>Assuming your PIN/password is not known to the attacker, you are safe.
+<p>Assuming your PIN/password is unknown to the attacker, you are safe.
 Your SIM card is safe, too.</p>
 </div>
 </div>
@@ -1380,10 +1377,10 @@ Your SIM card is safe, too.</p>
 <p>Attacker CAN access your Bitwarden, Gmail, TouchID/FIDO2, Github, Social Media, Messengers, iCloud, Google Account, etc.</p>
 </li>
 <li>
-<p>Attacker CAN access and unlink the laptop in iCloud by using TouchID and Safair browser to login to iCloud. I don&#8217;t know how to prevent this.</p>
+<p>Attacker CAN access and unlink the laptop in iCloud by using TouchID and Safari browser to log in to iCloud. I don&#8217;t know how to prevent this.</p>
 </li>
 <li>
-<p>Attacker MAY steal your Google account in case you use iCloud email as a backup email and TouchID as 2FA. I don&#8217;t know how to prevent this.</p>
+<p>Attacker MAY steal your Google account if you use iCloud email as a backup email and TouchID as 2FA. I don&#8217;t know how to prevent this.</p>
 </li>
 <li>
 <p>Attacker CAN NOT access <a href="#secure-info-storage">Really Secure Info Storage</a> as he doesn&#8217;t know the password</p>
@@ -1412,20 +1409,20 @@ Just restore your SIM card at your carrier office.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_a_third_party_is_no_longer_trusted"><a class="link" href="#_a_third_party_is_no_longer_trusted">A third-party is no longer trusted</a></h3>
+<h3 id="_a_third_party_is_no_longer_trusted"><a class="link" href="#_a_third_party_is_no_longer_trusted">A third party is no longer trusted</a></h3>
 <div class="ulist">
 <ul>
 <li>
 <p>Increment the version of your Readme-$version.txt</p>
 </li>
 <li>
-<p>Derive a new <code>DerivedMasterPwd</code> with <code>MasterPassword</code>, <code>PIN</code> and new version using the algorithm from <a href="#Bootstrapping Setup">[Bootstrapping Setup]</a></p>
+<p>Derive a new <code>DerivedMasterPwd</code> with <code>MasterPassword</code>, <code>PIN</code> and a new version using the algorithm from <a href="#Bootstrapping Setup">[Bootstrapping Setup]</a></p>
 </li>
 <li>
 <p>Re-encrypt your <code>Readme-$version.txt</code> with it.</p>
 </li>
 <li>
-<p>Share it with your trusted 3-rd parties.</p>
+<p>Share it with your trusted 3rd parties.</p>
 </li>
 <li>
 <p>Update your <code>DerivedMasterPwd</code> in your Google Digital Legacy Plan.</p>
@@ -1433,7 +1430,7 @@ Just restore your SIM card at your carrier office.</p>
 </ul>
 </div>
 <div class="paragraph">
-<p>Now the distrusted 3-rd party can&#8217;t access your secrets after your death.</p>
+<p>Now the distrusted 3rd party can&#8217;t access your secrets after your death.</p>
 </div>
 </div>
 <div class="sect2">
@@ -1446,8 +1443,8 @@ Just restore your SIM card at your carrier office.</p>
 <h3 id="_the_laptop_is_rooted"><a class="link" href="#_the_laptop_is_rooted">The laptop is rooted</a></h3>
 <div class="paragraph">
 <p>You are mostly screwed.
-Your Really Secret Info is still safe if you only access it on a USB booted Linux or a specific air-gapped device.
-Also, don&#8217;t store Readme.txt.gpg on your laptop or in a cloud.</p>
+Your Really Secret Info is safe if you only access it on a USB-booted Linux or a specific air-gapped device.
+Also, don&#8217;t store Readme.txt.gpg on your laptop or in the cloud.</p>
 </div>
 </div>
 <div class="sect2">
@@ -1459,8 +1456,8 @@ Also, don&#8217;t store Readme.txt.gpg on your laptop or in a cloud.</p>
 <div class="sect2">
 <h3 id="_non_violent_intrusion"><a class="link" href="#_non_violent_intrusion">Non violent intrusion</a></h3>
 <div class="paragraph">
-<p>If you are forced to reveal your secrets by law, your Real Secret Info is fine.
-See plausible deniability.</p>
+<p>If you are forced to reveal your secrets by law, your Real Secret Info is OK.
+See <a href="#plausible-deniability">plausible deniability</a>.</p>
 </div>
 </div>
 <div class="sect2">
@@ -1483,13 +1480,13 @@ See plausible deniability.</p>
 <p>Assume that your spouse knows your PIN/laptop password.</p>
 </div>
 <div class="paragraph">
-<p>They can access your Bitwarden, Gmail, TouchID/FIDO2, Github, Social Media, Messengers, iCloud, Google Account etc by adding their TouchID/FaceID to your devices.</p>
+<p>They can access your Bitwarden, Gmail, TouchID/FIDO2, Github, Social Media, Messengers, iCloud, Google Account, etc., by adding their TouchID/FaceID to your devices.</p>
 </div>
 <div class="paragraph">
-<p>They can find out your <code>DerivedMasterPwd</code>, Readme.txt.gpg and access your <code>SecureStorage</code>. You are screwed.</p>
+<p>They can find your <code>DerivedMasterPwd</code>, <code>Readme.txt.gpg</code>, and access your <code>SecureStorage</code>. You are screwed.</p>
 </div>
 <div class="paragraph">
-<p>If you suspect your spouse to become malevolent you can change your iPhone PIN and your laptop password, and reset all TouchID/FaceIDs. That should suffice.</p>
+<p>If you suspect your spouse to become malevolent, you can change your iPhone PIN and your laptop password and reset all TouchID/FaceIDs. That should suffice.</p>
 </div>
 </div>
 </div>
@@ -1517,7 +1514,7 @@ See plausible deniability.</p>
 <p>Login to GMail using Google Account Backup Codes</p>
 </li>
 <li>
-<p>Restore crypto wallets from seeds, PGP keys etc from your VeraCrypt volume on Google Drive</p>
+<p>Restore crypto wallets from seeds, PGP keys etc., from your VeraCrypt volume on Google Drive</p>
 </li>
 </ol>
 </div>
@@ -1527,7 +1524,7 @@ See plausible deniability.</p>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Do the checklist of stolen laptop</p>
+<p>Do the checklist of a stolen laptop</p>
 </li>
 <li>
 <p>Restore wallets from seeds, transfer crypto</p>
@@ -1627,9 +1624,9 @@ See plausible deniability.</p>
 <div class="sect2">
 <h3 id="_death_or_emergency"><a class="link" href="#_death_or_emergency">Death or emergency</a></h3>
 <div class="paragraph">
-<p>Spouse can access a laptop/phone, access Bitwarden/Gmail.
-Leave a Emergency Note and tell to look it up in case of emergency.
-Google Account Inactivity set up for 3 month with EmergencyInfo
+<p>Spouses can access a laptop/phone, access Bitwarden/Gmail.
+Leave an Emergency Note and tell them to look it up in an emergency.
+Google Account Inactivity set up for three months with EmergencyInfo
 EmergencyInfo = DerivedMasterPwd, Ledger/OldPhone SecurePIN</p>
 </div>
 </div>
@@ -1641,10 +1638,10 @@ EmergencyInfo = DerivedMasterPwd, Ledger/OldPhone SecurePIN</p>
 <p>Change iPhone PIN</p>
 </li>
 <li>
-<p>Remove all iPhone FaceIDs and setup new one</p>
+<p>Remove all iPhone FaceIDs and set up a new one</p>
 </li>
 <li>
-<p>Change laptop password PIN to the new iPhonePIN</p>
+<p>Change the laptop password PIN to the new iPhonePIN</p>
 </li>
 <li>
 <p>Revoke Bitwarden Inactivity Access</p>
@@ -1666,7 +1663,7 @@ EmergencyInfo = DerivedMasterPwd, Ledger/OldPhone SecurePIN</p>
 <p>Increment the version of your <code>Readme-$version.txt</code> (e.g. <code>Readme-1.txt</code>)</p>
 </li>
 <li>
-<p>Derive a new <code>DerivedMasterPwd</code> with <code>MasterPassword</code>, <code>PIN</code> and new version using the algorithm from <a href="#_bootstrapping_setup">Bootstrapping setup</a></p>
+<p>Derive a new <code>DerivedMasterPwd</code> with <code>MasterPassword</code>, <code>PIN</code> and a new version using the algorithm from <a href="#_bootstrapping_setup">Bootstrapping setup</a></p>
 </li>
 <li>
 <p>Re-encrypt your <code>Readme-$version.txt</code> with the new <code>DerivedMasterPwd</code></p>
@@ -1680,7 +1677,7 @@ EmergencyInfo = DerivedMasterPwd, Ledger/OldPhone SecurePIN</p>
 </ul>
 </div>
 <div class="paragraph">
-<p>Now the distrusted 3-rd party can&#8217;t access your secrets after your death or inactivity.</p>
+<p>The distrusted 3-rd party can&#8217;t access your secrets after your death or inactivity.</p>
 </div>
 </div>
 <div class="sect2">
@@ -1723,10 +1720,6 @@ EmergencyInfo = DerivedMasterPwd, Ledger/OldPhone SecurePIN</p>
 <dd>
 <p>Two-factor Authentication</p>
 </dd>
-<dt class="hdlist1">MFA</dt>
-<dd>
-<p>Multi-factor Authentication</p>
-</dd>
 </dl>
 </div>
 </div>
@@ -1759,7 +1752,7 @@ EmergencyInfo = DerivedMasterPwd, Ledger/OldPhone SecurePIN</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2023-01-10 18:18:49 +0100
+Last updated 2023-01-11 13:49:05 +0100
 </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>
