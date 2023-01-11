@@ -116,7 +116,7 @@ That's your https://bitwarden.com/[Bitwarden] Master Password.
 
 . Store your sensitive info in Bitwarden.
 
-. Store your really sensitive info in a Google Drive/iCloud synced VeraCrypt volume.
+. Store your really sensitive info in a Google Drive/iCloud synced https://veracrypt.fr/[VeraCrypt] volume.
 
 .Don't use these values in real life
 ====
@@ -457,13 +457,18 @@ Choose who to notify & what to share.
 . Store the `DerivedMasterPwd` in your Google Digital Legacy Plan.
 +
 .Example note
-+
-[quote]
-I guess I'm dead. Decrypt Readme-0.txt.gpg with `DerivedMasterPwd` to get my passwords. See-ya!
+====
+I guess I'm dead now.
+
+Decrypt Readme-0.txt.gpg with `[put DerivedMasterPwd here]` to get my passwords.
+
 gpg -d --cipher-algo AES256 Readme-0.txt.gpg
 
+See-ya!
+====
+
 [#secure-info-storage]
-=== Really Secure Info storage
+=== Really important info storage
 
 You may want to store some really important info in a really secure way. For example, your crypto wallet seeds, PGP keys, Bitwarden Recovery Code etc.
 
@@ -690,6 +695,7 @@ TOTP:: Time-based One-time Password
 
 [bibliography]
 == Bibliography, Useful Links, and Resources
+* [[[triplesec]]] This page source https://github.com/nau/triplesec
 * [[[crypto, crypto]]]
 https://medium.com/@vincentbounce/cryptos-storage-transmission-the-safest-method-314560032872
 * [[[pbkdf2,pbkdf2]]] https://www.usenix.org/system/files/conference/woot16/woot16-paper-ruddick.pdf[Acceleration Attacks on PBKDF2]
