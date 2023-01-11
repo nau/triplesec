@@ -204,7 +204,7 @@ You store your Secure Vault password in an encrypted file
 that you share with your loved ones.
 
 The encryption password is derived from your Master Password.
-You store it in your Google Digital Legacy Plan along with instructions on accessing your Secure Vault.
+You store it in your https://myaccount.google.com/inactive[Google Digital Legacy Plan] along with instructions on accessing your Secure Vault.
 
 In case of your death, your loved ones will receive a notification from Google
 and can access your encrypted file with your Secure Vault password.
@@ -217,7 +217,7 @@ If you stop trusting one of your loved ones
 you can revoke their access to your encrypted file by changing a version of the derived password,
 re-encrypting the file and sharing it with your loved ones again.
 
-Don't forget to update your Google Digital Legacy Plan accordingly.
+Don't forget to update your https://myaccount.google.com/inactive[Google Digital Legacy Plan] accordingly.
 
 === Pros
 - remember only 3 words and 6 digits, easy
@@ -242,9 +242,8 @@ unless you are accepting the risk of losing your crypto
 
 == Setup guide
 === Passwords and PINs
-[%interactive]
-* [ ] Generate a random 6-digit PIN and memorize it. That's your phone passcode.
-* [ ] Generate 3 random words using https://bitwarden.com/password-generator/[Bitwarden Password Generator], https://www.eff.org/dice[EFF Dice], https://diceware.dmuth.org/[Diceware].
+* Generate a random 6-digit PIN and memorize it. That's your phone passcode.
+* Generate 3 random words using https://bitwarden.com/password-generator/[Bitwarden Password Generator], https://www.eff.org/dice[EFF Dice], https://diceware.dmuth.org/[Diceware].
 
 ifdef::backend-html5[]
 Or use the random words generator below. It uses https://www.w3.org/TR/WebCryptoAPI/[Web Crypto API] of your browser to generate random numbers.
@@ -293,10 +292,10 @@ generate();
 ====
 endif::backend-html5[]
 
-* [ ] Combine with the PIN and memorize the passphrase.
+* Combine with the PIN and memorize the passphrase.
 That's your Bitwarden Master Password.
 
-* [ ] Take a word and combine it with PIN. That's your laptop password. You MAY store it in Bitwarden.
+* Take a word and combine it with PIN. That's your laptop password. You MAY store it in Bitwarden.
 
 ifndef::backend-html5[]
 .Don't use these values in real life.
@@ -316,6 +315,8 @@ endif::backend-html5[]
 +
 This way, we protect your phone from SIM hijacking and SIM swap attacks.
 An attacker can't use your phone for 2FA via SMS if they don't have your PIN.
+* Enable Auto-Lock: _Settings -> Display & Brightness -> Auto-Lock_.
+Set it to whatever you are comfortable with but 'Never'.
 
 .Optionally:
 * Enable wiping your data after 10 wrong attempts if you want to be extra secure:
@@ -326,17 +327,17 @@ _Settings -> Notifications -> Show Previews -> When Unlocked_
 
 === Bitwarden setup
 [%interactive]
-* [ ] Install Bitwarden app on all your devices and Bitwarden extensions for your web browsers. Enable TouchID/FaceID integration.
+* Install Bitwarden app on all your devices and Bitwarden extensions for your web browsers. Enable TouchID/FaceID integration.
 +
 You MAY enable 2FA for your Bitwarden account. It's not necessary, but it's good practice. Don't use TOTP. Use email, YubiKey, FIDO2, and Recovery Code instead.
 
-* [ ] Setup Bitwarden https://bitwarden.com/help/getting-started-browserext/#unlock-with-pin-or-biometrics[Unlock with Biometrics] option.
+* Setup Bitwarden https://bitwarden.com/help/getting-started-browserext/#unlock-with-pin-or-biometrics[Unlock with Biometrics] option.
 
-* [ ] Optionally, setup 2FA for your Bitwarden account. It's not necessary, but it's good practice. Don't use TOTP. Use email, YubiKey, FIDO2, and Recovery Code.
+* Optionally, setup 2FA for your Bitwarden account. It's not necessary, but it's good practice. Don't use TOTP. Use email, YubiKey, FIDO2, and Recovery Code.
 
-* [ ] Setup https://bitwarden.com/help/log-in-with-device/[Log in with Device] for your iPhone.
+* Setup https://bitwarden.com/help/log-in-with-device/[Log in with Device] for your iPhone.
 
-* [ ] Import all your passwords from other password managers to Bitwarden. https://bitwarden.com/help/import-data/[Import Data]
+* Import all your passwords from other password managers to Bitwarden. https://bitwarden.com/help/import-data/[Import Data]
 
 Store all passwords, TOTPs, Recovery codes etc., in Bitwarden.
 
@@ -349,11 +350,11 @@ If you use Google Authenticator, Duo, Authy or another, you may want to migrate 
 
 === MacBook setup
 
-* [ ] Enable FileVault2 encryption: _System Settings -> Privacy & Security -> FileVault_.
-* [ ] Store the hard drive Recovery code in Bitwarden.
-* [ ] Enable TouchID
-* [ ] Enable Firewall
-* [ ] Set up https://apple.stackexchange.com/a/306324[PAM with TouchID] to avoid entering the laptop password on the `sudo` commands.
+* Enable FileVault2 encryption: _System Settings -> Privacy & Security -> FileVault_.
+* Store the hard drive Recovery code in Bitwarden.
+* Enable TouchID
+* Enable Firewall
+* Set up https://apple.stackexchange.com/a/306324[PAM with TouchID] to avoid entering the laptop password on the `sudo` commands.
 
 You'll have to enter your laptop password only after a reboot. Avoid doing it with someone watching or near a camera.
 
@@ -441,7 +442,7 @@ compute();
 ++++
 endif::backend-html5[]
 +
-. Encrypt Readme-$version.txt with `DerivedMasterPwd` using AES256
+. Encrypt Readme-$version.txt with `DerivedMasterPwd` using AES256 and https://gnupg.org/[GPG].
 
   gpg -c --cipher-algo AES256 Readme-0.txt
 
@@ -451,11 +452,11 @@ endif::backend-html5[]
 
 . Go to https://myaccount.google.com/data-and-privacy[Google Account -> Data & Privacy]
 
-. Make a Plan for your Digital Legacy
+. Make a Plan for your https://myaccount.google.com/inactive[Digital Legacy]
 +
 Choose who to notify & what to share.
 
-. Store the `DerivedMasterPwd` in your Google Digital Legacy Plan.
+. Store the `DerivedMasterPwd` in your https://myaccount.google.com/inactive[Google Digital Legacy Plan].
 +
 .Example note
 ====
@@ -568,13 +569,13 @@ Just restore your SIM card at your carrier office.
 * Derive a new `DerivedMasterPwd` with `MasterPassword`, `PIN` and a new version using the algorithm from <<Bootstrapping setup>>
 * Re-encrypt your `Readme-$version.txt` with it.
 * Share it with your trusted 3rd parties.
-* Update your `DerivedMasterPwd` in your Google Digital Legacy Plan.
+* Update your `DerivedMasterPwd` in your https://myaccount.google.com/inactive[Google Digital Legacy Plan].
 
 Now the distrusted 3rd party can't access your secrets after your death.
 
 === Death
 
-You have your Legacy plan in place.
+You have your https://myaccount.google.com/inactive[Legacy] plan in place.
 
 === The laptop is rooted
 
@@ -627,21 +628,18 @@ If you suspect your spouse to become malevolent, you can change your iPhone PIN 
 . Erase all stolen devices
 
 === Lost laptop checklist
-. Login to Bitwarden Web Vault
-[%interactive]
-* [ ] Go to Account Settings
-* [ ] Deauthorize your laptop session
-* [ ] Change Bitwarden password
+. Login to https://vault.bitwarden.com/[Bitwarden Web Vault]
+. Go to Account Settings
+. Deauthorize your laptop session
+. Change Bitwarden password
 
 . Login to iCloud
-[%interactive]
-* [ ] Settings -> Sing Out of All Browsers
-* [ ] Find Devices -> Laptop -> Erase Mac
+. Settings -> Sing Out of All Browsers
+. Find Devices -> Laptop -> Erase Mac
 
 . Login to Google
-[%interactive]
-* [ ] Manage Account -> Your devices -> Sing out
-* [ ] 2FA -> Remove TouchID key
+. Manage Account -> Your devices -> Sing out
+. 2FA -> Remove TouchID key
 
 === Lost iPhone checklist
 . Login to Bitwarden web vault
@@ -666,23 +664,23 @@ EmergencyInfo = DerivedMasterPwd, Ledger/OldPhone SecurePIN
 . Remove all iPhone FaceIDs and set up a new one
 . Change the laptop password PIN to the new iPhonePIN
 . Revoke Bitwarden Inactivity Access
-. Revoke Google Inactivity Access
+. Revoke https://myaccount.google.com/inactive[Google Inactivity Access]
 . Revoke iCloud Recovery Account
 
 === 3rd party distrust
-* Increment the version of your `Readme-$version.txt` (e.g. `Readme-1.txt`)
-* Derive a new `DerivedMasterPwd` with `MasterPassword`, `PIN` and a new version using the algorithm from <<Bootstrapping setup>>
-* Re-encrypt your `Readme-$version.txt` with the new `DerivedMasterPwd`
-* Share it with your trusted 3-rd parties
-* Update your `DerivedMasterPwd` in your Google Digital Legacy Plan
+. Increment the version of your `Readme-$version.txt` (e.g. `Readme-1.txt`)
+. Derive a new `DerivedMasterPwd` with `MasterPassword`, `PIN` and a new version using the algorithm from <<Bootstrapping setup>>
+. Re-encrypt your `Readme-$version.txt` with the new `DerivedMasterPwd`
+. Share it with your trusted 3-rd parties
+. Update your `DerivedMasterPwd` in your https://myaccount.google.com/inactive[Google Digital Legacy Plan]
 
 The distrusted 3-rd party can't access your secrets after your death or inactivity.
 
 === You forgot your Master Password or SecurePIN
 
-* Go to your Google Digital Legacy Plan and get your `DerivedMasterPwd` from there.
-* Ask your trusted 3-rd parties to give you the `Readme-$version.txt.gpg` file.
-* Decrypt it with `DerivedMasterPwd` and get your `MasterPassword` and `PIN`.
+. Go to your https://myaccount.google.com/inactive[Google Digital Legacy Plan] and get your `DerivedMasterPwd` from there.
+. Ask your trusted 3-rd parties to give you the `Readme-$version.txt.gpg` file.
+. Decrypt it with `DerivedMasterPwd` and get your `MasterPassword` and `PIN`.
 
   gpg -d --cipher-algo AES256 Readme-0.txt.gpg
 
