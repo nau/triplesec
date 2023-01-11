@@ -1,19 +1,20 @@
 = Triple Sec – Simple Digital Security Scheme
 :source-highlighter: highlightjs
 :docdate: 2023-01-04
+:url-repo: https://github.com/nau/triplesec
 :author: Alexander Nemish <anemish@gmail.com> @atlanter
 :toc: left
 :sectlinks: true
 
 ifdef::backend-html5[]
 ++++
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-EX5W9GL9CM"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-R7WQ1GJCRT"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
 
-  gtag('config', 'G-EX5W9GL9CM');
+  gtag('config', 'G-R7WQ1GJCRT');
 </script>
 ++++
 endif::backend-html5[]
