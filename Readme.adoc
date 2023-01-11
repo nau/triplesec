@@ -71,23 +71,22 @@ There is a fire in your house. You get the point.
 * Any of them can be safely revoked from access to anything
 * If their devices are compromised, an attacker won't be able to access your info
 
-=== Really important info security
+=== Really Important Info security
 
-You should be able to securely store some really important info that you want to keep extra safe.
+You should be able to securely store some Really Important Info that you want to keep extra safe.
 For example, you have some important PGP keys, crypto wallets etc.
 Or some passwords you don't want to be in your Bitwarden, like your bank account or Google Account passwords.
 
-* Really important info can't be accessed even when the laptop/phone is fully compromised
-* Really important info can't be accessed even when your primary email/Bitwarden is compromised
-* Really important info can't be accessed even when your 3rd parties are compromised
-[#plausible-deniability]
-* Plausible deniability. You can store really important info in a separate vault that is not accessible to your family and friends.
+* Really Important Info can't be accessed even when the laptop/phone is fully compromised
+* Really Important Info can't be accessed even when your primary email/Bitwarden is compromised
+* Really Important Info can't be accessed even when your 3rd parties are compromised
+* Plausible deniability. You can store Really Important Info in a separate vault that is not accessible to your family and friends.
 They can't even know that you have such a vault.
 
 === Minimum software/hardware
 
-We prefer well-known, well-tested, well-supported open-source software.
-We prefer to use Apple hardware as they have a good reputation for security and privacy. But we don't want to be locked in.
+Prefer well-known, well-tested, well-supported open-source software.
+Prefer to use Apple hardware as they have a good reputation for security and privacy.
 
 == Scheme overview
 === Assumptions and prerequisites
@@ -118,7 +117,7 @@ That's your https://bitwarden.com/[Bitwarden] Master Password.
 
 . Store your sensitive info in Bitwarden.
 
-. Store your really sensitive info in a Google Drive/iCloud synced https://veracrypt.fr/[VeraCrypt] volume.
+. Store your Really Important Info in a Google Drive/iCloud synced https://veracrypt.fr/[VeraCrypt] volume.
 
 .Don't use these values in real life
 ====
@@ -198,7 +197,7 @@ https://blog.lastpass.com/2022/12/notice-of-recent-security-incident/[Avoid Last
 If you want to leave your digital legacy to your loved ones,
 you can do it with Bitwarden https://bitwarden.com/help/emergency-access/[Emergency Access].
 
-If you have some Really Secure Info and you store it in a separate vault,
+If you have some Really Important Info and you store it in a separate vault,
 you can leave the vault password to your loved ones.
 
 You store your Secure Vault password in an encrypted file
@@ -469,10 +468,9 @@ gpg -d --cipher-algo AES256 Readme-0.txt.gpg
 See-ya!
 ====
 
-[#secure-info-storage]
-=== Really important info storage
+=== Really Important Info storage
 
-You may want to store some really important info in a really secure way. For example, your crypto wallet seeds, PGP keys, Bitwarden Recovery Code etc.
+You may want to store some Really Important Info in a really secure way. For example, your crypto wallet seeds, PGP keys, Bitwarden Recovery Code etc.
 
 You'll need https://veracrypt.fr/[VeraCrypt]. It's a free open source disk encryption software for Windows, Mac OSX and Linux.
 
@@ -510,8 +508,8 @@ For a hardware wallet, either use your phone `PIN` or generate another 6-digit r
 
 Store your seed and `SecurePIN`:
 
-* in `Readme.txt` from the <<Bootstrapping Setup>>
-* or store the seed in the hidden volume of your xref:secure-info-storage[Really Secure Info Storage].
+* in `Readme.txt` from the <<Bootstrapping setup>>
+* or store the seed in the hidden volume of your <<Really Important Info storage>>.
 * or even better, store the seed on a separate https://medium.com/@vincentbounce/cryptos-storage-transmission-the-safest-method-314560032872[old offline iPhone ] with the `SecurePIN` as a passcode.
 
 == Threats
@@ -526,7 +524,7 @@ An average thief can't access anything to get to your data.
 
 An advanced attacker can tamper the TouchID,
  do `sudo su -` with TouchID and gain admin privileges.
-Then you are mostly screwed. Your xref:secure-info-storage[Really Secure Info Storage] is safe, though.
+Then you are mostly screwed. Your <<Really Important Info storage>> is safe, though.
 
 === Laptop is stolen, laptop password known to an attacker
 * Attacker CAN access your Bitwarden, Gmail, TouchID/FIDO2, Github, Social Media, Messengers, iCloud, Google Account, etc.
@@ -549,11 +547,11 @@ Your SIM card is safe, too.
 
 * Attacker MAY steal your Google account if you use iCloud email as a backup email and TouchID as 2FA. I don't know how to prevent this.
 
-* Attacker CAN NOT access xref:secure-info-storage[Really Secure Info Storage] as he doesn't know the password
+* Attacker CAN NOT access <<Really Important Info storage>> as he doesn't know the password
 
 === Google banned you
 
-Access a local copy of your xref:secure-info-storage[Really Secure Info Storage] data on one of your devices. You are fine.
+Access a local copy of your <<Really Important Info storage>> data on one of your devices. You are fine.
 
 === Encrypted data is lost
 
@@ -567,7 +565,7 @@ Just restore your SIM card at your carrier office.
 
 === A third party is no longer trusted
 * Increment the version of your Readme-$version.txt
-* Derive a new `DerivedMasterPwd` with `MasterPassword`, `PIN` and a new version using the algorithm from <<Bootstrapping Setup>>
+* Derive a new `DerivedMasterPwd` with `MasterPassword`, `PIN` and a new version using the algorithm from <<Bootstrapping setup>>
 * Re-encrypt your `Readme-$version.txt` with it.
 * Share it with your trusted 3rd parties.
 * Update your `DerivedMasterPwd` in your Google Digital Legacy Plan.
@@ -581,7 +579,7 @@ You have your Legacy plan in place.
 === The laptop is rooted
 
 You are mostly screwed.
-Your Really Secret Info is safe if you only access it on a USB-booted Linux or a specific air-gapped device.
+Your Really Important Info is safe if you only access it on a USB-booted Linux or a specific air-gapped device.
 Also, don't store Readme.txt.gpg on your laptop or in the cloud.
 
 === Targeted cyber attack, social engineering
@@ -590,8 +588,8 @@ That depends. You can be screwed if you are targeted.
 
 === Non violent intrusion
 
-If you are forced to reveal your secrets by law, your Real Secret Info is OK.
-See xref:plausible-deniability[plausible deniability].
+If you are forced to reveal your secrets by law, your Really Important Info is OK.
+See https://veracrypt.fr/en/Plausible%20Deniability.html[Plausible Deniability].
 
 === Kidnapping, violence, thermorectal cryptanalysis
 
@@ -696,7 +694,7 @@ TOTP:: Time-based One-time Password
 2FA:: Two-factor Authentication
 
 [bibliography]
-== Bibliography, Useful Links, and Resources
+== Bibliography, useful links, and resources
 * [[[triplesec]]] This page source https://github.com/nau/triplesec
 * [[[crypto, crypto]]]
 https://medium.com/@vincentbounce/cryptos-storage-transmission-the-safest-method-314560032872
