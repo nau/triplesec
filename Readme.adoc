@@ -689,7 +689,7 @@ TOTP:: Time-based One-time Password
 [bibliography]
 == Bibliography, useful links, and resources
 * [[[triplesec]]] This page source https://github.com/nau/triplesec
-* [[[TSpdf]]] TripleSec PDF https://github.com/nau/triplesec/blob/master/TripleSec.pdf
+* [[[TSpdf]]] TripleSec PDF https://github.com/nau/triplesec/raw/master/TripleSec.pdf
 * [[[crypto, crypto]]]
 https://medium.com/@vincentbounce/cryptos-storage-transmission-the-safest-method-314560032872
 * [[[pbkdf2,pbkdf2]]] https://www.usenix.org/system/files/conference/woot16/woot16-paper-ruddick.pdf[Acceleration Attacks on PBKDF2]
