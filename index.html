@@ -754,7 +754,7 @@ That&#8217;s your <a href="https://bitwarden.com/">Bitwarden</a> Master Password
 <p>One good in-memory-only password protects all your other passwords, TOTP 2FA, Recovery codes, etc.</p>
 </div>
 <div class="paragraph">
-<p>Use Bitwarden Password Generator to create strong, secure passwords or passphrases. Those are encrypted with a strong encryption algorithm and synced securely between your devices.</p>
+<p>Use <a href="https://bitwarden.com/password-generator/">Bitwarden Password Generator</a> to create strong, secure passwords or passphrases. Those are encrypted with a strong encryption algorithm and synced securely between your devices.</p>
 </div>
 <div class="paragraph">
 <p>And you don&#8217;t need to enter your PIN, laptop password and Bitwarden password very often thanks to TouchID/FaceID.</p>
@@ -880,10 +880,11 @@ re-encrypting the file and sharing it with your loved ones again.</p>
 <p>loss of any device is neither a security nor data loss concern</p>
 </li>
 <li>
-<p>can bootstrap from nothing just knowing your Master password</p>
+<p>can bootstrap from nothing just knowing your Master Password</p>
 </li>
 <li>
-<p>Bitwarden password is good enough for brute-force attacks in case the vault is breached (like in LastPass situation)</p>
+<p>Bitwarden password is good enough to resist brute-force attacks in case the vault is breached
+(like in <a href="https://blog.lastpass.com/2022/12/notice-of-recent-security-incident/">LastPass situation</a>)</p>
 </li>
 <li>
 <p>laptop password is good enough to resist brute-force attacks in case the laptop is stolen</p>
@@ -913,7 +914,7 @@ Watch your back when you need to enter the password.</p>
 <p>you are screwed in case of your spouse is malevolent and knows the scheme</p>
 </li>
 <li>
-<p>you are screwed if the laptop is rooted or even keylogged</p>
+<p>you are mostly screwed if the laptop is rooted or even keylogged</p>
 </li>
 <li>
 <p>you don&#8217;t want to store crypto wallet seeds in Bitwarden with this setup,
@@ -1064,7 +1065,7 @@ Set it to whatever you are comfortable with but 'Never'.</p>
 <p>Store all passwords, TOTPs, Recovery codes etc., in Bitwarden.</p>
 </div>
 <div class="paragraph">
-<p>Use Bitwarden Password Generator to generate secure passwords or passphrases.</p>
+<p>Use <a href="https://bitwarden.com/password-generator/">Bitwarden Password Generator</a> to generate secure passwords or passphrases.</p>
 </div>
 <div class="paragraph">
 <p>Enable TOTP 2FA everywhere where there is such an option: Google, Facebook, Twitter, Instagram, banking, crypto exchanges, mobile providers etc.</p>
@@ -1384,7 +1385,7 @@ Then you are mostly screwed. Your <a href="#_really_important_info_storage">Real
 <p>Attacker MAY steal your Google account if you use iCloud email as a backup email and TouchID as 2FA. I don&#8217;t know how to prevent this.</p>
 </li>
 <li>
-<p>Attacker CAN NOT access <code>SecureStorage</code> as he doesn&#8217;t know the password</p>
+<p>Attacker CAN NOT access <a href="#_really_important_info_storage">Really Important Info storage</a> as he doesn&#8217;t know the password</p>
 </li>
 </ul>
 </div>
@@ -1398,21 +1399,8 @@ Your SIM card is safe, too.</p>
 </div>
 <div class="sect2">
 <h3 id="_iphone_is_stolen_with_pin"><a class="link" href="#_iphone_is_stolen_with_pin">iPhone is stolen with PIN</a></h3>
-<div class="ulist">
-<ul>
-<li>
-<p>Attacker CAN access your Bitwarden, Gmail, TouchID/FIDO2, Github, Social Media, Messengers, iCloud, Google Account, etc.</p>
-</li>
-<li>
-<p>Attacker CAN access and unlink the laptop in iCloud by using TouchID and Safari browser to log in to iCloud. I don&#8217;t know how to prevent this.</p>
-</li>
-<li>
-<p>Attacker MAY steal your Google account if you use iCloud email as a backup email and TouchID as 2FA. I don&#8217;t know how to prevent this.</p>
-</li>
-<li>
-<p>Attacker CAN NOT access <a href="#_really_important_info_storage">Really Important Info storage</a> as he doesn&#8217;t know the password</p>
-</li>
-</ul>
+<div class="paragraph">
+<p>Same as <a href="#Laptop is stolen">laptop password known to an attacker</a></p>
 </div>
 </div>
 <div class="sect2">
@@ -1526,13 +1514,13 @@ See <a href="https://veracrypt.fr/en/Plausible%20Deniability.html">Plausible Den
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Ask a 3rd party for SecurityInfoFile</p>
+<p>Ask a 3rd party for <code>Readme-$version.txt.gpg</code></p>
 </li>
 <li>
-<p>Compute <code>DerivedMasterPwd</code></p>
+<p>Compute <code>DerivedMasterPwd</code> from <code>MasterPassword</code>, <code>PIN</code> and <code>version</code> using the algorithm from <a href="#_bootstrapping_setup">Bootstrapping setup</a></p>
 </li>
 <li>
-<p>Login to Bitwarden with Bitwarden Backup Code</p>
+<p>Login to Bitwarden with your Bitwarden Master Password and Bitwarden Backup Code if needed</p>
 </li>
 <li>
 <p>Login to iCloud using iCloud Backup Code</p>
@@ -1640,9 +1628,10 @@ See <a href="https://veracrypt.fr/en/Plausible%20Deniability.html">Plausible Den
 <h3 id="_death_or_emergency"><a class="link" href="#_death_or_emergency">Death or emergency</a></h3>
 <div class="paragraph">
 <p>Spouses can access a laptop/phone, access Bitwarden/Gmail.
-Leave an Emergency Note and tell them to look it up in an emergency.
-Google Account Inactivity set up for three months with EmergencyInfo
-EmergencyInfo = DerivedMasterPwd, Ledger/OldPhone SecurePIN</p>
+Leave an Emergency Note and tell them to look it up in an emergency.</p>
+</div>
+<div class="paragraph">
+<p>Otherwise, your trusted 3rd parties receive your legacy note and can access the <code>Readme-$version.txt.gpg</code> with <code>DerivedMasterPwd</code> and then access your <a href="#_really_important_info_storage">Really Important Info storage</a>.</p>
 </div>
 </div>
 <div class="sect2">
@@ -1659,7 +1648,7 @@ EmergencyInfo = DerivedMasterPwd, Ledger/OldPhone SecurePIN</p>
 <p>Change the laptop password PIN to the new iPhonePIN</p>
 </li>
 <li>
-<p>Revoke Bitwarden Inactivity Access</p>
+<p>Revoke Bitwarden <a href="https://bitwarden.com/help/emergency-access/">Emergency Access</a></p>
 </li>
 <li>
 <p>Revoke <a href="https://myaccount.google.com/inactive">Google Inactivity Access</a></p>
@@ -1748,6 +1737,9 @@ EmergencyInfo = DerivedMasterPwd, Ledger/OldPhone SecurePIN</p>
 <p><a id="triplesec"></a>[triplesec] This page source <a href="https://github.com/nau/triplesec" class="bare">https://github.com/nau/triplesec</a></p>
 </li>
 <li>
+<p><a id="TSpdf"></a>[TSpdf] TripleSec PDF <a href="https://github.com/nau/triplesec/blob/master/TripleSec.pdf" class="bare">https://github.com/nau/triplesec/blob/master/TripleSec.pdf</a></p>
+</li>
+<li>
 <p><a id="crypto"></a>[crypto]
 <a href="https://medium.com/@vincentbounce/cryptos-storage-transmission-the-safest-method-314560032872" class="bare">https://medium.com/@vincentbounce/cryptos-storage-transmission-the-safest-method-314560032872</a></p>
 </li>
@@ -1770,7 +1762,7 @@ EmergencyInfo = DerivedMasterPwd, Ledger/OldPhone SecurePIN</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2023-01-11 20:53:02 +0100
+Last updated 2023-01-12 13:18:08 +0100
 </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>

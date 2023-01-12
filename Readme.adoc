@@ -129,7 +129,7 @@ That's your https://bitwarden.com/[Bitwarden] Master Password.
 
 One good in-memory-only password protects all your other passwords, TOTP 2FA, Recovery codes, etc.
 
-Use Bitwarden Password Generator to create strong, secure passwords or passphrases. Those are encrypted with a strong encryption algorithm and synced securely between your devices.
+Use https://bitwarden.com/password-generator/[Bitwarden Password Generator] to create strong, secure passwords or passphrases. Those are encrypted with a strong encryption algorithm and synced securely between your devices.
 
 And you don't need to enter your PIN, laptop password and Bitwarden password very often thanks to TouchID/FaceID.
 
@@ -223,8 +223,9 @@ Don't forget to update your https://myaccount.google.com/inactive[Google Digital
 - remember only 3 words and 6 digits, easy
 - super easy to use, rarely need to enter your PIN, laptop password or Bitwarden password
 - loss of any device is neither a security nor data loss concern
-- can bootstrap from nothing just knowing your Master password
-- Bitwarden password is good enough for brute-force attacks in case the vault is breached (like in LastPass situation)
+- can bootstrap from nothing just knowing your Master Password
+- Bitwarden password is good enough to resist brute-force attacks in case the vault is breached
+(like in https://blog.lastpass.com/2022/12/notice-of-recent-security-incident/[LastPass situation])
 - laptop password is good enough to resist brute-force attacks in case the laptop is stolen
 - you can share your PIN and even your laptop password with your significant other, and they still can't easily access Master Password-protected items in Bitwarden. They can if they know what they are doing, though.
 - in case you distrust your significant other – change your PIN on your phone, laptop, and Bitwarden.
@@ -236,7 +237,7 @@ unless you set up 2FA in Bitwarden.
 Watch your back when you need to enter the password.
 - you are screwed if an attacker has access to your phone or laptop and knows their passwords
 - you are screwed in case of your spouse is malevolent and knows the scheme
-- you are screwed if the laptop is rooted or even keylogged
+- you are mostly screwed if the laptop is rooted or even keylogged
 - you don't want to store crypto wallet seeds in Bitwarden with this setup,
 unless you are accepting the risk of losing your crypto
 
@@ -341,7 +342,7 @@ You MAY enable 2FA for your Bitwarden account. It's not necessary, but it's good
 
 Store all passwords, TOTPs, Recovery codes etc., in Bitwarden.
 
-Use Bitwarden Password Generator to generate secure passwords or passphrases.
+Use https://bitwarden.com/password-generator/[Bitwarden Password Generator] to generate secure passwords or passphrases.
 
 Enable TOTP 2FA everywhere where there is such an option: Google, Facebook, Twitter, Instagram, banking, crypto exchanges, mobile providers etc.
 
@@ -534,7 +535,7 @@ Then you are mostly screwed. Your <<Really Important Info storage>> is safe, tho
 
 * Attacker MAY steal your Google account if you use iCloud email as a backup email and TouchID as 2FA. I don't know how to prevent this.
 
-* Attacker CAN NOT access `SecureStorage` as he doesn't know the password
+* Attacker CAN NOT access <<Really Important Info storage>> as he doesn't know the password
 
 === iPhone is stolen
 
@@ -542,13 +543,7 @@ Assuming your PIN/password is unknown to the attacker, you are safe.
 Your SIM card is safe, too.
 
 === iPhone is stolen with PIN
-* Attacker CAN access your Bitwarden, Gmail, TouchID/FIDO2, Github, Social Media, Messengers, iCloud, Google Account, etc.
-
-* Attacker CAN access and unlink the laptop in iCloud by using TouchID and Safari browser to log in to iCloud. I don't know how to prevent this.
-
-* Attacker MAY steal your Google account if you use iCloud email as a backup email and TouchID as 2FA. I don't know how to prevent this.
-
-* Attacker CAN NOT access <<Really Important Info storage>> as he doesn't know the password
+Same as <<Laptop is stolen, laptop password known to an attacker>>
 
 === Google banned you
 
@@ -614,9 +609,9 @@ If you suspect your spouse to become malevolent, you can change your iPhone PIN 
 
 === You have lost everything
 
-. Ask a 3rd party for SecurityInfoFile
-. Compute `DerivedMasterPwd`
-. Login to Bitwarden with Bitwarden Backup Code
+. Ask a 3rd party for `Readme-$version.txt.gpg`
+. Compute `DerivedMasterPwd` from `MasterPassword`, `PIN` and `version` using the algorithm from <<Bootstrapping setup>>
+. Login to Bitwarden with your Bitwarden Master Password and Bitwarden Backup Code if needed
 . Login to iCloud using iCloud Backup Code
 . Login to GMail using Google Account Backup Codes
 . Restore crypto wallets from seeds, PGP keys etc., from your VeraCrypt volume on Google Drive
@@ -656,14 +651,14 @@ If you suspect your spouse to become malevolent, you can change your iPhone PIN 
 === Death or emergency
 Spouses can access a laptop/phone, access Bitwarden/Gmail.
 Leave an Emergency Note and tell them to look it up in an emergency.
-Google Account Inactivity set up for three months with EmergencyInfo
-EmergencyInfo = DerivedMasterPwd, Ledger/OldPhone SecurePIN
+
+Otherwise, your trusted 3rd parties receive your legacy note and can access the `Readme-$version.txt.gpg` with `DerivedMasterPwd` and then access your <<Really Important Info storage>>.
 
 === Spouse distrust
 . Change iPhone PIN
 . Remove all iPhone FaceIDs and set up a new one
 . Change the laptop password PIN to the new iPhonePIN
-. Revoke Bitwarden Inactivity Access
+. Revoke Bitwarden https://bitwarden.com/help/emergency-access/[Emergency Access]
 . Revoke https://myaccount.google.com/inactive[Google Inactivity Access]
 . Revoke iCloud Recovery Account
 
@@ -694,6 +689,7 @@ TOTP:: Time-based One-time Password
 [bibliography]
 == Bibliography, useful links, and resources
 * [[[triplesec]]] This page source https://github.com/nau/triplesec
+* [[[TSpdf]]] TripleSec PDF https://github.com/nau/triplesec/blob/master/TripleSec.pdf
 * [[[crypto, crypto]]]
 https://medium.com/@vincentbounce/cryptos-storage-transmission-the-safest-method-314560032872
 * [[[pbkdf2,pbkdf2]]] https://www.usenix.org/system/files/conference/woot16/woot16-paper-ruddick.pdf[Acceleration Attacks on PBKDF2]
