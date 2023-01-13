@@ -50,7 +50,7 @@ The scheme must work on any mobile, desktop, and web platform.
 === Bootstrapping
 
 Even if every hardware item you own is lost, you can still regain access to everything.
-Imagine an act of God of your dislike. You're fleeing from rashists in Ukraine or Siria.
+Imagine an act of God of your dislike. You're fleeing from rashists in Ukraine or Syria.
 There is a fire in your house. You get the point.
 
 === Legacy
