@@ -6,19 +6,7 @@
 :toc: left
 :sectlinks: true
 :favicon: favicon.ico
-
-ifdef::backend-html5[]
-++++
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-R7WQ1GJCRT"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-R7WQ1GJCRT');
-</script>
-++++
-endif::backend-html5[]
+:docinfo: shared
 
 == Abstract
 Keeping your data safe is hard.
