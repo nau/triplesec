@@ -171,7 +171,7 @@ Bitwarden is open-source, cross-platform, cross-browser, free, and has a good re
 
 It supports storing TOTP 2FA, TouchID/FaceID unlocking, allows Emergency Access, and it's easy to use. It is well-integrated with iOS and macOS.
 
-Apple Keychain is not open-source, and it's not cross-platform. It's not integrated with Chrome or Firefox browsers and doesn't support TOTP 2FA.
+Apple Keychain is not open-source, and it's not cross-platform. It's not integrated with the Firefox browser.
 
 https://1password.com/[1Password] is a good alternative, but it's not open-source, and it's not free.
 Anyhow, this scheme can be easily used with 1Password as well. You don't need to switch to Bitwarden if you already use 1Password. The same rules apply.
