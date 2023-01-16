@@ -468,7 +468,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_lowest_amount_of_memorized_information">Lowest amount of memorized information</a></li>
 <li><a href="#_no_single_point_of_failure">No single point of failure</a></li>
 <li><a href="#_cross_platform">Cross-platform</a></li>
-<li><a href="#_bootstrapping">Bootstrapping</a></li>
+<li><a href="#_disaster_recovery">Disaster recovery</a></li>
 <li><a href="#_legacy">Legacy</a></li>
 <li><a href="#_really_important_info_security">Really Important Info security</a></li>
 <li><a href="#_minimum_softwarehardware">Minimum software/hardware</a></li>
@@ -480,7 +480,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_tldr">TL;DR</a></li>
 <li><a href="#_passwords_security_analysis">Passwords security analysis</a></li>
 <li><a href="#_why_bitwarden">Why Bitwarden?</a></li>
-<li><a href="#_legacy_and_bootstrapping">Legacy and bootstrapping</a></li>
+<li><a href="#_digital_legacy_and_disaster_recovery">Digital legacy and disaster recovery</a></li>
 <li><a href="#_pros">Pros</a></li>
 <li><a href="#_cons">Cons</a></li>
 </ul>
@@ -491,7 +491,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_iphone_setup">iPhone setup</a></li>
 <li><a href="#_bitwarden_setup">Bitwarden setup</a></li>
 <li><a href="#_macbook_setup">MacBook setup</a></li>
-<li><a href="#_bootstrapping_setup">Bootstrapping setup</a></li>
+<li><a href="#_disaster_recovery_2">Disaster recovery</a></li>
 <li><a href="#_really_important_info_storage">Really Important Info storage</a></li>
 <li><a href="#_crypto_wallets_and_seeds">Crypto wallets and seeds</a></li>
 </ul>
@@ -598,7 +598,7 @@ We are good at remembering short phrases and making up stories about them.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_bootstrapping"><a class="link" href="#_bootstrapping">Bootstrapping</a></h3>
+<h3 id="_disaster_recovery"><a class="link" href="#_disaster_recovery">Disaster recovery</a></h3>
 <div class="paragraph">
 <p>Even if every hardware item you own is lost, you can still regain access to everything.
 Imagine an act of God of your dislike. You&#8217;re fleeing from rashists in Ukraine or Syria.
@@ -832,7 +832,7 @@ Anyhow, this scheme can be easily used with 1Password as well. You don&#8217;t n
 </div>
 </div>
 <div class="sect2">
-<h3 id="_legacy_and_bootstrapping"><a class="link" href="#_legacy_and_bootstrapping">Legacy and bootstrapping</a></h3>
+<h3 id="_digital_legacy_and_disaster_recovery"><a class="link" href="#_digital_legacy_and_disaster_recovery">Digital legacy and disaster recovery</a></h3>
 <div class="paragraph">
 <p>If you want to leave your digital legacy to your loved ones,
 you can do it with Bitwarden <a href="https://bitwarden.com/help/emergency-access/">Emergency Access</a>.</p>
@@ -881,7 +881,7 @@ re-encrypting the file and sharing it with your loved ones again.</p>
 <p>loss of any device is neither a security nor data loss concern</p>
 </li>
 <li>
-<p>can bootstrap from nothing just knowing your Master Password</p>
+<p>can recover all your info from nothing just knowing your Master Password</p>
 </li>
 <li>
 <p>Bitwarden password is good enough to resist brute-force attacks in case the vault is breached
@@ -1110,7 +1110,7 @@ Set it to whatever you are comfortable with but 'Never'.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_bootstrapping_setup"><a class="link" href="#_bootstrapping_setup">Bootstrapping setup</a></h3>
+<h3 id="_disaster_recovery_2"><a class="link" href="#_disaster_recovery_2">Disaster recovery</a></h3>
 <div id="linux_usb_boot" class="admonitionblock note">
 <table>
 <tr>
@@ -1338,7 +1338,7 @@ Ideally, you do this on a USB-booted Linux, but see <a href="#linux_usb_boot">a 
 <div class="ulist">
 <ul>
 <li>
-<p>in <code>Readme.txt</code> from the <a href="#_bootstrapping_setup">Bootstrapping setup</a></p>
+<p>in <code>Readme.txt</code> from the <a href="#_disaster_recovery">Disaster recovery</a></p>
 </li>
 <li>
 <p>or store the seed in the hidden volume of your <a href="#_really_important_info_storage">Really Important Info storage</a>.</p>
@@ -1432,7 +1432,7 @@ Just restore your SIM card at your carrier office.</p>
 <p>Increment the version of your Readme-$version.txt</p>
 </li>
 <li>
-<p>Derive a new <code>DerivedMasterPwd</code> with <code>MasterPassword</code>, <code>PIN</code> and a new version using the algorithm from <a href="#_bootstrapping_setup">Bootstrapping setup</a></p>
+<p>Derive a new <code>DerivedMasterPwd</code> with <code>MasterPassword</code>, <code>PIN</code> and a new version using the algorithm from <a href="#_disaster_recovery">Disaster recovery</a></p>
 </li>
 <li>
 <p>Re-encrypt your <code>Readme-$version.txt</code> with it.</p>
@@ -1518,7 +1518,7 @@ See <a href="https://veracrypt.fr/en/Plausible%20Deniability.html">Plausible Den
 <p>Ask a 3rd party for <code>Readme-$version.txt.gpg</code></p>
 </li>
 <li>
-<p>Compute <code>DerivedMasterPwd</code> from <code>MasterPassword</code>, <code>PIN</code> and <code>version</code> using the algorithm from <a href="#_bootstrapping_setup">Bootstrapping setup</a></p>
+<p>Compute <code>DerivedMasterPwd</code> from <code>MasterPassword</code>, <code>PIN</code> and <code>version</code> using the algorithm from <a href="#_disaster_recovery">Disaster recovery</a></p>
 </li>
 <li>
 <p>Login to Bitwarden with your Bitwarden Master Password and Bitwarden Backup Code if needed</p>
@@ -1668,7 +1668,7 @@ Leave an Emergency Note and tell them to look it up in an emergency.</p>
 <p>Increment the version of your <code>Readme-$version.txt</code> (e.g. <code>Readme-1.txt</code>)</p>
 </li>
 <li>
-<p>Derive a new <code>DerivedMasterPwd</code> with <code>MasterPassword</code>, <code>PIN</code> and a new version using the algorithm from <a href="#_bootstrapping_setup">Bootstrapping setup</a></p>
+<p>Derive a new <code>DerivedMasterPwd</code> with <code>MasterPassword</code>, <code>PIN</code> and a new version using the algorithm from <a href="#_disaster_recovery">Disaster recovery</a></p>
 </li>
 <li>
 <p>Re-encrypt your <code>Readme-$version.txt</code> with the new <code>DerivedMasterPwd</code></p>
@@ -1763,7 +1763,7 @@ Leave an Emergency Note and tell them to look it up in an emergency.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2023-01-14 13:44:57 +0100
+Last updated 2023-01-16 19:37:39 +0100
 </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>

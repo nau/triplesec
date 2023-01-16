@@ -47,7 +47,7 @@ Duh. Any device loss must not compromise your security or lead to sensitive data
 
 The scheme must work on any mobile, desktop, and web platform.
 
-=== Bootstrapping
+=== Disaster recovery
 
 Even if every hardware item you own is lost, you can still regain access to everything.
 Imagine an act of God of your dislike. You're fleeing from rashists in Ukraine or Syria.
@@ -180,7 +180,7 @@ https://keepassxc.org/[KeyPassXC] doesn't work on iPhones.
 
 https://blog.lastpass.com/2022/12/notice-of-recent-security-incident/[Avoid LastPass].
 
-=== Legacy and bootstrapping
+=== Digital legacy and disaster recovery
 
 If you want to leave your digital legacy to your loved ones,
 you can do it with Bitwarden https://bitwarden.com/help/emergency-access/[Emergency Access].
@@ -211,7 +211,7 @@ Don't forget to update your https://myaccount.google.com/inactive[Google Digital
 - remember only 3 words and 6 digits, easy
 - super easy to use, rarely need to enter your PIN, laptop password or Bitwarden password
 - loss of any device is neither a security nor data loss concern
-- can bootstrap from nothing just knowing your Master Password
+- can recover all your info from nothing just knowing your Master Password
 - Bitwarden password is good enough to resist brute-force attacks in case the vault is breached
 (like in https://blog.lastpass.com/2022/12/notice-of-recent-security-incident/[LastPass situation])
 - laptop password is good enough to resist brute-force attacks in case the laptop is stolen
@@ -353,7 +353,7 @@ Use TouchID for sudo, ssh, payments, FIDO2, etc.
 
 A helpful tool is https://github.com/maxgoedjen/secretive[Secretive] – an app for storing and managing SSH keys in the Mac T2 Secure Enclave.
 
-=== Bootstrapping setup
+=== Disaster recovery
 [#linux_usb_boot]
 [NOTE]
 ====
@@ -498,7 +498,7 @@ For a hardware wallet, either use your phone `PIN` or generate another 6-digit r
 
 Store your seed and `SecurePIN`:
 
-* in `Readme.txt` from the <<Bootstrapping setup>>
+* in `Readme.txt` from the <<Disaster recovery>>
 * or store the seed in the hidden volume of your <<Really Important Info storage>>.
 * or even better, store the seed on a separate https://medium.com/@vincentbounce/cryptos-storage-transmission-the-safest-method-314560032872[old offline iPhone ] with the `SecurePIN` as a passcode.
 
@@ -549,7 +549,7 @@ Just restore your SIM card at your carrier office.
 
 === A third party is no longer trusted
 * Increment the version of your Readme-$version.txt
-* Derive a new `DerivedMasterPwd` with `MasterPassword`, `PIN` and a new version using the algorithm from <<Bootstrapping setup>>
+* Derive a new `DerivedMasterPwd` with `MasterPassword`, `PIN` and a new version using the algorithm from <<Disaster recovery>>
 * Re-encrypt your `Readme-$version.txt` with it.
 * Share it with your trusted 3rd parties.
 * Update your `DerivedMasterPwd` in your https://myaccount.google.com/inactive[Google Digital Legacy Plan].
@@ -598,7 +598,7 @@ If you suspect your spouse to become malevolent, you can change your iPhone PIN 
 === You have lost everything
 
 . Ask a 3rd party for `Readme-$version.txt.gpg`
-. Compute `DerivedMasterPwd` from `MasterPassword`, `PIN` and `version` using the algorithm from <<Bootstrapping setup>>
+. Compute `DerivedMasterPwd` from `MasterPassword`, `PIN` and `version` using the algorithm from <<Disaster recovery>>
 . Login to Bitwarden with your Bitwarden Master Password and Bitwarden Backup Code if needed
 . Login to iCloud using iCloud Backup Code
 . Login to GMail using Google Account Backup Codes
@@ -652,7 +652,7 @@ Otherwise, your trusted 3rd parties receive your legacy note and can access the 
 
 === 3rd party distrust
 . Increment the version of your `Readme-$version.txt` (e.g. `Readme-1.txt`)
-. Derive a new `DerivedMasterPwd` with `MasterPassword`, `PIN` and a new version using the algorithm from <<Bootstrapping setup>>
+. Derive a new `DerivedMasterPwd` with `MasterPassword`, `PIN` and a new version using the algorithm from <<Disaster recovery>>
 . Re-encrypt your `Readme-$version.txt` with the new `DerivedMasterPwd`
 . Share it with your trusted 3-rd parties
 . Update your `DerivedMasterPwd` in your https://myaccount.google.com/inactive[Google Digital Legacy Plan]
