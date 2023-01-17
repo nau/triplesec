@@ -1,5 +1,6 @@
 all: pdf html
 html:
-	asciidoctor README.adoc -o index.html
+	asciidoctor TripleSec.adoc -o index.html
+	asciidoctor Howto.adoc -o Howto.html
 pdf:
-	asciidoctor-pdf -a allow-uri-read Readme.adoc -o TripleSec.pdf
+	asciidoctor-pdf -a allow-uri-read TripleSec.adoc -o TripleSec.pdf

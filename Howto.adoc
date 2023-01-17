@@ -1,0 +1,107 @@
+= Triple Sec – How to secure your digital life
+:docdate: 2023-01-17
+:url-repo: https://github.com/nau/triplesec
+:author: Alexander Nemish <anemish@gmail.com> @atlanter
+:sectlinks: true
+:favicon: favicon.ico
+:docinfo: shared
+
+Triple Sec is a simple security setup scheme for your digital life
+that is easy to use and relatively hard to break.
+
+Full setup guide and description is available at https://nau.github.io/triplesec/[TripleSec].
+
+== Use a password manager
+If you need to use one across multiple platforms, use https://bitwarden.com/[Bitwarden]. It's open-source, and it's free. It has all major browser extensions, a desktop app, and mobile apps for iOS and Android. That's my recommendation.
+
+If you only use Apple devices, use their https://support.apple.com/en-us/HT204085[iCloud Keychain]. It https://www.reddit.com/r/firefox/comments/v1lpr0/icloud_keychain_and_firefox_autofill_on_macos/[doesn't work with Firefox] though.
+
+https://1password.com/[1Password] is a good alternative, but it's not open-source, and it's not free.
+
+Use https://keepass.info/[KeyPass] if you know what you're doing.
+
+== Passwords and PINs
+* Generate a random 6-digit PIN and memorize it. That's your phone passcode.
+* First 4 digits of the PIN is your phisical SIM PIN. Set up your phone to ask for SIM PIN on every boot. This step is not that important for eSIM.
+* Generate 3 random words using https://bitwarden.com/password-generator/[Bitwarden Password Generator] or a generator below.
+* Combine with the PIN and memorize the passphrase.
+That's your password manager Master Password.
+* Take a word and combine it with PIN. That's your laptop password. You MAY store it in the password manager.
+
+ifdef::backend-html5[]
+[#generator]
+.Passwords Generator
+====
+++++
+<p>Random PIN: <code id="pin"></code><p>
+<p>Random words: <code id="words"></code><p>
+<p>Master Password: <code id="MasterPassword"></code><p>
+<p>Laptop Password: <code id="LaptopPassword"></code><p>
+<p><button id="GenerateButton">Generate</button><p>
+<script src="wordlist.js">
+</script>
+<script>
+let pinStr = '';
+let MasterPassword = '';
+function generate() {
+  const array = new Uint32Array(5);
+  self.crypto.getRandomValues(array);
+  const pin = array[0] % 1000000;
+  pinStr = pin.toString().padStart(6, "0");
+  document.getElementById("pin").innerText = pinStr;
+  const words = [
+    wordlist[array[1] % (6**5)],
+    wordlist[array[2] % (6**5)],
+    wordlist[array[3] % (6**5)]
+  ];
+  const permutation = array[4] % 4;
+  const parts = [];
+  for (let i = 0; i < 3; i++) {
+    if (permutation === i) parts.push(pinStr);
+    parts.push(words[i]);
+  }
+  if (permutation === 3) parts.push(pinStr);
+  MasterPassword = parts.join("");
+  let LaptopPassword = words[0] + pinStr;
+  document.getElementById("words").innerText = words.join(" ");
+  document.getElementById("MasterPassword").innerText = MasterPassword;
+  document.getElementById("LaptopPassword").innerText = LaptopPassword;
+}
+document.getElementById("GenerateButton").onclick = generate;
+generate();
+</script>
+++++
+====
+endif::backend-html5[]
+
+* Enable full disk encryption on your laptop. Enable FileVault on your Macs.
+* Generate and store unique passwords using your password manager.
+* Use your password manager to generate 2FA codes, they all can do it.
+* Enable 2FA for all your services that support it.
+* Enable Touch ID/Face ID for your password manager for convenience.
+* ...
+* Profit!
+
+== Emergency access
+Set up an emergency access.
+
+* For Bitwarden: https://bitwarden.com/help/emergency-access/[Emergency Access]
+* For 1Password: https://support.1password.com/emergency-kit/[Emergency Kit]
+* Set up a https://support.apple.com/en-us/HT212513[recovery account] for iCloud Keychain.
+* Or https://myaccount.google.com/inactive[Google Digital Legacy Plan]
+
+== Don'ts
+
+* Don't use the same password for multiple services.
+* Don't store your crypto seed in your password manager.
+* Don't give access to your devices to anyone you don't trust.
+
+== Resume
+
+Now all your services proctected with unique secure passwords and 2FA.
+All your passwords are stored in a secure password manager and automatically synced across all your devices.
+
+Your password manager is protected with a strong 60 bit entropy passphrase.
+All you need to remember is your PIN and 3 random words, easy. And you have an emergency access to your password manager.
+
+For more advanced setup and additional info, see https://nau.github.io/triplesec/[full TripleSec article].
